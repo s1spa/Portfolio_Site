@@ -1,0 +1,211 @@
+{
+  "profile": {
+    "name": {
+      "uk": "Ілля Авдосьєв",
+      "en": "Illia Avdosiev",
+      "pl": "Illia Avdosiev",
+      "de": "Illia Avdosiev"
+    },
+    "age": 20,
+    "avatar": "images/avatar/avatar.png",
+    "bio": {
+      "uk": [
+        "Мене звати Ілля Авдосьєв, мені 20 років. Я навчаюсь програмуванню, переважно працюю з C# / .NET та принципами ООП. Брав участь у геймі-джемі (проєкт ZeroTip).",
+        "Люблю створювати ігри, експериментувати з логікою, фізикою, UI та системами збереження. Моя ціль — стати професійним розробником ігор або застосунків.",
+        "Відкритий до стажування та junior-позицій. Шукаю команду, де зможу зростати, брати відповідальність і доводити задачі до кінця.",
+        "Довгостроково хочу створювати власні ігри, що приносять задоволення людям і демонструють креативність українських розробників."
+      ],
+      "en": [
+        "My name is Illia Avdosiev, I'm 20 years old. I'm learning programming, mainly working with C# / .NET and OOP principles. I participated in a game jam (ZeroTip project).",
+        "I love creating games, experimenting with logic, physics, UI and save systems. My goal is to become a professional game or application developer.",
+        "Open to internships and junior positions. Looking for a team where I can grow, take responsibility and see tasks through to completion.",
+        "Long term, I want to create my own games that bring joy to people and showcase the creativity of Ukrainian developers."
+      ],
+      "pl": [
+        "Nazywam się Illya Avdosyev, mam 20 lat. Uczę się programowania, głównie pracuję z C# / .NET i zasadami OOP. Brałem udział w game jamie (projekt ZeroTip).",
+        "Lubię tworzyć gry, eksperymentować z logiką, fizyką, interfejsem użytkownika oraz systemami zapisu danych. Moim celem jest zostać profesjonalnym twórcą gier lub aplikacji.",
+        "Jestem otwarty na staże i stanowiska juniora. Szukam zespołu, w którym mógłbym się rozwijać, brać odpowiedzialność i doprowadzać zadania do końca.",
+        "W dłuższej perspektywie chcę tworzyć własne gry, które przynoszą ludziom radość i pokazują kreatywność ukraińskich twórców."
+      ],
+      "de": [
+        "Ich heiße Illya Avdosyev, bin 20 Jahre alt. Ich studiere Programmierung und arbeite hauptsächlich mit C# / .NET sowie den Prinzipien der OOP. Ich habe an einem Game Jam teilgenommen (Projekt ZeroTip).",
+        "Ich liebe es, Spiele zu entwickeln, mit Logik, Physik, Benutzeroberflächen und Speichersystemen zu experimentieren. Mein Ziel ist es, ein professioneller Spiele- oder App-Entwickler zu werden.",
+        "Ich bin offen für Praktika und Junior-Positionen. Ich suche ein Team, in dem ich wachsen, Verantwortung übernehmen und Aufgaben erfolgreich abschließen kann.",
+        "Langfristig möchte ich eigene Spiele entwickeln, die Menschen Freude bereiten und die Kreativität ukrainischer Entwickler zeigen."
+      ]
+    }
+  },
+  "skills": {
+    "languages": {
+      "icon": "💻",
+      "title": {
+        "uk": "Мови програмування",
+        "en": "Programming Languages",
+        "pl": "Języki programowania",
+        "de": "Programmiersprachen"
+      },
+      "items": [
+        "C#",
+        ".NET",
+        "C++",
+        "Python"
+      ]
+    },
+    "tools": {
+      "icon": "🎮",
+      "title": {
+        "uk": "Інструменти",
+        "en": "Tools",
+        "pl": "Narzędzia",
+        "de": "Werkzeuge"
+      },
+      "items": [
+        "Unity",
+        "Git",
+        "Visual Studio",
+        "Visual Studio Code"
+      ]
+    },
+    "principles": {
+      "icon": "📚",
+      "title": {
+        "uk": "Принципи",
+        "en": "Principles",
+        "pl": "Zasady",
+        "de": "Prinzipien"
+      },
+      "items": [
+        "OOP"
+      ]
+    },
+    "other": {
+      "icon": "🛠️",
+      "title": {
+        "uk": "Інше",
+        "en": "Other",
+        "pl": "Inne",
+        "de": "Andere"
+      },
+      "items": [
+        "JSON",
+        "Blender"
+      ]
+    }
+  },
+  "education": [
+    {
+      "year": "2022 - 202*",
+      "icon": "📅",
+      "title": {
+        "uk": "Навчання в університеті ВНТУ",
+        "en": "Studying at VNTU University",
+        "pl": "Studia na Uniwersytecie VNTU",
+        "de": "Neues Ereignis"
+      },
+      "description": {
+        "uk": "Навчаюся за спеціальністю 121 “Інженерія програмного забезпечення” в Українському університеті ВНТУ, здобуваю ступінь бакалавра.",
+        "en": "I am studying Software Engineering (specialty 121) at VNTU Ukrainian University, pursuing a Bachelor’s degree.",
+        "pl": "Studiuję kierunek 121 „Inżynieria oprogramowania” na Ukraińskim Uniwersytecie VNTU, zdobywam tytuł licencjata.",
+        "de": "Ich studiere Softwaretechnik (Fachrichtung 121) an der Ukrainischen Universität VNTU und erwerbe den Bachelor-Abschluss."
+      }
+    },
+    {
+      "year": "2024",
+      "icon": "📅",
+      "title": {
+        "uk": "Курси: Genius Space - Python",
+        "en": "Courses: Genius Space - Python",
+        "pl": "Kursy: Genius Space - Python",
+        "de": "Kurse: Genius Space - Python"
+      },
+      "description": {
+        "uk": "Пройшов повний курс з мови програмування Python на платформі Genius Space, який складався з двох частин і містив 20 уроків загалом.",
+        "en": "Completed a full Python programming course on the Genius Space platform, consisting of two parts and a total of 20 lessons.",
+        "pl": "Ukończyłem pełny kurs programowania w języku Python na platformie Genius Space, składający się z dwóch części i obejmujący łącznie 20 lekcji.",
+        "de": "Ich habe einen vollständigen Python-Programmierkurs auf der Plattform Genius Space abgeschlossen, der aus zwei Teilen bestand und insgesamt 20 Lektionen umfasste."
+      }
+    },
+    {
+      "year": "2024",
+      "icon": "📅",
+      "title": {
+        "uk": "Пройшов повний курс по С# від @BloganProgrammingUkraine",
+        "en": "Completed a full C# course by @BloganProgrammingUkraine.",
+        "pl": "Ukończyłem pełny kurs C# prowadzony przez @BloganProgrammingUkraine.",
+        "de": "Ich habe einen vollständigen C#-Kurs von @BloganProgrammingUkraine abgeschlossen."
+      },
+      "description": {
+        "uk": "Під час проходження курсу від @BloganProgrammingUkraine я зміцнив і поглибив свої знання з мови програмування C#.",
+        "en": "During the course by @BloganProgrammingUkraine, I strengthened and deepened my knowledge of the C# programming language.",
+        "pl": "Podczas kursu prowadzonego przez @BloganProgrammingUkraine utrwaliłem i pogłębiłem swoją wiedzę z języka programowania C#.",
+        "de": "Während des Kurses von @BloganProgrammingUkraine habe ich mein Wissen in der Programmiersprache C# gefestigt und vertieft."
+      }
+    },
+    {
+      "year": "2024",
+      "icon": "📅",
+      "title": {
+        "uk": "Пройшов повний курс по С++ від @BloganProgrammingUkraine",
+        "en": "Completed a full C++ course by @BloganProgrammingUkraine.",
+        "pl": "Ukończyłem pełny kurs C++ prowadzony przez @BloganProgrammingUkraine.",
+        "de": "Ich habe einen vollständigen C++-Kurs von @BloganProgrammingUkraine abgeschlossen."
+      },
+      "description": {
+        "uk": "Під час проходження курсу від @BloganProgrammingUkraine я продовжив вивчення мови програмування C++. Завдяки зрозумілим і глибоким поясненням мені вдалося добре засвоїти цю мову.",
+        "en": "During the course by @BloganProgrammingUkraine, I continued studying the C++ programming language. Thanks to clear and detailed explanations, I was able to thoroughly learn this language.",
+        "pl": "Podczas kursu prowadzonego przez @BloganProgrammingUkraine kontynuowałem naukę języka programowania C++. Dzięki jasnym i szczegółowym wyjaśnieniom udało mi się dobrze opanować ten język.",
+        "de": "Während des Kurses von @BloganProgrammingUkraine setzte ich das Lernen der Programmiersprache C++ fort. Dank der klaren und ausführlichen Erklärungen konnte ich diese Sprache gründlich beherrschen."
+      }
+    },
+    {
+      "year": "2021 - 202*",
+      "icon": "📅",
+      "title": {
+        "uk": "Самостійне навчання",
+        "en": "Self-learning",
+        "pl": "Samodzielna nauka",
+        "de": "Selbststudium"
+      },
+      "description": {
+        "uk": "Починаючи з 2021 року, я самостійно вивчаю різні мови програмування — C#, C++, Python, а також платформу .NET та інші технології. Під час навчання намагаюся максимально глибоко зрозуміти матеріал.",
+        "en": "Since 2021, I have been self-learning various programming languages such as C#, C++, and Python, as well as the .NET platform and other technologies. During my studies, I strive to understand the material as deeply as possible.",
+        "pl": "Od 2021 roku samodzielnie uczę się różnych języków programowania, takich jak C#, C++ i Python, a także platformy .NET oraz innych technologii. Podczas nauki staram się jak najgłębiej zrozumieć materiał.",
+        "de": "Seit 2021 lerne ich selbstständig verschiedene Programmiersprachen wie C#, C++ und Python sowie die .NET-Plattform und andere Technologien. Während des Lernens bemühe ich mich, das Material so gründlich wie möglich zu verstehen."
+      }
+    }
+  ],
+  "goals": {
+    "short": {
+      "icon": "🎯",
+      "title": {
+        "uk": "Короткострокова ціль",
+        "en": "Short-term goal"
+      },
+      "description": {
+        "uk": "Бажаю працювати в ІТ-компанії, набувати професійного досвіду, розвивати свої навички та вдосконалюватися щодня.",
+        "en": "I aspire to work in an IT company, gain professional experience, develop my skills, and improve every day.",
+        "pl": "Chcę pracować w firmie IT, zdobywać doświadczenie zawodowe, rozwijać swoje umiejętności i doskonalić się każdego dnia.",
+        "de": "Ich möchte in einem IT-Unternehmen arbeiten, Berufserfahrung sammeln, meine Fähigkeiten weiterentwickeln und mich jeden Tag verbessern."
+      }
+    },
+    "long": {
+      "icon": "🚀",
+      "title": {
+        "uk": "Довгострокова ціль",
+        "en": "Long-term goal"
+      },
+      "description": {
+        "uk": "Прагну створювати власні проєкти — самостійно або в команді, незалежно від того, чи це ігри, програми чи вебзастосунки. Хочу займатися справою, яка приноситиме задоволення і мені, і людям, що користуватимуться результатом.",
+        "en": "I aim to create my own projects — either independently or as part of a team, whether they are games, applications, or web projects. I want to do something that brings joy both to me and to the people who will use it.",
+        "pl": "Pragnę tworzyć własne projekty — samodzielnie lub w zespole, niezależnie od tego, czy są to gry, aplikacje czy projekty webowe. Chcę zajmować się tym, co daje satysfakcję zarówno mnie, jak i ludziom korzystającym z efektów mojej pracy.",
+        "de": "Ich möchte eigene Projekte entwickeln – allein oder im Team, egal ob es sich um Spiele, Anwendungen oder Webprojekte handelt. Ich möchte etwas tun, das sowohl mir als auch den Menschen, die das Ergebnis nutzen, Freude bereitet."
+      }
+    }
+  },
+  "contacts": {
+    "email": "avdosevg@gmail.com",
+    "telegram": "@-",
+    "github": "https://github.com/s1spa?tab=overview&from=2025-09-01&to=2025-09-17",
+    "linkedin": "https://linkedin.com/in/illya-avdosev-845b0932a"
+  }
+}
