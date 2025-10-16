@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про мене - Ілля Авдосьєв</title>
+    <style>
+        :root {
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --bg-card: #1a2942;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent: #64ffda;
+            --accent-hover: #52d4b3;
+            --border: #233554;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent: #0ea5e9;
+            --accent-hover: #0284c7;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle,
+        .lang-switch {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover,
+        .lang-switch:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 5rem;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-content h1::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .about-text {
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .about-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-container {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--bg-card));
+            padding: 5px;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            font-size: 5rem;
+            color: var(--accent);
+        }
+
+        .skills-section {
+            background: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .skill-category li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .experience-section {
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-primary);
+        }
+
+        .timeline-year {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+        }
+
+        .goals-section {
+            background: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out 0.8s both;
+        }
+
+        .goals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .goal-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .goal-item:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .goal-icon {
+            font-size: 1.5rem;
+            min-width: 40px;
+        }
+
+        .goal-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            animation: fadeInUp 0.6s ease-out 1s both;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-3px);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .no-data a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 5rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .avatar-placeholder {
+                font-size: 3rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="dark">
+    <header>
+        <nav>
+            <a href="index.html" class="logo">IA</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="projects.html">Проєкти</a></li>
+                <li><a href="about.html" class="active">Про мене</a></li>
+            </ul>
+            <div class="controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="theme-icon">☀️</span>
+                </button>
+                <select class="lang-switch" onchange="changeLanguage(this.value)">
+                    <option value="uk">🇺🇦 UA</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="pl">🇵🇱 PL</option>
+                    <option value="de">🇩🇪 DE</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container" id="main-content">
+            <div class="loading">Завантаження...</div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. Усі права захищено.</p>
+    </footer>
+
+    <script>
+        // Render about page from localStorage
+        function renderAboutPage() {
+            const currentLang = localStorage.getItem('language') || 'uk';
+            const aboutData = JSON.parse(localStorage.getItem('portfolioAbout'));
+
+            const container = document.getElementById('main-content');
+
+            if (!aboutData || !aboutData.profile) {
+                container.innerHTML = `
+                    <div class="no-data">
+                        <h2>Дані профілю відсутні</h2>
+                        <p>Перейди в <a href="admin.html">адмін-панель</a> щоб заповнити інформацію про себе!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const data = aboutData;
+
+            // Get initials for avatar
+            const nameParts = (data.profile.name[currentLang] || data.profile.name.uk).split(' ');
+            const initials = nameParts.map(n => n[0]).join('');
+
+            container.innerHTML = `
+                <section class="about-section">
+                    <div class="about-content">
+                        <h1>Про мене</h1>
+                        <div class="about-text">
+                            ${(data.profile.bio[currentLang] || data.profile.bio.uk).map(paragraph => `
+                                <p>${paragraph.replace(/(C#|\.NET|ООП|Unity|ZeroTip)/g, '<span class="highlight">$1</span>')}</p>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="about-avatar">
+                        <div class="avatar-container">
+                            <div class="avatar-inner">
+                                ${data.profile.avatar ?
+                    `<img src="${data.profile.avatar}" alt="${data.profile.name[currentLang] || data.profile.name.uk}">` :
+                    `<div class="avatar-placeholder">${initials}</div>`
+                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                ${data.skills ? `
+                <section class="skills-section">
+                    <h2 class="section-title">Навички</h2>
+                    <div class="skills-grid">
+                        ${Object.values(data.skills).map(category => `
+                            <div class="skill-category">
+                                <h3>${category.icon} ${category.title[currentLang] || category.title.uk}</h3>
+                                <ul>
+                                    ${category.items.map(item => `<li>${item}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+                ` : ''}
+
+                ${data.education && data.education.length > 0 ? `
+                <section class="experience-section">
+                    <h2 class="section-title">Освіта</h2>
+                    <div class="timeline">
+                        ${data.education.map(item => `
+                            <div class="timeline-item">
+                                <div class="timeline-year">${item.icon} ${item.year}</div>
+                                <div class="timeline-content">
+                                    <h3>${item.title[currentLang] || item.title.uk}</h3>
+                                    <p>${item.description[currentLang] || item.description.uk}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+                ` : ''}
+
+                ${data.goals ? `
+                <section class="goals-section">
+                    <h2 class="section-title">Мої цілі</h2>
+                    <div class="goals-list">
+                        ${Object.values(data.goals).map(goal => `
+                            <div class="goal-item">
+                                <div class="goal-icon">${goal.icon}</div>
+                                <div class="goal-content">
+                                    <p><strong>${goal.title[currentLang] || goal.title.uk}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+                ` : ''}
+
+                ${data.contacts ? `
+                <section class="contact-section">
+                    <h2 class="contact-title">Контакти</h2>
+                    <p class="contact-subtitle">Найшвидше — лист на пошту або повідомлення в Telegram.</p>
+                    <div class="contact-links">
+                        ${data.contacts.email ? `<a href="mailto:${data.contacts.email}" class="contact-link">📧 ${data.contacts.email}</a>` : ''}
+                        ${data.contacts.telegram ? `<a href="https://t.me/${data.contacts.telegram.replace('@', '')}" class="contact-link" target="_blank">💬 ${data.contacts.telegram}</a>` : ''}
+                        ${data.contacts.github ? `<a href="${data.contacts.github}" class="contact-link" target="_blank">💻 GitHub</a>` : ''}
+                        ${data.contacts.linkedin ? `<a href="${data.contacts.linkedin}" class="contact-link" target="_blank">💼 LinkedIn</a>` : ''}
+                    </div>
+                </section>
+                ` : ''}
+            `;
+
+            // Update footer name
+            document.getElementById('footer-name').textContent = data.profile.name[currentLang] || data.profile.name.uk;
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Language Switch
+        function changeLanguage(lang) {
+            localStorage.setItem('language', lang);
+            renderAboutPage();
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+            const savedLang = localStorage.getItem('language') || 'uk';
+            document.querySelector('.lang-switch').value = savedLang;
+
+            renderAboutPage();
+        });
+    </script>
+</body>
+
+</html>

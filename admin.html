@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адмін-панель - Портфоліо</title>
+    <style>
+        :root {
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --bg-card: #1a2942;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent: #64ffda;
+            --accent-hover: #52d4b3;
+            --border: #233554;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .admin-header {
+            background: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 80px;
+            z-index: 99;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 0.8rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            opacity: 0.9;
+        }
+
+        .projects-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .project-item {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .project-item:hover {
+            border-color: var(--accent);
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-info h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            padding: 0.3rem 0.7rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .tag.featured {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .skills-editor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category-editor {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-category-editor h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .skill-item input {
+            flex: 1;
+        }
+
+        .skill-item button {
+            padding: 0.5rem;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .skill-item button:hover {
+            opacity: 0.8;
+        }
+
+        .timeline-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timeline-item-editor {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+        }
+
+        .export-section {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .export-box {
+            flex: 1;
+            min-width: 300px;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .export-box h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-height: 300px;
+            overflow: auto;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .skills-editor {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-header">
+        <h1>🔧 Адмін-панель портфоліо</h1>
+        <p>Керуй своїми проєктами та профілем. Всі зміни зберігаються локально.</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('projects')">📁 Проєкти</button>
+        <button class="tab-btn" onclick="switchTab('profile')">👤 Профіль</button>
+        <button class="tab-btn" onclick="switchTab('skills')">💻 Навички</button>
+        <button class="tab-btn" onclick="switchTab('education')">📚 Освіта</button>
+        <button class="tab-btn" onclick="switchTab('goals')">🎯 Цілі</button>
+        <button class="tab-btn" onclick="switchTab('contacts')">📧 Контакти</button>
+        <button class="tab-btn" onclick="switchTab('export')">💾 Експорт</button>
+    </div>
+
+    <div class="container">
+        <!-- Projects Tab -->
+        <div id="projects-tab" class="tab-content active">
+            <div class="section">
+                <h2 class="section-title">➕ Додати новий проєкт</h2>
+                <form id="add-project-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Назва (UA) *</label>
+                            <input type="text" name="title_uk" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Назва (EN) *</label>
+                            <input type="text" name="title_en" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Назва (PL)</label>
+                            <input type="text" name="title_pl">
+                        </div>
+                        <div class="form-group">
+                            <label>Назва (DE)</label>
+                            <input type="text" name="title_de">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Опис (UA) *</label>
+                            <textarea name="description_uk" required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Опис (EN) *</label>
+                            <textarea name="description_en" required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Опис (PL)</label>
+                            <textarea name="description_pl"></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Опис (DE)</label>
+                            <textarea name="description_de"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Емодзі (якщо немає фото)</label>
+                            <input type="text" name="emoji" placeholder="🎮" maxlength="2">
+                        </div>
+                        <div class="form-group">
+                            <label>Посилання на зображення</label>
+                            <input type="text" name="image" placeholder="images/projects/project.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label>Категорія *</label>
+                            <select name="category" required>
+                                <option value="games">Ігри</option>
+                                <option value="apps">Застосунки</option>
+                                <option value="programming">Програмування</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Статус</label>
+                            <select name="status">
+                                <option value="">Не вказано</option>
+                                <option value="Завершено">Завершено</option>
+                                <option value="В розробці">В розробці</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Технології (через кому)</label>
+                            <input type="text" name="technologies" placeholder="Unity, C#, UI/UX">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub посилання</label>
+                            <input type="text" name="github" placeholder="https://github.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Demo посилання</label>
+                            <input type="text" name="demo" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="featured">
+                                Показувати на головній сторінці
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">➕ Додати проєкт</button>
+                </form>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📋 Список проєктів</h2>
+                <div id="projects-list" class="projects-list"></div>
+            </div>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile-tab" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">👤 Редагування профілю</h2>
+                <form id="profile-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Ім'я (UA) *</label>
+                            <input type="text" name="name_uk" id="profile_name_uk" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ім'я (EN) *</label>
+                            <input type="text" name="name_en" id="profile_name_en" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ім'я (PL)</label>
+                            <input type="text" name="name_pl" id="profile_name_pl">
+                        </div>
+                        <div class="form-group">
+                            <label>Ім'я (DE)</label>
+                            <input type="text" name="name_de" id="profile_name_de">
+                        </div>
+                        <div class="form-group">
+                            <label>Вік</label>
+                            <input type="number" name="age" id="profile_age">
+                        </div>
+                        <div class="form-group">
+                            <label>Аватар (посилання)</label>
+                            <input type="text" name="avatar" id="profile_avatar" placeholder="images/avatar.jpg">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Біо (UA) - кожен параграф з нового рядка *</label>
+                        <textarea name="bio_uk" id="profile_bio_uk" style="min-height: 200px;" required></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Біо (EN) - кожен параграф з нового рядка *</label>
+                        <textarea name="bio_en" id="profile_bio_en" style="min-height: 200px;" required></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Біо (PL) - кожен параграф з нового рядка</label>
+                        <textarea name="bio_pl" id="profile_bio_pl" style="min-height: 200px;"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Біо (DE) - кожен параграф з нового рядка</label>
+                        <textarea name="bio_de" id="profile_bio_de" style="min-height: 200px;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">💾 Зберегти профіль</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Skills Tab -->
+        <div id="skills-tab" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">💻 Редагування навичок</h2>
+                <div class="skills-editor" id="skills-editor"></div>
+                <button onclick="saveSkills()" class="btn btn-success" style="margin-top: 1rem;">💾 Зберегти
+                    навички</button>
+            </div>
+        </div>
+
+        <!-- Education Tab -->
+        <div id="education-tab" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">📚 Редагування освіти</h2>
+                <div class="timeline-editor" id="education-editor"></div>
+                <button onclick="addEducationItem()" class="btn btn-primary" style="margin-top: 1rem;">➕ Додати
+                    запис</button>
+                <button onclick="saveEducation()" class="btn btn-success" style="margin-top: 1rem;">💾 Зберегти</button>
+            </div>
+        </div>
+
+        <!-- Goals Tab -->
+        <div id="goals-tab" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Редагування цілей</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Короткострокова ціль (UA) *</label>
+                        <textarea id="goal_short_uk" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Короткострокова ціль (EN) *</label>
+                        <textarea id="goal_short_en" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Короткострокова ціль (PL)</label>
+                        <textarea id="goal_short_pl"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Короткострокова ціль (DE)</label>
+                        <textarea id="goal_short_de"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Довгострокова ціль (UA) *</label>
+                        <textarea id="goal_long_uk" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Довгострокова ціль (EN) *</label>
+                        <textarea id="goal_long_en" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Довгострокова ціль (PL)</label>
+                        <textarea id="goal_long_pl"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Довгострокова ціль (DE)</label>
+                        <textarea id="goal_long_de"></textarea>
+                    </div>
+                </div>
+                <button onclick="saveGoals()" class="btn btn-success">💾 Зберегти цілі</button>
+            </div>
+        </div>
+
+        <!-- Contacts Tab -->
+        <div id="contacts-tab" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">📧 Редагування контактів</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="contact_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telegram *</label>
+                        <input type="text" id="contact_telegram" placeholder="@yourhandle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub *</label>
+                        <input type="url" id="contact_github" placeholder="https://github.com/yourname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>LinkedIn *</label>
+                        <input type="url" id="contact_linkedin" placeholder="https://linkedin.com/in/yourname" required>
+                    </div>
+                </div>
+                <button onclick="saveContacts()" class="btn btn-success">💾 Зберегти контакти</button>
+            </div>
+        </div>
+
+        <!-- Export Tab -->
+        <div id="export-tab" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">💾 Експорт даних</h2>
+                <div class="alert alert-warning">
+                    ⚠️ Скопіюй згенерований JSON і збережи у відповідний файл в папці <code>data/</code>
+                </div>
+
+                <div class="export-section">
+                    <div class="export-box">
+                        <h4>projects.json</h4>
+                        <div class="code-block" id="projects-json"></div>
+                        <button onclick="copyToClipboard('projects-json')" class="btn btn-secondary">📋
+                            Копіювати</button>
+                        <button onclick="downloadJSON('projects')" class="btn btn-primary">⬇️ Завантажити файл</button>
+                    </div>
+
+                    <div class="export-box">
+                        <h4>about.json</h4>
+                        <div class="code-block" id="about-json"></div>
+                        <button onclick="copyToClipboard('about-json')" class="btn btn-secondary">📋 Копіювати</button>
+                        <button onclick="downloadJSON('about')" class="btn btn-primary">⬇️ Завантажити файл</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Project Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>✏️ Редагувати проєкт</h3>
+                <button class="close-modal" onclick="closeEditModal()">✕</button>
+            </div>
+            <form id="edit-project-form">
+                <input type="hidden" id="edit-project-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Назва (UA) *</label>
+                        <input type="text" id="edit_title_uk" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Назва (EN) *</label>
+                        <input type="text" id="edit_title_en" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Назва (PL)</label>
+                        <input type="text" id="edit_title_pl">
+                    </div>
+                    <div class="form-group">
+                        <label>Назва (DE)</label>
+                        <input type="text" id="edit_title_de">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Опис (UA) *</label>
+                        <textarea id="edit_description_uk" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Опис (EN) *</label>
+                        <textarea id="edit_description_en" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Опис (PL)</label>
+                        <textarea id="edit_description_pl"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Опис (DE)</label>
+                        <textarea id="edit_description_de"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Емодзі</label>
+                        <input type="text" id="edit_emoji" maxlength="2">
+                    </div>
+                    <div class="form-group">
+                        <label>Зображення</label>
+                        <input type="text" id="edit_image">
+                    </div>
+                    <div class="form-group">
+                        <label>Категорія *</label>
+                        <select id="edit_category" required>
+                            <option value="games">Ігри</option>
+                            <option value="apps">Застосунки</option>
+                            <option value="programming">Програмування</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Статус</label>
+                        <select id="edit_status">
+                            <option value="">Не вказано</option>
+                            <option value="Завершено">Завершено</option>
+                            <option value="В розробці">В розробці</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Технології (через кому)</label>
+                        <input type="text" id="edit_technologies">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub</label>
+                        <input type="text" id="edit_github">
+                    </div>
+                    <div class="form-group">
+                        <label>Demo</label>
+                        <input type="text" id="edit_demo">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="edit_featured">
+                            Показувати на головній
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-success">💾 Зберегти зміни</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let projectsData = JSON.parse(localStorage.getItem('portfolioProjects')) || { projects: [] };
+        let aboutData = JSON.parse(localStorage.getItem('portfolioAbout')) || getDefaultAboutData();
+
+        function getDefaultAboutData() {
+            return {
+                profile: {
+                    name: { uk: "Ілля Авдосьєв", en: "Illia Avdosiev", pl: "Illia Avdosiev", de: "Illia Avdosiev" },
+                    age: 20,
+                    avatar: "",
+                    bio: {
+                        uk: ["Перший параграф"],
+                        en: ["First paragraph"],
+                        pl: ["Pierwszy akapit"],
+                        de: ["Erster Absatz"]
+                    }
+                },
+                skills: {
+                    languages: {
+                        icon: "💻",
+                        title: { uk: "Мови програмування", en: "Programming Languages", pl: "Języki programowania", de: "Programmiersprachen" },
+                        items: ["C#", ".NET"]
+                    },
+                    tools: {
+                        icon: "🎮",
+                        title: { uk: "Інструменти", en: "Tools", pl: "Narzędzia", de: "Werkzeuge" },
+                        items: ["Unity", "Git"]
+                    },
+                    principles: {
+                        icon: "📚",
+                        title: { uk: "Принципи", en: "Principles", pl: "Zasady", de: "Prinzipien" },
+                        items: ["ООП"]
+                    },
+                    other: {
+                        icon: "🛠️",
+                        title: { uk: "Інше", en: "Other", pl: "Inne", de: "Andere" },
+                        items: ["JSON"]
+                    }
+                },
+                education: [],
+                goals: {
+                    short: {
+                        icon: "🎯",
+                        title: { uk: "Короткострокова ціль", en: "Short-term goal", pl: "Cel krótkoterminowy", de: "Kurzfristiges Ziel" },
+                        description: { uk: "", en: "", pl: "", de: "" }
+                    },
+                    long: {
+                        icon: "🚀",
+                        title: { uk: "Довгострокова ціль", en: "Long-term goal", pl: "Cel długoterminowy", de: "Langfristiges Ziel" },
+                        description: { uk: "", en: "", pl: "", de: "" }
+                    }
+                },
+                contacts: {
+                    email: "you@example.com",
+                    telegram: "@yourhandle",
+                    github: "https://github.com/yourname",
+                    linkedin: "https://linkedin.com/in/yourname"
+                }
+            };
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'export') {
+                updateExportData();
+            }
+        }
+
+        // Projects Management
+        document.getElementById('add-project-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            const newProject = {
+                id: Date.now(),
+                featured: formData.get('featured') === 'on',
+                title: {
+                    uk: formData.get('title_uk'),
+                    en: formData.get('title_en'),
+                    pl: formData.get('title_pl') || formData.get('title_en'),
+                    de: formData.get('title_de') || formData.get('title_en')
+                },
+                description: {
+                    uk: formData.get('description_uk'),
+                    en: formData.get('description_en'),
+                    pl: formData.get('description_pl') || formData.get('description_en'),
+                    de: formData.get('description_de') || formData.get('description_en')
+                },
+                image: formData.get('image'),
+                emoji: formData.get('emoji') || '📁',
+                technologies: formData.get('technologies').split(',').map(t => t.trim()).filter(t => t),
+                github: formData.get('github'),
+                demo: formData.get('demo'),
+                category: formData.get('category'),
+                status: formData.get('status')
+            };
+
+            projectsData.projects.push(newProject);
+            localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+
+            showAlert('success', '✅ Проєкт успішно додано!');
+            e.target.reset();
+            loadProjects();
+        });
+
+        function loadProjects() {
+            const container = document.getElementById('projects-list');
+            if (projectsData.projects.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">Поки що немає проєктів. Додай перший!</p>';
+                return;
+            }
+
+            container.innerHTML = projectsData.projects.map(project => `
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>${project.emoji} ${project.title.uk}</h3>
+                        <p>${project.description.uk}</p>
+                        <div class="project-tags">
+                            ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                            ${project.featured ? '<span class="tag featured">⭐ На головній</span>' : ''}
+                            ${project.status ? `<span class="tag">${project.status}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <button onclick="editProject(${project.id})" class="btn btn-warning">✏️ Редагувати</button>
+                        <button onclick="deleteProject(${project.id})" class="btn btn-danger">🗑️ Видалити</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editProject(id) {
+            const project = projectsData.projects.find(p => p.id === id);
+            if (!project) return;
+
+            document.getElementById('edit-project-id').value = id;
+            document.getElementById('edit_title_uk').value = project.title.uk;
+            document.getElementById('edit_title_en').value = project.title.en;
+            document.getElementById('edit_title_pl').value = project.title.pl || '';
+            document.getElementById('edit_title_de').value = project.title.de || '';
+            document.getElementById('edit_description_uk').value = project.description.uk;
+            document.getElementById('edit_description_en').value = project.description.en;
+            document.getElementById('edit_description_pl').value = project.description.pl || '';
+            document.getElementById('edit_description_de').value = project.description.de || '';
+            document.getElementById('edit_emoji').value = project.emoji;
+            document.getElementById('edit_image').value = project.image;
+            document.getElementById('edit_category').value = project.category;
+            document.getElementById('edit_status').value = project.status || '';
+            document.getElementById('edit_technologies').value = project.technologies.join(', ');
+            document.getElementById('edit_github').value = project.github;
+            document.getElementById('edit_demo').value = project.demo;
+            document.getElementById('edit_featured').checked = project.featured;
+
+            document.getElementById('edit-modal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.remove('active');
+        }
+
+        document.getElementById('edit-project-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById('edit-project-id').value);
+            const projectIndex = projectsData.projects.findIndex(p => p.id === id);
+
+            if (projectIndex === -1) return;
+
+            projectsData.projects[projectIndex] = {
+                id: id,
+                featured: document.getElementById('edit_featured').checked,
+                title: {
+                    uk: document.getElementById('edit_title_uk').value,
+                    en: document.getElementById('edit_title_en').value,
+                    pl: document.getElementById('edit_title_pl').value || document.getElementById('edit_title_en').value,
+                    de: document.getElementById('edit_title_de').value || document.getElementById('edit_title_en').value
+                },
+                description: {
+                    uk: document.getElementById('edit_description_uk').value,
+                    en: document.getElementById('edit_description_en').value,
+                    pl: document.getElementById('edit_description_pl').value || document.getElementById('edit_description_en').value,
+                    de: document.getElementById('edit_description_de').value || document.getElementById('edit_description_en').value
+                },
+                image: document.getElementById('edit_image').value,
+                emoji: document.getElementById('edit_emoji').value || '📁',
+                technologies: document.getElementById('edit_technologies').value.split(',').map(t => t.trim()).filter(t => t),
+                github: document.getElementById('edit_github').value,
+                demo: document.getElementById('edit_demo').value,
+                category: document.getElementById('edit_category').value,
+                status: document.getElementById('edit_status').value
+            };
+
+            localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+            showAlert('success', '✅ Проєкт оновлено!');
+            loadProjects();
+            closeEditModal();
+        });
+
+        function deleteProject(id) {
+            if (confirm('Ти впевнений? Це видалить проєкт назавжди!')) {
+                projectsData.projects = projectsData.projects.filter(p => p.id !== id);
+                localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+                showAlert('success', '✅ Проєкт видалено!');
+                loadProjects();
+            }
+        }
+
+        // Profile Management
+        function loadProfile() {
+            document.getElementById('profile_name_uk').value = aboutData.profile.name.uk;
+            document.getElementById('profile_name_en').value = aboutData.profile.name.en;
+            document.getElementById('profile_name_pl').value = aboutData.profile.name.pl || '';
+            document.getElementById('profile_name_de').value = aboutData.profile.name.de || '';
+            document.getElementById('profile_age').value = aboutData.profile.age;
+            document.getElementById('profile_avatar').value = aboutData.profile.avatar;
+            document.getElementById('profile_bio_uk').value = aboutData.profile.bio.uk.join('\n\n');
+            document.getElementById('profile_bio_en').value = aboutData.profile.bio.en.join('\n\n');
+            document.getElementById('profile_bio_pl').value = (aboutData.profile.bio.pl || []).join('\n\n');
+            document.getElementById('profile_bio_de').value = (aboutData.profile.bio.de || []).join('\n\n');
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            aboutData.profile.name.uk = formData.get('name_uk');
+            aboutData.profile.name.en = formData.get('name_en');
+            aboutData.profile.name.pl = formData.get('name_pl') || formData.get('name_en');
+            aboutData.profile.name.de = formData.get('name_de') || formData.get('name_en');
+            aboutData.profile.age = parseInt(formData.get('age'));
+            aboutData.profile.avatar = formData.get('avatar');
+            aboutData.profile.bio.uk = formData.get('bio_uk').split('\n\n').filter(p => p.trim());
+            aboutData.profile.bio.en = formData.get('bio_en').split('\n\n').filter(p => p.trim());
+            aboutData.profile.bio.pl = formData.get('bio_pl').split('\n\n').filter(p => p.trim());
+            aboutData.profile.bio.de = formData.get('bio_de').split('\n\n').filter(p => p.trim());
+
+            localStorage.setItem('portfolioAbout', JSON.stringify(aboutData));
+            showAlert('success', '✅ Профіль збережено!');
+        });
+
+        // Skills Management
+        function loadSkills() {
+            const container = document.getElementById('skills-editor');
+            container.innerHTML = Object.entries(aboutData.skills).map(([key, category]) => `
+                <div class="skill-category-editor">
+                    <h4>${category.icon} ${category.title.uk}</h4>
+                    <div class="skill-items" id="skills-${key}">
+                        ${category.items.map((item, index) => `
+                            <div class="skill-item">
+                                <input type="text" value="${item}" data-category="${key}" data-index="${index}">
+                                <button onclick="removeSkillItem('${key}', ${index})">🗑️</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button onclick="addSkillItem('${key}')" class="btn btn-secondary" style="margin-top: 0.5rem; width: 100%;">➕ Додати</button>
+                </div>
+            `).join('');
+        }
+
+        function addSkillItem(category) {
+            aboutData.skills[category].items.push('Нова навичка');
+            loadSkills();
+        }
+
+        function removeSkillItem(category, index) {
+            aboutData.skills[category].items.splice(index, 1);
+            loadSkills();
+        }
+
+        function saveSkills() {
+            document.querySelectorAll('.skill-item input').forEach(input => {
+                const category = input.getAttribute('data-category');
+                const index = parseInt(input.getAttribute('data-index'));
+                aboutData.skills[category].items[index] = input.value;
+            });
+
+            localStorage.setItem('portfolioAbout', JSON.stringify(aboutData));
+            showAlert('success', '✅ Навички збережено!');
+        }
+
+        // Education Management
+        function loadEducation() {
+            const container = document.getElementById('education-editor');
+            if (aboutData.education.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">Поки що немає записів. Додай перший!</p>';
+                return;
+            }
+
+            container.innerHTML = aboutData.education.map((item, index) => `
+                <div class="timeline-item-editor">
+                    <div class="education-header" onclick="toggleEducation(${index})" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px; margin-bottom: 1rem;">
+                        <div>
+                            <strong style="color: var(--accent);">${item.icon} ${item.year}</strong>
+                            <span style="color: var(--text-primary); margin-left: 1rem;">${item.title.uk}</span>
+                        </div>
+                        <span id="toggle-icon-${index}" style="color: var(--accent); font-size: 1.2rem;">▼</span>
+                    </div>
+                    <div id="education-content-${index}" class="education-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Рік</label>
+                                <input type="text" value="${item.year}" onchange="updateEducation(${index}, 'year', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Іконка</label>
+                                <input type="text" value="${item.icon}" onchange="updateEducation(${index}, 'icon', this.value)" maxlength="2">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Назва (UA)</label>
+                                <input type="text" value="${item.title.uk}" onchange="updateEducation(${index}, 'title.uk', this.value)">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Назва (EN)</label>
+                                <input type="text" value="${item.title.en}" onchange="updateEducation(${index}, 'title.en', this.value)">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Назва (PL)</label>
+                                <input type="text" value="${item.title.pl || ''}" onchange="updateEducation(${index}, 'title.pl', this.value)">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Назва (DE)</label>
+                                <input type="text" value="${item.title.de || ''}" onchange="updateEducation(${index}, 'title.de', this.value)">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Опис (UA)</label>
+                                <textarea onchange="updateEducation(${index}, 'description.uk', this.value)">${item.description.uk}</textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Опис (EN)</label>
+                                <textarea onchange="updateEducation(${index}, 'description.en', this.value)">${item.description.en}</textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Опис (PL)</label>
+                                <textarea onchange="updateEducation(${index}, 'description.pl', this.value)">${item.description.pl || ''}</textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Опис (DE)</label>
+                                <textarea onchange="updateEducation(${index}, 'description.de', this.value)">${item.description.de || ''}</textarea>
+                            </div>
+                        </div>
+                        <button onclick="deleteEducation(${index})" class="btn btn-danger" style="margin-top: 1rem;">🗑️ Видалити</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleEducation(index) {
+            const content = document.getElementById(`education-content-${index}`);
+            const icon = document.getElementById(`toggle-icon-${index}`);
+
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▶';
+            }
+        }
+
+        function addEducationItem() {
+            aboutData.education.push({
+                year: "2023",
+                icon: "📅",
+                title: { uk: "Нова подія", en: "New event", pl: "Nowe wydarzenie", de: "Neues Ereignis" },
+                description: { uk: "Опис", en: "Description", pl: "Opis", de: "Beschreibung" }
+            });
+            loadEducation();
+        }
+
+        function updateEducation(index, field, value) {
+            const keys = field.split('.');
+            if (keys.length === 1) {
+                aboutData.education[index][keys[0]] = value;
+            } else {
+                aboutData.education[index][keys[0]][keys[1]] = value;
+            }
+        }
+
+        function deleteEducation(index) {
+            if (confirm('Видалити цей запис?')) {
+                aboutData.education.splice(index, 1);
+                loadEducation();
+            }
+        }
+
+        function saveEducation() {
+            localStorage.setItem('portfolioAbout', JSON.stringify(aboutData));
+            showAlert('success', '✅ Освіта збережена!');
+        }
+
+        // Goals Management
+        function loadGoals() {
+            document.getElementById('goal_short_uk').value = aboutData.goals.short.description.uk;
+            document.getElementById('goal_short_en').value = aboutData.goals.short.description.en;
+            document.getElementById('goal_short_pl').value = aboutData.goals.short.description.pl || '';
+            document.getElementById('goal_short_de').value = aboutData.goals.short.description.de || '';
+            document.getElementById('goal_long_uk').value = aboutData.goals.long.description.uk;
+            document.getElementById('goal_long_en').value = aboutData.goals.long.description.en;
+            document.getElementById('goal_long_pl').value = aboutData.goals.long.description.pl || '';
+            document.getElementById('goal_long_de').value = aboutData.goals.long.description.de || '';
+        }
+
+        function saveGoals() {
+            aboutData.goals.short.description.uk = document.getElementById('goal_short_uk').value;
+            aboutData.goals.short.description.en = document.getElementById('goal_short_en').value;
+            aboutData.goals.short.description.pl = document.getElementById('goal_short_pl').value;
+            aboutData.goals.short.description.de = document.getElementById('goal_short_de').value;
+            aboutData.goals.long.description.uk = document.getElementById('goal_long_uk').value;
+            aboutData.goals.long.description.en = document.getElementById('goal_long_en').value;
+            aboutData.goals.long.description.pl = document.getElementById('goal_long_pl').value;
+            aboutData.goals.long.description.de = document.getElementById('goal_long_de').value;
+
+            localStorage.setItem('portfolioAbout', JSON.stringify(aboutData));
+            showAlert('success', '✅ Цілі збережено!');
+        }
+
+        // Contacts Management
+        function loadContacts() {
+            document.getElementById('contact_email').value = aboutData.contacts.email;
+            document.getElementById('contact_telegram').value = aboutData.contacts.telegram;
+            document.getElementById('contact_github').value = aboutData.contacts.github;
+            document.getElementById('contact_linkedin').value = aboutData.contacts.linkedin;
+        }
+
+        function saveContacts() {
+            aboutData.contacts.email = document.getElementById('contact_email').value;
+            aboutData.contacts.telegram = document.getElementById('contact_telegram').value;
+            aboutData.contacts.github = document.getElementById('contact_github').value;
+            aboutData.contacts.linkedin = document.getElementById('contact_linkedin').value;
+
+            localStorage.setItem('portfolioAbout', JSON.stringify(aboutData));
+            showAlert('success', '✅ Контакти збережено!');
+        }
+
+        // Export functionality
+        function updateExportData() {
+            document.getElementById('projects-json').textContent = JSON.stringify(projectsData, null, 2);
+            document.getElementById('about-json').textContent = JSON.stringify(aboutData, null, 2);
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showAlert('success', '✅ Скопійовано в буфер обміну!');
+            });
+        }
+
+        function downloadJSON(type) {
+            const data = type === 'projects' ? projectsData : aboutData;
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `${type}.json`;
+            link.click();
+
+            showAlert('success', `✅ Файл ${type}.json завантажено!`);
+        }
+
+        // Alert system
+        function showAlert(type, message) {
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+
+            const activeTab = document.querySelector('.tab-content.active .section');
+            if (activeTab) {
+                activeTab.insertBefore(alert, activeTab.firstChild);
+                setTimeout(() => alert.remove(), 3000);
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProjects();
+            loadProfile();
+            loadSkills();
+            loadEducation();
+            loadGoals();
+            loadContacts();
+            updateExportData();
+        });
+    </script>
+</body>
+
+</html>

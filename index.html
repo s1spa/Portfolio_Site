@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ілля Авдосьєв - Портфоліо</title>
+    <style>
+        :root {
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --bg-card: #1a2942;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent: #64ffda;
+            --accent-hover: #52d4b3;
+            --border: #233554;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent: #0ea5e9;
+            --accent-hover: #0284c7;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle,
+        .lang-switch {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover,
+        .lang-switch:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-label {
+            color: var(--accent);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero h1 .name {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-3px);
+        }
+
+        .featured-preview {
+            padding: 5rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-card));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-image-placeholder {
+            color: var(--text-secondary);
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.4rem 0.9rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .no-projects {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .no-projects a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 5rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="dark">
+    <header>
+        <nav>
+            <a href="index.html" class="logo">IA</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="nav.home">Головна</a></li>
+                <li><a href="projects.html" data-i18n="nav.projects">Проєкти</a></li>
+                <li><a href="about.html" data-i18n="nav.about">Про мене</a></li>
+            </ul>
+            <div class="controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="theme-icon">☀️</span>
+                </button>
+                <select class="lang-switch" onchange="changeLanguage(this.value)">
+                    <option value="uk">🇺🇦 UA</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="pl">🇵🇱 PL</option>
+                    <option value="de">🇩🇪 DE</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-label" data-i18n="hero.label">Портфоліо</div>
+                <h1>
+                    <span data-i18n="hero.greeting">Привіт! Я</span>
+                    <span class="name" id="profile-name">Ілля Авдосьєв</span>
+                    <span data-i18n="hero.role">— розробник ігор та застосунків.</span>
+                </h1>
+                <p data-i18n="hero.subtitle">Пишу на C# / .NET, працюю з Unity, люблю чистий код і мінімалізм. Тут
+                    зібрав кілька робіт, які можу показати на співбесіді.</p>
+                <div class="hero-buttons">
+                    <a href="projects.html" class="btn btn-primary">
+                        <span data-i18n="hero.viewProjects">Дивитись проєкти</span>
+                    </a>
+                    <a href="about.html" class="btn btn-secondary">
+                        <span data-i18n="hero.aboutMe">Про мене</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-preview">
+            <div class="container">
+                <h2 class="section-title" data-i18n="featured.title">Обрані проєкти</h2>
+                <p class="section-subtitle" data-i18n="featured.subtitle">Найцікавіші роботи з мого портфоліо</p>
+
+                <div class="projects-grid" id="featured-projects">
+                    <div class="loading" data-i18n="projectsPage.loading">Завантаження проєктів...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права
+                захищено.</span></p>
+    </footer>
+
+    <script src="js/i18n.js"></script>
+    <script>
+        // Load featured projects from localStorage
+        function loadFeaturedProjects() {
+            const container = document.getElementById('featured-projects');
+            const currentLang = localStorage.getItem('language') || 'uk';
+
+            // Get data from localStorage
+            const projectsData = JSON.parse(localStorage.getItem('portfolioProjects'));
+
+            if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
+                container.innerHTML = `
+                    <div class="no-projects">
+                        <p data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</p>
+                        <p>${t('projectsPage.goToAdmin')} <a href="admin.html" data-i18n="projectsPage.adminPanel">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Get featured projects
+            const featuredProjects = projectsData.projects.filter(p => p.featured).slice(0, 3);
+
+            if (featuredProjects.length === 0) {
+                container.innerHTML = `
+                    <div class="no-projects">
+                        <p>${t('projectsPage.noProjects')}</p>
+                        <p>${t('projectsPage.goToAdmin')} <a href="admin.html">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render projects
+            container.innerHTML = featuredProjects.map(project => `
+                <div class="project-card">
+                    <div class="project-image">
+                        ${project.image ?
+                    `<img src="${project.image}" alt="${project.title[currentLang] || project.title.uk}">` :
+                    `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                }
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
+                        <p class="project-description">${project.description[currentLang] || project.description.uk}</p>
+                        <div class="project-tags">
+                            ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load profile name
+        function loadProfileName() {
+            const aboutData = JSON.parse(localStorage.getItem('portfolioAbout'));
+            if (aboutData && aboutData.profile) {
+                const currentLang = localStorage.getItem('language') || 'uk';
+                const name = aboutData.profile.name[currentLang] || aboutData.profile.name.uk;
+                document.getElementById('profile-name').textContent = name;
+                document.getElementById('footer-name').textContent = name;
+            }
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Language Switch
+        function changeLanguage(lang) {
+            localStorage.setItem('language', lang);
+            translatePage();
+            loadFeaturedProjects();
+            loadProfileName();
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+            const savedLang = localStorage.getItem('language') || 'uk';
+            document.querySelector('.lang-switch').value = savedLang;
+
+            translatePage();
+            loadFeaturedProjects();
+            loadProfileName();
+        });
+    </script>
+</body>
+
+</html>
