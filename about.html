@@ -505,9 +505,9 @@
         <nav>
             <a href="index.html" class="logo">IA</a>
             <ul class="nav-links">
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="projects.html">Проєкти</a></li>
-                <li><a href="about.html" class="active">Про мене</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Головна</a></li>
+                <li><a href="projects.html" data-i18n="nav.projects">Проєкти</a></li>
+                <li><a href="about.html" class="active" data-i18n="nav.about">Про мене</a></li>
             </ul>
             <div class="controls">
                 <button class="theme-toggle" onclick="toggleTheme()">
@@ -525,128 +525,135 @@
 
     <main>
         <div class="container" id="main-content">
-            <div class="loading">Завантаження...</div>
+            <div class="loading" data-i18n="aboutPage.loading">Завантаження...</div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. Усі права захищено.</p>
+        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права
+                захищено.</span></p>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script>
-        // Render about page from localStorage
-        function renderAboutPage() {
+        async function renderAboutPage() {
             const currentLang = localStorage.getItem('language') || 'uk';
-            const aboutData = JSON.parse(localStorage.getItem('portfolioAbout'));
-
             const container = document.getElementById('main-content');
 
-            if (!aboutData || !aboutData.profile) {
+            try {
+                const response = await fetch('data/about.json');
+                const aboutData = await response.json();
+
+                if (!aboutData || !aboutData.profile) {
+                    container.innerHTML = `
+                        <div class="no-data">
+                            <h2 data-i18n="aboutPage.noData">${t('aboutPage.noData')}</h2>
+                            <p>${t('projectsPage.goToAdmin')} <a href="admin.html">${t('projectsPage.adminPanel')}</a>, заповни дані та експортуй <code>about.json</code> у папку <code>data/</code></p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const data = aboutData;
+                const nameParts = (data.profile.name[currentLang] || data.profile.name.uk).split(' ');
+                const initials = nameParts.map(n => n[0]).join('');
+
                 container.innerHTML = `
-                    <div class="no-data">
-                        <h2>Дані профілю відсутні</h2>
-                        <p>Перейди в <a href="admin.html">адмін-панель</a> щоб заповнити інформацію про себе!</p>
-                    </div>
-                `;
-                return;
-            }
+                    <section class="about-section">
+                        <div class="about-content">
+                            <h1 data-i18n="aboutPage.title">${t('aboutPage.title')}</h1>
+                            <div class="about-text">
+                                ${(data.profile.bio[currentLang] || data.profile.bio.uk).map(paragraph => `
+                                    <p>${paragraph.replace(/(C#|\.NET|ООП|Unity|ZeroTip)/g, '<span class="highlight">$1</span>')}</p>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="about-avatar">
+                            <div class="avatar-container">
+                                <div class="avatar-inner">
+                                    ${data.profile.avatar ?
+                        `<img src="${data.profile.avatar}" alt="${data.profile.name[currentLang] || data.profile.name.uk}">` :
+                        `<div class="avatar-placeholder">${initials}</div>`
+                    }
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-            const data = aboutData;
-
-            // Get initials for avatar
-            const nameParts = (data.profile.name[currentLang] || data.profile.name.uk).split(' ');
-            const initials = nameParts.map(n => n[0]).join('');
-
-            container.innerHTML = `
-                <section class="about-section">
-                    <div class="about-content">
-                        <h1>Про мене</h1>
-                        <div class="about-text">
-                            ${(data.profile.bio[currentLang] || data.profile.bio.uk).map(paragraph => `
-                                <p>${paragraph.replace(/(C#|\.NET|ООП|Unity|ZeroTip)/g, '<span class="highlight">$1</span>')}</p>
+                    ${data.skills ? `
+                    <section class="skills-section">
+                        <h2 class="section-title" data-i18n="aboutPage.skills">${t('aboutPage.skills')}</h2>
+                        <div class="skills-grid">
+                            ${Object.values(data.skills).map(category => `
+                                <div class="skill-category">
+                                    <h3>${category.icon} ${category.title[currentLang] || category.title.uk}</h3>
+                                    <ul>
+                                        ${category.items.map(item => `<li>${item}</li>`).join('')}
+                                    </ul>
+                                </div>
                             `).join('')}
                         </div>
-                    </div>
-                    <div class="about-avatar">
-                        <div class="avatar-container">
-                            <div class="avatar-inner">
-                                ${data.profile.avatar ?
-                    `<img src="${data.profile.avatar}" alt="${data.profile.name[currentLang] || data.profile.name.uk}">` :
-                    `<div class="avatar-placeholder">${initials}</div>`
-                }
-                            </div>
+                    </section>
+                    ` : ''}
+
+                    ${data.education && data.education.length > 0 ? `
+                    <section class="experience-section">
+                        <h2 class="section-title" data-i18n="aboutPage.education">${t('aboutPage.education')}</h2>
+                        <div class="timeline">
+                            ${data.education.map(item => `
+                                <div class="timeline-item">
+                                    <div class="timeline-year">${item.icon} ${item.year}</div>
+                                    <div class="timeline-content">
+                                        <h3>${item.title[currentLang] || item.title.uk}</h3>
+                                        <p>${item.description[currentLang] || item.description.uk}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
-                    </div>
-                </section>
+                    </section>
+                    ` : ''}
 
-                ${data.skills ? `
-                <section class="skills-section">
-                    <h2 class="section-title">Навички</h2>
-                    <div class="skills-grid">
-                        ${Object.values(data.skills).map(category => `
-                            <div class="skill-category">
-                                <h3>${category.icon} ${category.title[currentLang] || category.title.uk}</h3>
-                                <ul>
-                                    ${category.items.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                        `).join('')}
-                    </div>
-                </section>
-                ` : ''}
-
-                ${data.education && data.education.length > 0 ? `
-                <section class="experience-section">
-                    <h2 class="section-title">Освіта</h2>
-                    <div class="timeline">
-                        ${data.education.map(item => `
-                            <div class="timeline-item">
-                                <div class="timeline-year">${item.icon} ${item.year}</div>
-                                <div class="timeline-content">
-                                    <h3>${item.title[currentLang] || item.title.uk}</h3>
-                                    <p>${item.description[currentLang] || item.description.uk}</p>
+                    ${data.goals ? `
+                    <section class="goals-section">
+                        <h2 class="section-title" data-i18n="aboutPage.goals">${t('aboutPage.goals')}</h2>
+                        <div class="goals-list">
+                            ${Object.values(data.goals).map(goal => `
+                                <div class="goal-item">
+                                    <div class="goal-icon">${goal.icon}</div>
+                                    <div class="goal-content">
+                                        <p><strong>${goal.title[currentLang] || goal.title.uk}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </section>
-                ` : ''}
+                            `).join('')}
+                        </div>
+                    </section>
+                    ` : ''}
 
-                ${data.goals ? `
-                <section class="goals-section">
-                    <h2 class="section-title">Мої цілі</h2>
-                    <div class="goals-list">
-                        ${Object.values(data.goals).map(goal => `
-                            <div class="goal-item">
-                                <div class="goal-icon">${goal.icon}</div>
-                                <div class="goal-content">
-                                    <p><strong>${goal.title[currentLang] || goal.title.uk}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </section>
-                ` : ''}
+                    ${data.contacts ? `
+                    <section class="contact-section">
+                        <h2 class="contact-title" data-i18n="aboutPage.contacts">${t('aboutPage.contacts')}</h2>
+                        <p class="contact-subtitle" data-i18n="aboutPage.contactSubtitle">${t('aboutPage.contactSubtitle')}</p>
+                        <div class="contact-links">
+                            ${data.contacts.email ? `<a href="mailto:${data.contacts.email}" class="contact-link">📧 ${data.contacts.email}</a>` : ''}
+                            ${data.contacts.telegram ? `<a href="https://t.me/${data.contacts.telegram.replace('@', '')}" class="contact-link" target="_blank">💬 ${data.contacts.telegram}</a>` : ''}
+                            ${data.contacts.github ? `<a href="${data.contacts.github}" class="contact-link" target="_blank">💻 GitHub</a>` : ''}
+                            ${data.contacts.linkedin ? `<a href="${data.contacts.linkedin}" class="contact-link" target="_blank">💼 LinkedIn</a>` : ''}
+                        </div>
+                    </section>
+                    ` : ''}
+                `;
 
-                ${data.contacts ? `
-                <section class="contact-section">
-                    <h2 class="contact-title">Контакти</h2>
-                    <p class="contact-subtitle">Найшвидше — лист на пошту або повідомлення в Telegram.</p>
-                    <div class="contact-links">
-                        ${data.contacts.email ? `<a href="mailto:${data.contacts.email}" class="contact-link">📧 ${data.contacts.email}</a>` : ''}
-                        ${data.contacts.telegram ? `<a href="https://t.me/${data.contacts.telegram.replace('@', '')}" class="contact-link" target="_blank">💬 ${data.contacts.telegram}</a>` : ''}
-                        ${data.contacts.github ? `<a href="${data.contacts.github}" class="contact-link" target="_blank">💻 GitHub</a>` : ''}
-                        ${data.contacts.linkedin ? `<a href="${data.contacts.linkedin}" class="contact-link" target="_blank">💼 LinkedIn</a>` : ''}
+                document.getElementById('footer-name').textContent = data.profile.name[currentLang] || data.profile.name.uk;
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="no-data">
+                        <h2>Помилка завантаження</h2>
+                        <p>Перейди в <a href="admin.html">адмін-панель</a>, заповни дані та експортуй <code>about.json</code> у папку <code>data/</code></p>
                     </div>
-                </section>
-                ` : ''}
-            `;
-
-            // Update footer name
-            document.getElementById('footer-name').textContent = data.profile.name[currentLang] || data.profile.name.uk;
+                `;
+            }
         }
 
-        // Theme Toggle
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
@@ -656,13 +663,12 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // Language Switch
         function changeLanguage(lang) {
             localStorage.setItem('language', lang);
+            translatePage();
             renderAboutPage();
         }
 
-        // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.body.setAttribute('data-theme', savedTheme);
@@ -671,6 +677,7 @@
             const savedLang = localStorage.getItem('language') || 'uk';
             document.querySelector('.lang-switch').value = savedLang;
 
+            translatePage();
             renderAboutPage();
         });
     </script>

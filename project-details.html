@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Деталі проєкту - Ілля Авдосьєв</title>
+    <style>
+        :root {
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --bg-card: #1a2942;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent: #64ffda;
+            --accent-hover: #52d4b3;
+            --border: #233554;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent: #0ea5e9;
+            --accent-hover: #0284c7;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle,
+        .lang-switch {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+
+        .project-header {
+            margin-bottom: 3rem;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .project-status {
+            padding: 0.5rem 1rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.4rem 0.9rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .project-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Steam-style two column layout */
+        .steam-layout {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            max-width: 1400px;
+        }
+
+        /* Left column - Media gallery */
+        .media-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .main-media {
+            width: 100%;
+            aspect-ratio: 16/9;
+            max-height: 500px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .main-media img,
+        .main-media iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Thumbnails below main media */
+        .thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 0.5rem;
+        }
+
+        .thumbnails::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .thumbnails::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        .thumbnails::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .thumbnail {
+            min-width: 100px;
+            max-width: 140px;
+            aspect-ratio: 16/9;
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--border);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .thumbnail.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail.video::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* Right column - Info */
+        .info-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-title-image {
+            width: 100%;
+            max-height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .main-title-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .short-description {
+            background: var(--bg-secondary);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .short-description::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .short-description::-webkit-scrollbar-track {
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
+
+        .short-description::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .gallery-grid {
+            display: none;
+        }
+
+        .video-section {
+            display: none;
+        }
+
+        .short-description {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .video-section {
+            margin-bottom: 3rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .features-section {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            min-width: 40px;
+        }
+
+        .feature-content h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            color: var(--text-secondary);
+        }
+
+        /* Modal for fullscreen images */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 5rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .steam-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .info-column {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .main-title-image {
+                max-height: 250px;
+            }
+
+            .thumbnail {
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="dark">
+    <header>
+        <nav>
+            <a href="index.html" class="logo">IA</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="nav.home">Головна</a></li>
+                <li><a href="projects.html" data-i18n="nav.projects">Проєкти</a></li>
+                <li><a href="about.html" data-i18n="nav.about">Про мене</a></li>
+            </ul>
+            <div class="controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="theme-icon">☀️</span>
+                </button>
+                <select class="lang-switch" onchange="changeLanguage(this.value)">
+                    <option value="uk">🇺🇦 UA</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="pl">🇵🇱 PL</option>
+                    <option value="de">🇩🇪 DE</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container" id="project-content">
+            <div class="loading">⏳ Завантаження...</div>
+        </div>
+    </main>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">✕</span>
+        <img id="modalImage" src="" alt="">
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права
+                захищено.</span></p>
+    </footer>
+
+    <script src="js/i18n.js"></script>
+    <script>
+        async function loadProjectDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = parseInt(urlParams.get('id'));
+            const currentLang = localStorage.getItem('language') || 'uk';
+
+            if (!projectId) {
+                window.location.href = 'projects.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('data/projects.json');
+                const projectsData = await response.json();
+                const project = projectsData.projects.find(p => p.id === projectId);
+
+                if (!project) {
+                    document.getElementById('project-content').innerHTML = `
+                        <div class="loading">
+                            <h2>Проєкт не знайдено</h2>
+                            <a href="projects.html" class="btn btn-primary">← Назад до проєктів</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                renderProject(project, currentLang);
+            } catch (error) {
+                console.error('Error loading project:', error);
+            }
+        }
+
+        function renderProject(project, lang) {
+            const container = document.getElementById('project-content');
+
+            // Збираємо всі медіа (ВІДЕО ПЕРШИМИ, потім галерея)
+            const allMedia = [];
+
+            // СПОЧАТКУ ВІДЕО ↓
+            if (project.videos && project.videos.length > 0) {
+                project.videos.forEach(video => {
+                    allMedia.push({ type: 'video', url: video });
+                });
+            }
+
+            // ПОТІМ Галерея ↓
+            if (project.gallery && project.gallery.length > 0) {
+                project.gallery.forEach(img => {
+                    allMedia.push({ type: 'image', url: img });
+                });
+            }
+
+            // Головне фото (для title обкладинки)
+            const mainImage = project.mainImage || project.image;
+
+            container.innerHTML = `
+                <a href="projects.html" class="back-button">← Назад до проєктів</a>
+                
+                <div class="project-header">
+                    <h1 class="project-title">
+                        ${project.emoji || '📁'} ${project.title[lang] || project.title.uk}
+                        ${project.status ? `<span class="project-status">${project.status}</span>` : ''}
+                    </h1>
+                </div>
+
+                <!-- Steam-style Layout -->
+                <div class="steam-layout">
+                    <!-- Left column: Media Gallery -->
+                    ${allMedia.length > 0 ? `
+                        <div class="media-column">
+                            <div class="main-media" id="main-media">
+                                ${renderMainMedia(allMedia[0])}
+                            </div>
+                            
+                            ${allMedia.length > 1 ? `
+                                <div class="thumbnails" id="thumbnails">
+                                    ${allMedia.map((media, index) => `
+                                        <div class="thumbnail ${media.type === 'video' ? 'video' : ''} ${index === 0 ? 'active' : ''}" 
+                                             onclick="switchMedia(${index})" 
+                                             data-media-index="${index}">
+                                            ${media.type === 'image' ? `<img src="${media.url}" alt="Thumbnail ${index + 1}">` : ''}
+                                            ${media.type === 'video' ? `<img src="https://img.youtube.com/vi/${extractYouTubeID(media.url)}/mqdefault.jpg" alt="Video ${index + 1}">` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+
+                    <!-- Right column: Main Image + Description -->
+                    <div class="info-column">
+                        ${mainImage ? `
+                            <div class="main-title-image">
+                                <img src="${mainImage}" alt="${project.title[lang] || project.title.uk}">
+                            </div>
+                        ` : ''}
+                        
+                        <div class="short-description">
+                            ${project.shortDescription ? (project.shortDescription[lang] || project.shortDescription.uk) : ((project.description[lang] || project.description.uk).substring(0, 150) + '...')}
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="project-tags">
+                            ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                        </div>
+
+                        <!-- Links -->
+                        <div class="project-links" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            ${project.github ? `<a href="${project.github}" class="btn btn-primary" target="_blank">💻 GitHub</a>` : ''}
+                            ${project.download ? `<a href="${project.download}" class="btn btn-secondary" target="_blank">⬇️ Download</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Description -->
+                <div style="margin: 3rem 0;">
+                    <h2 class="section-title">📝 Детальний опис</h2>
+                    <div class="project-description">${formatDescription(project.description[lang] || project.description.uk)}</div>
+                </div>
+
+                ${project.features && project.features.length > 0 ? `
+                    <div class="features-section">
+                        <h2 class="section-title">✨ Особливості</h2>
+                        <ul class="features-list">
+                            ${project.features.map(feature => `
+                                <li class="feature-item">
+                                    <div class="feature-icon">${feature.icon || '✓'}</div>
+                                    <div class="feature-content">
+                                        <h3>${feature.title[lang] || feature.title.uk}</h3>
+                                        <p>${feature.description[lang] || feature.description.uk}</p>
+                                    </div>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+            `;
+
+            // Зберігаємо медіа для перемикання
+            window.projectMedia = allMedia;
+        }
+
+        function formatDescription(text) {
+            if (!text) return '';
+
+            // Розділяємо текст на рядки
+            let lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach(line => {
+                line = line.trim();
+
+                if (!line) {
+                    // Порожній рядок - закриваємо список якщо відкритий
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    html += '<br>';
+                    return;
+                }
+
+                // Перевіряємо чи це пункт списку
+                if (line.startsWith('* ') || line.startsWith('- ')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    html += '<li>' + line.substring(2) + '</li>';
+                } else {
+                    // Звичайний текст
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+
+                    // Жирний текст **текст:**
+                    line = line.replace(/\*\*(.*?):\*\*/g, '<strong>$1:</strong>');
+
+                    html += '<p>' + line + '</p>';
+                }
+            });
+
+            // Закриваємо список якщо залишився відкритим
+            if (inList) {
+                html += '</ul>';
+            }
+
+            return html;
+        }
+
+        function renderMainMedia(media) {
+            if (!media) return '<div class="image-placeholder">📁</div>';
+
+            if (media.type === 'image') {
+                return `<img src="${media.url}" alt="Main image" onclick="openModal('${media.url}')">`;
+            } else if (media.type === 'video') {
+                return `<iframe src="${media.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else if (media.type === 'emoji') {
+                return `<div class="image-placeholder">${media.emoji}</div>`;
+            }
+        }
+
+        function switchMedia(index) {
+            const mainMedia = document.getElementById('main-media');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+
+            // Оновлюємо активний thumbnail
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            thumbnails[index].classList.add('active');
+
+            // Оновлюємо головне медіа
+            mainMedia.innerHTML = renderMainMedia(window.projectMedia[index]);
+        }
+
+        function extractYouTubeID(url) {
+            const match = url.match(/embed\/([^?]+)/);
+            return match ? match[1] : '';
+        }
+
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function changeLanguage(lang) {
+            localStorage.setItem('language', lang);
+            translatePage();
+            loadProjectDetails();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+            const savedLang = localStorage.getItem('language') || 'uk';
+            document.querySelector('.lang-switch').value = savedLang;
+
+            translatePage();
+            loadProjectDetails();
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+
+</html>

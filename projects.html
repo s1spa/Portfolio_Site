@@ -451,9 +451,9 @@
         <nav>
             <a href="index.html" class="logo">IA</a>
             <ul class="nav-links">
-                <li><a href="index.html">Головна</a></li>
-                <li><a href="projects.html" class="active">Проєкти</a></li>
-                <li><a href="about.html">Про мене</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Головна</a></li>
+                <li><a href="projects.html" class="active" data-i18n="nav.projects">Проєкти</a></li>
+                <li><a href="about.html" data-i18n="nav.about">Про мене</a></li>
             </ul>
             <div class="controls">
                 <button class="theme-toggle" onclick="toggleTheme()">
@@ -472,26 +472,29 @@
     <main>
         <div class="container">
             <div class="page-header">
-                <h1 class="page-title">Мої проєкти</h1>
-                <p class="page-subtitle">Фільтруй за типом (Ігри/Застосунки), технологіями (Unity, C#, Алгоритми) або
-                    просто шукай за назвою.</p>
+                <h1 class="page-title" data-i18n="projectsPage.title">Мої проєкти</h1>
+                <p class="page-subtitle" data-i18n="projectsPage.subtitle">Фільтруй за типом (Ігри/Застосунки),
+                    технологіями (Unity, C#, Алгоритми) або просто шукай за назвою.</p>
             </div>
 
             <div class="filters">
                 <div class="filters-header">
-                    <span class="filter-label">Фільтри:</span>
+                    <span class="filter-label" data-i18n="projectsPage.filters">Фільтри:</span>
                     <div class="search-box">
                         <span class="search-icon">🔍</span>
-                        <input type="text" id="search-input" placeholder="Пошук за назвою..."
-                            oninput="filterProjects()">
+                        <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search"
+                            placeholder="Пошук за назвою..." oninput="filterProjects()">
                     </div>
                 </div>
                 <div class="filter-buttons" id="filter-buttons">
-                    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Всі</button>
-                    <button class="filter-btn" data-filter="games" onclick="setFilter('games')">Ігри</button>
-                    <button class="filter-btn" data-filter="apps" onclick="setFilter('apps')">Застосунки</button>
-                    <button class="filter-btn" data-filter="programming"
-                        onclick="setFilter('programming')">Програмування</button>
+                    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')"
+                        data-i18n="projectsPage.all">Всі</button>
+                    <button class="filter-btn" data-filter="games" onclick="setFilter('games')"
+                        data-i18n="projectsPage.games">Ігри</button>
+                    <button class="filter-btn" data-filter="apps" onclick="setFilter('apps')"
+                        data-i18n="projectsPage.apps">Застосунки</button>
+                    <button class="filter-btn" data-filter="programming" onclick="setFilter('programming')"
+                        data-i18n="projectsPage.programming">Програмування</button>
                 </div>
             </div>
 
@@ -500,108 +503,120 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Ілля Авдосьєв. Усі права захищено.</p>
+        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права
+                захищено.</span></p>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script>
         let currentFilter = 'all';
         let currentSearch = '';
 
-        // Render projects from localStorage
-        function renderProjects() {
-            const container = document.getElementById('projects-grid');
-            const currentLang = localStorage.getItem('language') || 'uk';
-
-            // Get data from localStorage
-            const projectsData = JSON.parse(localStorage.getItem('portfolioProjects'));
-
-            if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">📁</div>
-                        <h3>Поки що немає проєктів</h3>
-                        <p>Перейди в <a href="admin.html">адмін-панель</a> щоб додати перший проєкт!</p>
-                    </div>
-                `;
-                return;
+    async function loadProjectsData() {
+        try {
+            // Спочатку намагаємося завантажити з JSON файлу
+            const response = await fetch('data/projects.json');
+            if (response.ok) {
+                const data = await response.json();
+                console.log('✅ Проєкти завантажено з файлу');
+                return data;
             }
-
-            // Filter projects
-            let filteredProjects = projectsData.projects;
-
-            // Filter by category
-            if (currentFilter !== 'all') {
-                filteredProjects = filteredProjects.filter(p => p.category === currentFilter);
-            }
-
-            // Filter by search
-            if (currentSearch) {
-                filteredProjects = filteredProjects.filter(p =>
-                    (p.title[currentLang] || p.title.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
-                    (p.description[currentLang] || p.description.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
-                    p.technologies.some(tech => tech.toLowerCase().includes(currentSearch.toLowerCase()))
-                );
-            }
-
-            // Show empty state if no results
-            if (filteredProjects.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">🔍</div>
-                        <h3>Нічого не знайдено</h3>
-                        <p>Спробуй змінити фільтри або пошуковий запит</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Render projects
-            container.innerHTML = filteredProjects.map(project => `
-                <div class="project-card">
-                    <div class="project-image">
-                        ${project.image ?
-                    `<img src="${project.image}" alt="${project.title[currentLang] || project.title.uk}">` :
-                    `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
-                }
-                        ${project.status ? `<div class="project-status">${project.status}</div>` : ''}
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
-                        <p class="project-description">${project.description[currentLang] || project.description.uk}</p>
-                        <div class="project-tags">
-                            ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
-                        </div>
-                        ${project.github || project.demo ? `
-                            <div class="project-links">
-                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank">💻 GitHub</a>` : ''}
-                                ${project.demo ? `<a href="${project.demo}" class="project-link" target="_blank">🚀 Demo</a>` : ''}
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('');
+        } catch (error) {
+            console.warn('⚠️ Не вдалося завантажити з файлу, використовуємо localStorage');
         }
 
-        // Set filter
+        // Якщо файл не знайдено, використовуємо localStorage
+        const localData = JSON.parse(localStorage.getItem('portfolioProjects'));
+        if (localData) {
+            console.log('✅ Проєкти завантажено з localStorage');
+            return localData;
+        }
+
+        // Якщо нічого немає, повертаємо порожню структуру
+        console.log('⚠️ Проєкти не знайдено');
+        return { projects: [] };
+    }
+
+        async function renderProjects() {
+                const container = document.getElementById('projects-grid');
+                const currentLang = localStorage.getItem('language') || 'uk';
+
+                const projectsData = await loadProjectsData();
+
+                if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
+                    container.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon">📁</div>
+                <h3 data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</h3>
+                <p>${t('projectsPage.goToAdmin')} <a href="admin.html" data-i18n="projectsPage.adminPanel">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
+            </div>
+        `;
+                    return;
+                }
+
+                let filteredProjects = projectsData.projects;
+
+                if (currentFilter !== 'all') {
+                    filteredProjects = filteredProjects.filter(p => p.category === currentFilter);
+                }
+
+                if (currentSearch) {
+                    filteredProjects = filteredProjects.filter(p =>
+                        (p.title[currentLang] || p.title.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
+                        (p.description[currentLang] || p.description.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
+                        p.technologies.some(tech => tech.toLowerCase().includes(currentSearch.toLowerCase()))
+                    );
+                }
+
+                if (filteredProjects.length === 0) {
+                    container.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon">🔍</div>
+                <h3 data-i18n="projectsPage.noResults">${t('projectsPage.noResults')}</h3>
+                <p data-i18n="projectsPage.noResultsText">${t('projectsPage.noResultsText')}</p>
+            </div>
+        `;
+                    return;
+                }
+
+                container.innerHTML = filteredProjects.map(project => `
+                    <div class="project-card" onclick="window.location.href='project-details.html?id=${project.id}'" style="cursor: pointer;">
+                        <div class="project-image">
+                            ${project.mainImage ?
+                                    `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` :
+                                    `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                                }
+                            ${project.status ? `<div class="project-status">${project.status}</div>` : ''}
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
+                            <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : (project.description[currentLang] || project.description.uk)}</p>
+                            <div class="project-tags">
+                                ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                            </div>
+                            ${project.github || project.download ? `
+                                <div class="project-links">
+                                    ${project.github ? `<a href="${project.github}" class="project-link" target="_blank" onclick="event.stopPropagation()">💻 <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
+                                    ${project.download ? `<a href="${project.download}" class="project-link" target="_blank" onclick="event.stopPropagation()">⬇️ Download</a>` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
         function setFilter(filter) {
             currentFilter = filter;
-
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
-
             renderProjects();
         }
 
-        // Filter by search
         function filterProjects() {
             currentSearch = document.getElementById('search-input').value;
             renderProjects();
         }
 
-        // Theme Toggle
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
@@ -611,13 +626,22 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // Language Switch
         function changeLanguage(lang) {
             localStorage.setItem('language', lang);
+            translatePage();
             renderProjects();
+            loadProfileName();
         }
 
-        // Initialize on page load
+        function loadProfileName() {
+            const aboutData = JSON.parse(localStorage.getItem('portfolioAbout'));
+            if (aboutData && aboutData.profile) {
+                const currentLang = localStorage.getItem('language') || 'uk';
+                const name = aboutData.profile.name[currentLang] || aboutData.profile.name.uk;
+                document.getElementById('footer-name').textContent = name;
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.body.setAttribute('data-theme', savedTheme);
@@ -626,7 +650,9 @@
             const savedLang = localStorage.getItem('language') || 'uk';
             document.querySelector('.lang-switch').value = savedLang;
 
+            translatePage();
             renderProjects();
+            loadProfileName();
         });
     </script>
 </body>

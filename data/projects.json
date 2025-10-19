@@ -1,0 +1,49 @@
+{
+  "projects": [
+    {
+      "id": 1760828161546,
+      "featured": true,
+      "title": {
+        "uk": "ZeroTip",
+        "en": "ZeroTip",
+        "pl": "ZeroTip",
+        "de": "ZeroTip"
+      },
+      "shortDescription": {
+        "uk": "ZeroTip — інді-гра, створена за 3 дні на тему Loop, де гравець — останній кур’єр у 3077 році, що долає зруйнований космос, використовуючи перемотку часу, телепорт і тіні минулих дій, щоб доставити піцу.",
+        "en": "ZeroTip — an indie game made in 3 days for the Loop theme, where you play as the last courier of 3077, rewinding time, teleporting, and using echoes of yourself to deliver pizza through a ruined cosmos.",
+        "pl": "ZeroTip — an indie game made in 3 days for the Loop theme, where you play as the last courier of 3077, rewinding time, teleporting, and using echoes of yourself to deliver pizza through a ruined cosmos.",
+        "de": "ZeroTip — an indie game made in 3 days for the Loop theme, where you play as the last courier of 3077, rewinding time, teleporting, and using echoes of yourself to deliver pizza through a ruined cosmos."
+      },
+      "description": {
+        "uk": "ZeroTip — це інді-гра, створена всього за 3 дні під час гейм-джему.\nТема джему — “Loop” (петля), і команда реалізувала її через механіку перемотки часу.\n\nУ грі представлено два рівні:\n\n🎓 Tutorial — навчальний рівень, де гравець опановує основні механіки;\n\n🚀 Основний рівень — повноцінна місія, що вимагає концентрації, реакції й терпіння. Вона складна, але саме це розпалює азарт і змушує спробувати знову.\n\nСюжет переносить нас у 3077 рік. Світ лежить у руїнах, цивілізація зникла, але доставка — святе.\nВи — останній кур’єр служби Glovo, що мчить крізь мертвий космос, доставляючи піцу єдиному вижилому клієнту.\nНа шляху — зоряні бурі, уламки планет і викривлення часу.\nАле цього разу щось пішло не так...\n\nМеханіки, які розкривають тему Loop:\n\n⏪ Перемотка часу — повернення у ключові моменти, щоб виправити помилки.\n\n✨ Телепорт — миттєве переміщення, яке відкриває нові шляхи.\n\n🧊 Тіні минулих дій — заморожені копії себе, що допомагають пройти перешкоди, створюючи унікальну часову стратегію.\n\nZeroTip — це гра про нескінченні спроби, часові парадокси й віру в те, що навіть у найтемнішу мить доставка все одно має відбутися. 🚴‍♂️🍕💫\n\nНаша команда:\n👨‍💻 Чекалюк Діма — програміст\n👨‍💻 Авдосьєв Ілля — програміст\n🎨 Кідін Вова — 3D-дизайнер",
+        "en": "ZeroTip is an indie game created in just 3 days during a game jam.\nThe jam’s theme was “Loop”, and our team brought it to life through the time rewind mechanic.\n\nThe game features two levels:\n\n🎓 Tutorial — a training level to master the basics;\n\n🚀 Main Level — a fully playable mission that’s challenging, fast-paced, and addictive.\n\nThe story takes place in the year 3077.\nThe world has fallen apart, civilization is gone — but delivery is sacred.\nYou are the last Glovo courier, racing through dead space to deliver pizza to the last hungry client.\nStar storms, debris, and time distortions stand in your way.\nBut this time... something went wrong.\n\nThe “Loop” theme is revealed through unique mechanics:\n\n⏪ Time rewind — return to crucial moments to fix mistakes;\n\n✨ Teleportation — instant movement through space;\n\n🧊 Echoes of yourself — frozen copies that remain in time, creating strategic possibilities.\n\nZeroTip is a game about endless retries, time paradoxes, and the belief that even at the end of the universe — the delivery must be made. 🚴‍♂️🍕💫\n\nOur Team:\n👨‍💻 Dmytro Chekaliuk — Programmer\n👨‍💻 Illia Avdosiev — Programmer\n🎨 Volodymyr Kidin — 3D Designer",
+        "pl": "ZeroTip is an indie game created in just 3 days during a game jam.\nThe jam’s theme was “Loop”, and our team brought it to life through the time rewind mechanic.\n\nThe game features two levels:\n\n🎓 Tutorial — a training level to master the basics;\n\n🚀 Main Level — a fully playable mission that’s challenging, fast-paced, and addictive.\n\nThe story takes place in the year 3077.\nThe world has fallen apart, civilization is gone — but delivery is sacred.\nYou are the last Glovo courier, racing through dead space to deliver pizza to the last hungry client.\nStar storms, debris, and time distortions stand in your way.\nBut this time... something went wrong.\n\nThe “Loop” theme is revealed through unique mechanics:\n\n⏪ Time rewind — return to crucial moments to fix mistakes;\n\n✨ Teleportation — instant movement through space;\n\n🧊 Echoes of yourself — frozen copies that remain in time, creating strategic possibilities.\n\nZeroTip is a game about endless retries, time paradoxes, and the belief that even at the end of the universe — the delivery must be made. 🚴‍♂️🍕💫\n\nOur Team:\n👨‍💻 Dmytro Chekaliuk — Programmer\n👨‍💻 Illia Avdosiev — Programmer\n🎨 Volodymyr Kidin — 3D Designer",
+        "de": "ZeroTip is an indie game created in just 3 days during a game jam.\nThe jam’s theme was “Loop”, and our team brought it to life through the time rewind mechanic.\n\nThe game features two levels:\n\n🎓 Tutorial — a training level to master the basics;\n\n🚀 Main Level — a fully playable mission that’s challenging, fast-paced, and addictive.\n\nThe story takes place in the year 3077.\nThe world has fallen apart, civilization is gone — but delivery is sacred.\nYou are the last Glovo courier, racing through dead space to deliver pizza to the last hungry client.\nStar storms, debris, and time distortions stand in your way.\nBut this time... something went wrong.\n\nThe “Loop” theme is revealed through unique mechanics:\n\n⏪ Time rewind — return to crucial moments to fix mistakes;\n\n✨ Teleportation — instant movement through space;\n\n🧊 Echoes of yourself — frozen copies that remain in time, creating strategic possibilities.\n\nZeroTip is a game about endless retries, time paradoxes, and the belief that even at the end of the universe — the delivery must be made. 🚴‍♂️🍕💫\n\nOur Team:\n👨‍💻 Dmytro Chekaliuk — Programmer\n👨‍💻 Illia Avdosiev — Programmer\n🎨 Volodymyr Kidin — 3D Designer"
+      },
+      "mainImage": "images/projects/ZeroTip/main.png",
+      "emoji": "📁",
+      "technologies": [
+        "Unity",
+        "C#",
+        "3D",
+        "Blender"
+      ],
+      "github": "",
+      "download": "https://shramix.itch.io/zerotip",
+      "category": "games",
+      "status": "Завершено",
+      "videos": [
+        "https://www.youtube.com/embed/UXYsA7TgIHQ"
+      ],
+      "gallery": [
+        "images/projects/ZeroTip/1.jpg",
+        "images/projects/ZeroTip/2.jpg",
+        "images/projects/ZeroTip/3.jpg",
+        "images/projects/ZeroTip/4.jpg",
+        "images/projects/ZeroTip/tutorial.jpg"
+      ],
+      "features": []
+    }
+  ]
+}

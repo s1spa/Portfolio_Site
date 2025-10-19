@@ -523,65 +523,77 @@
 
     <script src="js/i18n.js"></script>
     <script>
-        // Load featured projects from localStorage
-        function loadFeaturedProjects() {
+        // Load featured projects from JSON file
+        async function loadFeaturedProjects() {
             const container = document.getElementById('featured-projects');
             const currentLang = localStorage.getItem('language') || 'uk';
 
-            // Get data from localStorage
-            const projectsData = JSON.parse(localStorage.getItem('portfolioProjects'));
+            try {
+                const response = await fetch('data/projects.json');
+                const projectsData = await response.json();
 
-            if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
-                container.innerHTML = `
-                    <div class="no-projects">
-                        <p data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</p>
-                        <p>${t('projectsPage.goToAdmin')} <a href="admin.html" data-i18n="projectsPage.adminPanel">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Get featured projects
-            const featuredProjects = projectsData.projects.filter(p => p.featured).slice(0, 3);
-
-            if (featuredProjects.length === 0) {
-                container.innerHTML = `
-                    <div class="no-projects">
-                        <p>${t('projectsPage.noProjects')}</p>
-                        <p>${t('projectsPage.goToAdmin')} <a href="admin.html">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Render projects
-            container.innerHTML = featuredProjects.map(project => `
-                <div class="project-card">
-                    <div class="project-image">
-                        ${project.image ?
-                    `<img src="${project.image}" alt="${project.title[currentLang] || project.title.uk}">` :
-                    `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-projects">
+                            <p data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</p>
+                            <p>${t('projectsPage.goToAdmin')} <a href="admin.html" data-i18n="projectsPage.adminPanel">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
+                        </div>
+                    `;
+                    return;
                 }
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
-                        <p class="project-description">${project.description[currentLang] || project.description.uk}</p>
-                        <div class="project-tags">
-                            ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+
+                const featuredProjects = projectsData.projects.filter(p => p.featured).slice(0, 3);
+
+                if (featuredProjects.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-projects">
+                            <p>${t('projectsPage.noProjects')}</p>
+                            <p>${t('projectsPage.goToAdmin')} <a href="admin.html">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = featuredProjects.map(project => `
+                    <div class="project-card" onclick="window.location.href='project-details.html?id=${project.id}'" style="cursor: pointer;">
+                        <div class="project-image">
+                            ${project.mainImage ?
+                                        `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` :
+                                        `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                                    }
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
+                            <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : (project.description[currentLang] || project.description.uk)}</p>
+                            <div class="project-tags">
+                                ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="no-projects">
+                        <p>Помилка завантаження проєктів</p>
+                        <p>${t('projectsPage.goToAdmin')} <a href="admin.html">${t('projectsPage.adminPanel')}</a> та експортуй <code>projects.json</code> у папку <code>data/</code></p>
+                    </div>
+                `;
+            }
         }
 
-        // Load profile name
-        function loadProfileName() {
-            const aboutData = JSON.parse(localStorage.getItem('portfolioAbout'));
-            if (aboutData && aboutData.profile) {
-                const currentLang = localStorage.getItem('language') || 'uk';
-                const name = aboutData.profile.name[currentLang] || aboutData.profile.name.uk;
-                document.getElementById('profile-name').textContent = name;
-                document.getElementById('footer-name').textContent = name;
+        // Load profile name from JSON file
+        async function loadProfileName() {
+            try {
+                const response = await fetch('data/about.json');
+                const aboutData = await response.json();
+                if (aboutData && aboutData.profile) {
+                    const currentLang = localStorage.getItem('language') || 'uk';
+                    const name = aboutData.profile.name[currentLang] || aboutData.profile.name.uk;
+                    document.getElementById('profile-name').textContent = name;
+                    document.getElementById('footer-name').textContent = name;
+                }
+            } catch (error) {
+                console.log('About data not found');
             }
         }
 

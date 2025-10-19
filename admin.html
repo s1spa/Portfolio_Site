@@ -542,43 +542,41 @@
                             <label>Назва (EN) *</label>
                             <input type="text" name="title_en" required>
                         </div>
-                        <div class="form-group">
-                            <label>Назва (PL)</label>
-                            <input type="text" name="title_pl">
-                        </div>
-                        <div class="form-group">
-                            <label>Назва (DE)</label>
-                            <input type="text" name="title_de">
-                        </div>
                     </div>
-
+                
                     <div class="form-grid">
                         <div class="form-group full-width">
-                            <label>Опис (UA) *</label>
+                            <label>📝 Короткий опис (UA) * <small style="color: var(--text-secondary);">(1-2 речення)</small></label>
+                            <textarea name="short_description_uk" rows="2" required
+                                placeholder="Короткий опис проєкту для попереднього перегляду"></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>📝 Короткий опис (EN) * <small style="color: var(--text-secondary);">(1-2 sentences)</small></label>
+                            <textarea name="short_description_en" rows="2" required
+                                placeholder="Short project description for preview"></textarea>
+                        </div>
+                    </div>
+                
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>📄 Повний опис (UA) *</label>
                             <textarea name="description_uk" required></textarea>
                         </div>
                         <div class="form-group full-width">
-                            <label>Опис (EN) *</label>
+                            <label>📄 Повний опис (EN) *</label>
                             <textarea name="description_en" required></textarea>
                         </div>
-                        <div class="form-group full-width">
-                            <label>Опис (PL)</label>
-                            <textarea name="description_pl"></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Опис (DE)</label>
-                            <textarea name="description_de"></textarea>
-                        </div>
                     </div>
-
+                
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Емодзі (якщо немає фото)</label>
-                            <input type="text" name="emoji" placeholder="🎮" maxlength="2">
+                            <label>📁 Емодзі (якщо немає фото)</label>
+                            <input type="text" name="emoji" placeholder="📁" maxlength="2">
                         </div>
                         <div class="form-group">
-                            <label>Посилання на зображення</label>
-                            <input type="text" name="image" placeholder="images/projects/project.jpg">
+                            <label>🖼️ Головне фото * <small style="color: var(--text-secondary);">(показується у
+                                    списку)</small></label>
+                            <input type="text" name="main_image" placeholder="images/projects/project-name/main.jpg" required>
                         </div>
                         <div class="form-group">
                             <label>Категорія *</label>
@@ -597,19 +595,19 @@
                             </select>
                         </div>
                     </div>
-
+                
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Технології (через кому)</label>
-                            <input type="text" name="technologies" placeholder="Unity, C#, UI/UX">
+                            <label>Технології (через кому) *</label>
+                            <input type="text" name="technologies" placeholder="Unity, C#, UI/UX" required>
                         </div>
                         <div class="form-group">
                             <label>GitHub посилання</label>
                             <input type="text" name="github" placeholder="https://github.com/...">
                         </div>
                         <div class="form-group">
-                            <label>Demo посилання</label>
-                            <input type="text" name="demo" placeholder="https://...">
+                            <label>⬇️ Download посилання</label>
+                            <input type="text" name="download" placeholder="https://...">
                         </div>
                         <div class="form-group">
                             <label>
@@ -618,7 +616,39 @@
                             </label>
                         </div>
                     </div>
-
+                
+                    <div class="form-group full-width">
+                        <label>📹 Відео (YouTube/Vimeo)</label>
+                        <div id="videos-container"></div>
+                        <button type="button" onclick="addVideoField()" class="btn btn-secondary"
+                            style="margin-top: 0.5rem; width: 100%;">
+                            ➕ Додати відео
+                        </button>
+                        <small style="color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+                            Будь-який YouTube URL автоматично конвертується в embed формат
+                        </small>
+                    </div>
+                
+                    <div class="form-group full-width">
+                        <label>🖼️ Галерея зображень (додаткові скріншоти)</label>
+                        <div id="gallery-container"></div>
+                        <button type="button" onclick="addGalleryField()" class="btn btn-secondary"
+                            style="margin-top: 0.5rem; width: 100%;">
+                            ➕ Додати зображення
+                        </button>
+                        <small style="color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+                            Формат: images/projects/project-name/screenshot1.jpg
+                        </small>
+                    </div>
+                
+                    <div class="form-group full-width">
+                        <label>✨ Особливості проєкту (опціонально)</label>
+                        <div id="features-container"></div>
+                        <button type="button" onclick="addFeature()" class="btn btn-secondary" style="margin-top: 0.5rem; width: 100%;">
+                            ➕ Додати особливість
+                        </button>
+                    </div>
+                
                     <button type="submit" class="btn btn-primary">➕ Додати проєкт</button>
                 </form>
             </div>
@@ -812,6 +842,7 @@
             </div>
             <form id="edit-project-form">
                 <input type="hidden" id="edit-project-id">
+            
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Назва (UA) *</label>
@@ -821,43 +852,38 @@
                         <label>Назва (EN) *</label>
                         <input type="text" id="edit_title_en" required>
                     </div>
-                    <div class="form-group">
-                        <label>Назва (PL)</label>
-                        <input type="text" id="edit_title_pl">
-                    </div>
-                    <div class="form-group">
-                        <label>Назва (DE)</label>
-                        <input type="text" id="edit_title_de">
-                    </div>
                 </div>
-
+            
                 <div class="form-grid">
                     <div class="form-group full-width">
-                        <label>Опис (UA) *</label>
+                        <label>📝 Короткий опис (UA) *</label>
+                        <textarea id="edit_short_description_uk" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>📝 Короткий опис (EN) *</label>
+                        <textarea id="edit_short_description_en" rows="2" required></textarea>
+                    </div>
+                </div>
+            
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>📄 Повний опис (UA) *</label>
                         <textarea id="edit_description_uk" required></textarea>
                     </div>
                     <div class="form-group full-width">
-                        <label>Опис (EN) *</label>
+                        <label>📄 Повний опис (EN) *</label>
                         <textarea id="edit_description_en" required></textarea>
                     </div>
-                    <div class="form-group full-width">
-                        <label>Опис (PL)</label>
-                        <textarea id="edit_description_pl"></textarea>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Опис (DE)</label>
-                        <textarea id="edit_description_de"></textarea>
-                    </div>
                 </div>
-
+            
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Емодзі</label>
                         <input type="text" id="edit_emoji" maxlength="2">
                     </div>
                     <div class="form-group">
-                        <label>Зображення</label>
-                        <input type="text" id="edit_image">
+                        <label>🖼️ Головне фото *</label>
+                        <input type="text" id="edit_main_image" required>
                     </div>
                     <div class="form-group">
                         <label>Категорія *</label>
@@ -876,10 +902,10 @@
                         </select>
                     </div>
                 </div>
-
+            
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>Технології (через кому)</label>
+                        <label>Технології</label>
                         <input type="text" id="edit_technologies">
                     </div>
                     <div class="form-group">
@@ -887,8 +913,8 @@
                         <input type="text" id="edit_github">
                     </div>
                     <div class="form-group">
-                        <label>Demo</label>
-                        <input type="text" id="edit_demo">
+                        <label>⬇️ Download</label>
+                        <input type="text" id="edit_download">
                     </div>
                     <div class="form-group">
                         <label>
@@ -897,7 +923,34 @@
                         </label>
                     </div>
                 </div>
-
+            
+                <div class="form-group full-width">
+                    <label>📹 Відео (YouTube/Vimeo)</label>
+                    <div id="edit-videos-container"></div>
+                    <button type="button" onclick="addEditVideoField()" class="btn btn-secondary"
+                        style="margin-top: 0.5rem; width: 100%;">
+                        ➕ Додати відео
+                    </button>
+                </div>
+            
+                <div class="form-group full-width">
+                    <label>🖼️ Галерея зображень</label>
+                    <div id="edit-gallery-container"></div>
+                    <button type="button" onclick="addEditGalleryField()" class="btn btn-secondary"
+                        style="margin-top: 0.5rem; width: 100%;">
+                        ➕ Додати зображення
+                    </button>
+                </div>
+            
+                <div class="form-group full-width">
+                    <label>✨ Особливості проєкту</label>
+                    <div id="edit-features-container"></div>
+                    <button type="button" onclick="addEditFeature()" class="btn btn-secondary"
+                        style="margin-top: 0.5rem; width: 100%;">
+                        ➕ Додати особливість
+                    </button>
+                </div>
+            
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                     <button type="submit" class="btn btn-success">💾 Зберегти зміни</button>
                     <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Скасувати</button>
@@ -909,6 +962,27 @@
     <script>
         let projectsData = JSON.parse(localStorage.getItem('portfolioProjects')) || { projects: [] };
         let aboutData = JSON.parse(localStorage.getItem('portfolioAbout')) || getDefaultAboutData();
+
+        function convertToYouTubeEmbed(url) {
+                if (!url) return '';
+
+                // Вже embed формат
+                if (url.includes('youtube.com/embed/')) return url;
+
+                // Звичайний YouTube URL
+                let videoId = '';
+                if (url.includes('youtu.be/')) {
+                    videoId = url.split('youtu.be/')[1].split('?')[0];
+                } else if (url.includes('youtube.com/watch?v=')) {
+                    videoId = url.split('v=')[1].split('&')[0];
+                }
+
+                if (videoId) {
+                    return `https://www.youtube.com/embed/${videoId}`;
+                }
+
+                return url; // Якщо не YouTube, повертаємо як є
+            }
 
         function getDefaultAboutData() {
             return {
@@ -981,40 +1055,61 @@
 
         // Projects Management
         document.getElementById('add-project-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
+                e.preventDefault();
+                const formData = new FormData(e.target);
 
-            const newProject = {
-                id: Date.now(),
-                featured: formData.get('featured') === 'on',
-                title: {
-                    uk: formData.get('title_uk'),
-                    en: formData.get('title_en'),
-                    pl: formData.get('title_pl') || formData.get('title_en'),
-                    de: formData.get('title_de') || formData.get('title_en')
-                },
-                description: {
-                    uk: formData.get('description_uk'),
-                    en: formData.get('description_en'),
-                    pl: formData.get('description_pl') || formData.get('description_en'),
-                    de: formData.get('description_de') || formData.get('description_en')
-                },
-                image: formData.get('image'),
-                emoji: formData.get('emoji') || '📁',
-                technologies: formData.get('technologies').split(',').map(t => t.trim()).filter(t => t),
-                github: formData.get('github'),
-                demo: formData.get('demo'),
-                category: formData.get('category'),
-                status: formData.get('status')
-            };
+                // Конвертуємо всі відео URL
+                const videos = getVideosFromForm().map(url => convertToYouTubeEmbed(url));
 
-            projectsData.projects.push(newProject);
-            localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+                const newProject = {
+                    id: Date.now(),
+                    featured: formData.get('featured') === 'on',
+                    title: {
+                        uk: formData.get('title_uk'),
+                        en: formData.get('title_en'),
+                        pl: formData.get('title_en'), // Fallback на EN
+                        de: formData.get('title_en')  // Fallback на EN
+                    },
+                    shortDescription: {
+                        uk: formData.get('short_description_uk'),
+                        en: formData.get('short_description_en'),
+                        pl: formData.get('short_description_en'),
+                        de: formData.get('short_description_en')
+                    },
+                    description: {
+                        uk: formData.get('description_uk'),
+                        en: formData.get('description_en'),
+                        pl: formData.get('description_en'),
+                        de: formData.get('description_en')
+                    },
+                    mainImage: formData.get('main_image'), // Головне фото
+                    emoji: formData.get('emoji') || '📁',
+                    technologies: formData.get('technologies').split(',').map(t => t.trim()).filter(t => t),
+                    github: formData.get('github'),
+                    download: formData.get('download'), // Замість demo
+                    category: formData.get('category'),
+                    status: formData.get('status'),
+                    videos: videos, // Конвертовані відео
+                    gallery: getGalleryFromForm(),
+                    features: getFeaturesFromForm()
+                };
 
-            showAlert('success', '✅ Проєкт успішно додано!');
-            e.target.reset();
-            loadProjects();
-        });
+                projectsData.projects.push(newProject);
+                localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+
+                showAlert('success', '✅ Проєкт успішно додано!');
+                e.target.reset();
+
+                // Очищення динамічних полів
+                document.getElementById('videos-container').innerHTML = '';
+                document.getElementById('gallery-container').innerHTML = '';
+                document.getElementById('features-container').innerHTML = '';
+                featuresData = [];
+                galleryCount = 0;
+                videoCount = 0;
+
+                loadProjects();
+            });
 
         function loadProjects() {
             const container = document.getElementById('projects-list');
@@ -1042,81 +1137,281 @@
             `).join('');
         }
 
-        function editProject(id) {
-            const project = projectsData.projects.find(p => p.id === id);
-            if (!project) return;
+        let editGalleryCount = 0;
+            let editVideoCount = 0;
+            let editFeaturesData = [];
 
-            document.getElementById('edit-project-id').value = id;
-            document.getElementById('edit_title_uk').value = project.title.uk;
-            document.getElementById('edit_title_en').value = project.title.en;
-            document.getElementById('edit_title_pl').value = project.title.pl || '';
-            document.getElementById('edit_title_de').value = project.title.de || '';
-            document.getElementById('edit_description_uk').value = project.description.uk;
-            document.getElementById('edit_description_en').value = project.description.en;
-            document.getElementById('edit_description_pl').value = project.description.pl || '';
-            document.getElementById('edit_description_de').value = project.description.de || '';
-            document.getElementById('edit_emoji').value = project.emoji;
-            document.getElementById('edit_image').value = project.image;
-            document.getElementById('edit_category').value = project.category;
-            document.getElementById('edit_status').value = project.status || '';
-            document.getElementById('edit_technologies').value = project.technologies.join(', ');
-            document.getElementById('edit_github').value = project.github;
-            document.getElementById('edit_demo').value = project.demo;
-            document.getElementById('edit_featured').checked = project.featured;
+            function addEditVideoField(value = '') {
+                const container = document.getElementById('edit-videos-container');
+                const fieldId = `edit-video-${editVideoCount++}`;
 
-            document.getElementById('edit-modal').classList.add('active');
-        }
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'video-field';
+                fieldDiv.id = fieldId;
+                fieldDiv.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;';
 
-        function closeEditModal() {
-            document.getElementById('edit-modal').classList.remove('active');
-        }
+                fieldDiv.innerHTML = `
+        <input type="text" 
+               class="edit-video-input" 
+               value="${value}"
+               placeholder="https://www.youtube.com/embed/VIDEO_ID" 
+               style="flex: 1; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+        <button type="button" onclick="document.getElementById('${fieldId}').remove()" 
+                style="padding: 0.8rem 1rem; background: var(--danger); color: white; border: none; border-radius: 8px; cursor: pointer;">
+            🗑️
+        </button>
+    `;
 
-        document.getElementById('edit-project-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const id = parseInt(document.getElementById('edit-project-id').value);
-            const projectIndex = projectsData.projects.findIndex(p => p.id === id);
-
-            if (projectIndex === -1) return;
-
-            projectsData.projects[projectIndex] = {
-                id: id,
-                featured: document.getElementById('edit_featured').checked,
-                title: {
-                    uk: document.getElementById('edit_title_uk').value,
-                    en: document.getElementById('edit_title_en').value,
-                    pl: document.getElementById('edit_title_pl').value || document.getElementById('edit_title_en').value,
-                    de: document.getElementById('edit_title_de').value || document.getElementById('edit_title_en').value
-                },
-                description: {
-                    uk: document.getElementById('edit_description_uk').value,
-                    en: document.getElementById('edit_description_en').value,
-                    pl: document.getElementById('edit_description_pl').value || document.getElementById('edit_description_en').value,
-                    de: document.getElementById('edit_description_de').value || document.getElementById('edit_description_en').value
-                },
-                image: document.getElementById('edit_image').value,
-                emoji: document.getElementById('edit_emoji').value || '📁',
-                technologies: document.getElementById('edit_technologies').value.split(',').map(t => t.trim()).filter(t => t),
-                github: document.getElementById('edit_github').value,
-                demo: document.getElementById('edit_demo').value,
-                category: document.getElementById('edit_category').value,
-                status: document.getElementById('edit_status').value
-            };
-
-            localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
-            showAlert('success', '✅ Проєкт оновлено!');
-            loadProjects();
-            closeEditModal();
-        });
-
-        function deleteProject(id) {
-            if (confirm('Ти впевнений? Це видалить проєкт назавжди!')) {
-                projectsData.projects = projectsData.projects.filter(p => p.id !== id);
-                localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
-                showAlert('success', '✅ Проєкт видалено!');
-                loadProjects();
+                container.appendChild(fieldDiv);
             }
-        }
 
+            function addEditGalleryField(value = '') {
+                const container = document.getElementById('edit-gallery-container');
+                const fieldId = `edit-gallery-${editGalleryCount++}`;
+
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'gallery-field';
+                fieldDiv.id = fieldId;
+                fieldDiv.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;';
+
+                fieldDiv.innerHTML = `
+        <input type="text" 
+               class="edit-gallery-input" 
+               value="${value}"
+               placeholder="images/projects/screenshot.jpg" 
+               style="flex: 1; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+        <button type="button" onclick="document.getElementById('${fieldId}').remove()" 
+                style="padding: 0.8rem 1rem; background: var(--danger); color: white; border: none; border-radius: 8px; cursor: pointer;">
+            🗑️
+        </button>
+    `;
+
+                container.appendChild(fieldDiv);
+            }
+
+            function addEditFeature(feature = null) {
+                const index = editFeaturesData.length;
+                editFeaturesData.push(feature || {
+                    icon: '✓',
+                    title: { uk: '', en: '', pl: '', de: '' },
+                    description: { uk: '', en: '', pl: '', de: '' }
+                });
+
+                const container = document.getElementById('edit-features-container');
+                const featureBlock = document.createElement('div');
+                featureBlock.className = 'edit-feature-block';
+                featureBlock.id = `edit-feature-${index}`;
+                featureBlock.style.cssText = 'background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;';
+
+                const f = editFeaturesData[index];
+
+                featureBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="color: var(--accent);">✨ Особливість #${index + 1}</h4>
+            <button type="button" onclick="document.getElementById('edit-feature-${index}').remove()" 
+                    class="btn btn-danger" style="padding: 0.5rem 1rem;">
+                🗑️ Видалити
+            </button>
+        </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Іконка</label>
+                <input type="text" class="edit-feature-icon" value="${f.icon}" maxlength="2" 
+                       style="padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+            </div>
+            <div class="form-group">
+                <label>Назва (UA)</label>
+                <input type="text" class="edit-feature-title-uk" value="${f.title.uk}" 
+                       style="padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+            </div>
+            <div class="form-group">
+                <label>Назва (EN)</label>
+                <input type="text" class="edit-feature-title-en" value="${f.title.en}" 
+                       style="padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+            </div>
+            <div class="form-group full-width">
+                <label>Опис (UA)</label>
+                <textarea class="edit-feature-desc-uk" 
+                          style="min-height: 80px; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">${f.description.uk}</textarea>
+            </div>
+            <div class="form-group full-width">
+                <label>Опис (EN)</label>
+                <textarea class="edit-feature-desc-en" 
+                          style="min-height: 80px; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">${f.description.en}</textarea>
+            </div>
+        </div>
+    `;
+
+                container.appendChild(featureBlock);
+            }
+
+            function getEditVideos() {
+                const inputs = document.querySelectorAll('.edit-video-input');
+                return Array.from(inputs).map(input => input.value.trim()).filter(url => url);
+            }
+
+            function getEditGallery() {
+                const inputs = document.querySelectorAll('.edit-gallery-input');
+                return Array.from(inputs).map(input => input.value.trim()).filter(url => url);
+            }
+
+            function getEditFeatures() {
+                const features = [];
+                const blocks = document.querySelectorAll('.edit-feature-block');
+
+                blocks.forEach(block => {
+                    const icon = block.querySelector('.edit-feature-icon').value;
+                    const titleUk = block.querySelector('.edit-feature-title-uk').value;
+                    const titleEn = block.querySelector('.edit-feature-title-en').value;
+                    const descUk = block.querySelector('.edit-feature-desc-uk').value;
+                    const descEn = block.querySelector('.edit-feature-desc-en').value;
+
+                    if (titleUk.trim()) {
+                        features.push({
+                            icon: icon || '✓',
+                            title: {
+                                uk: titleUk,
+                                en: titleEn || titleUk,
+                                pl: titleEn || titleUk,
+                                de: titleEn || titleUk
+                            },
+                            description: {
+                                uk: descUk,
+                                en: descEn || descUk,
+                                pl: descEn || descUk,
+                                de: descEn || descUk
+                            }
+                        });
+                    }
+                });
+
+                return features;
+            }
+
+        function editProject(id) {
+                const project = projectsData.projects.find(p => p.id === id);
+                if (!project) {
+                    console.error('Проєкт не знайдено:', id);
+                    showAlert('error', '❌ Проєкт не знайдено');
+                    return;
+                }
+
+                console.log('Редагування проєкту:', project);
+
+                try {
+                    document.getElementById('edit-project-id').value = id;
+                    document.getElementById('edit_title_uk').value = project.title?.uk || '';
+                    document.getElementById('edit_title_en').value = project.title?.en || '';
+                    document.getElementById('edit_short_description_uk').value = project.shortDescription?.uk || '';
+                    document.getElementById('edit_short_description_en').value = project.shortDescription?.en || '';
+                    document.getElementById('edit_description_uk').value = project.description?.uk || '';
+                    document.getElementById('edit_description_en').value = project.description?.en || '';
+                    document.getElementById('edit_emoji').value = project.emoji || '📁';
+                    document.getElementById('edit_main_image').value = project.mainImage || project.image || '';
+                    document.getElementById('edit_category').value = project.category || 'games';
+                    document.getElementById('edit_status').value = project.status || '';
+                    document.getElementById('edit_technologies').value = project.technologies?.join(', ') || '';
+                    document.getElementById('edit_github').value = project.github || '';
+                    document.getElementById('edit_download').value = project.download || project.demo || '';
+                    document.getElementById('edit_featured').checked = project.featured || false;
+
+                    // Відео
+                    document.getElementById('edit-videos-container').innerHTML = '';
+                    editVideoCount = 0;
+                    if (project.videos && project.videos.length > 0) {
+                        project.videos.forEach(video => addEditVideoField(video));
+                    }
+
+                    // Галерея
+                    document.getElementById('edit-gallery-container').innerHTML = '';
+                    editGalleryCount = 0;
+                    if (project.gallery && project.gallery.length > 0) {
+                        project.gallery.forEach(img => addEditGalleryField(img));
+                    }
+
+                    // Особливості
+                    document.getElementById('edit-features-container').innerHTML = '';
+                    editFeaturesData = [];
+                    if (project.features && project.features.length > 0) {
+                        project.features.forEach(feature => addEditFeature(feature));
+                    }
+
+                    document.getElementById('edit-modal').classList.add('active');
+                } catch (error) {
+                    console.error('Помилка при редагуванні:', error);
+                    showAlert('error', '❌ Помилка: ' + error.message);
+                }
+            }
+
+            function deleteProject(id) {
+                    if (!confirm('Ви впевнені, що хочете видалити цей проєкт?')) return;
+
+                    try {
+                        const index = projectsData.projects.findIndex(p => p.id === id);
+                        if (index !== -1) {
+                            projectsData.projects.splice(index, 1);
+                            localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+                            showAlert('success', '🗑️ Проєкт видалено!');
+                            loadProjects();
+                        } else {
+                            showAlert('error', '❌ Проєкт не знайдено');
+                        }
+                    } catch (error) {
+                        console.error('Помилка при видаленні:', error);
+                        showAlert('error', '❌ Помилка: ' + error.message);
+                    }
+                }
+            function closeEditModal() {
+                document.getElementById('edit-modal').classList.remove('active');
+            }
+        document.getElementById('edit-project-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const id = parseInt(document.getElementById('edit-project-id').value);
+                const projectIndex = projectsData.projects.findIndex(p => p.id === id);
+
+                if (projectIndex === -1) return;
+
+                // Конвертуємо відео
+                const videos = getEditVideos().map(url => convertToYouTubeEmbed(url));
+
+                projectsData.projects[projectIndex] = {
+                    id: id,
+                    featured: document.getElementById('edit_featured').checked,
+                    title: {
+                        uk: document.getElementById('edit_title_uk').value,
+                        en: document.getElementById('edit_title_en').value,
+                        pl: document.getElementById('edit_title_en').value,
+                        de: document.getElementById('edit_title_en').value
+                    },
+                    shortDescription: {
+                        uk: document.getElementById('edit_short_description_uk').value,
+                        en: document.getElementById('edit_short_description_en').value,
+                        pl: document.getElementById('edit_short_description_en').value,
+                        de: document.getElementById('edit_short_description_en').value
+                    },
+                    description: {
+                        uk: document.getElementById('edit_description_uk').value,
+                        en: document.getElementById('edit_description_en').value,
+                        pl: document.getElementById('edit_description_en').value,
+                        de: document.getElementById('edit_description_en').value
+                    },
+                    mainImage: document.getElementById('edit_main_image').value,
+                    emoji: document.getElementById('edit_emoji').value || '📁',
+                    technologies: document.getElementById('edit_technologies').value.split(',').map(t => t.trim()).filter(t => t),
+                    github: document.getElementById('edit_github').value,
+                    download: document.getElementById('edit_download').value,
+                    category: document.getElementById('edit_category').value,
+                    status: document.getElementById('edit_status').value,
+                    videos: videos,
+                    gallery: getEditGallery(),
+                    features: getEditFeatures()
+                };
+
+                localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+                showAlert('success', '✅ Проєкт оновлено!');
+                loadProjects();
+                closeEditModal();
+            });
         // Profile Management
         function loadProfile() {
             document.getElementById('profile_name_uk').value = aboutData.profile.name.uk;
@@ -1387,6 +1682,172 @@
                 setTimeout(() => alert.remove(), 3000);
             }
         }
+
+            // === ГАЛЕРЕЯ ===
+            let galleryCount = 0;
+
+            function addGalleryField() {
+                const container = document.getElementById('gallery-container');
+                const fieldId = `gallery-${galleryCount++}`;
+
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'gallery-field';
+                fieldDiv.id = fieldId;
+                fieldDiv.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;';
+
+                fieldDiv.innerHTML = `
+        <input type="text" 
+               class="gallery-input" 
+               placeholder="images/projects/screenshot.jpg" 
+               style="flex: 1; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+        <button type="button" onclick="removeGalleryField('${fieldId}')" 
+                style="padding: 0.8rem 1rem; background: var(--danger); color: white; border: none; border-radius: 8px; cursor: pointer; transition: var(--transition);">
+            🗑️
+        </button>
+    `;
+
+                container.appendChild(fieldDiv);
+            }
+
+            function removeGalleryField(fieldId) {
+                document.getElementById(fieldId).remove();
+            }
+
+            function getGalleryFromForm() {
+                const inputs = document.querySelectorAll('.gallery-input');
+                return Array.from(inputs)
+                    .map(input => input.value.trim())
+                    .filter(url => url);
+            }
+
+            // === ВІДЕО ===
+            let videoCount = 0;
+
+            function addVideoField() {
+                const container = document.getElementById('videos-container');
+                const fieldId = `video-${videoCount++}`;
+
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'video-field';
+                fieldDiv.id = fieldId;
+                fieldDiv.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;';
+
+                fieldDiv.innerHTML = `
+        <input type="text" 
+               class="video-input" 
+               placeholder="https://www.youtube.com/embed/VIDEO_ID" 
+               style="flex: 1; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+        <button type="button" onclick="removeVideoField('${fieldId}')" 
+                style="padding: 0.8rem 1rem; background: var(--danger); color: white; border: none; border-radius: 8px; cursor: pointer; transition: var(--transition);">
+            🗑️
+        </button>
+    `;
+
+                container.appendChild(fieldDiv);
+            }
+
+            function removeVideoField(fieldId) {
+                document.getElementById(fieldId).remove();
+            }
+
+            function getVideosFromForm() {
+                const inputs = document.querySelectorAll('.video-input');
+                return Array.from(inputs)
+                    .map(input => input.value.trim())
+                    .filter(url => url);
+            }
+
+            // === ОСОБЛИВОСТІ ===
+            let featuresData = [];
+
+            function addFeature() {
+                const index = featuresData.length;
+                featuresData.push({
+                    icon: '✓',
+                    title: { uk: '', en: '', pl: '', de: '' },
+                    description: { uk: '', en: '', pl: '', de: '' }
+                });
+
+                const container = document.getElementById('features-container');
+                const featureBlock = document.createElement('div');
+                featureBlock.className = 'feature-block';
+                featureBlock.id = `feature-${index}`;
+                featureBlock.style.cssText = 'background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem;';
+                featureBlock.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="color: var(--accent);">✨ Особливість #${index + 1}</h4>
+            <button type="button" onclick="removeFeature(${index})" class="btn btn-danger" style="padding: 0.5rem 1rem;">
+                🗑️ Видалити
+            </button>
+        </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Іконка (емодзі)</label>
+                <input type="text" data-feature-index="${index}" data-feature-field="icon" value="✓" maxlength="2" 
+                       style="padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+            </div>
+            <div class="form-group">
+                <label>Назва (UA)</label>
+                <input type="text" data-feature-index="${index}" data-feature-field="title.uk" 
+                       style="padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+            </div>
+            <div class="form-group">
+                <label>Назва (EN)</label>
+                <input type="text" data-feature-index="${index}" data-feature-field="title.en" 
+                       style="padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);">
+            </div>
+            <div class="form-group full-width">
+                <label>Опис (UA)</label>
+                <textarea data-feature-index="${index}" data-feature-field="description.uk" 
+                          style="min-height: 80px; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);"></textarea>
+            </div>
+            <div class="form-group full-width">
+                <label>Опис (EN)</label>
+                <textarea data-feature-index="${index}" data-feature-field="description.en" 
+                          style="min-height: 80px; padding: 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary);"></textarea>
+            </div>
+        </div>
+    `;
+                container.appendChild(featureBlock);
+            }
+
+            function removeFeature(index) {
+                document.getElementById(`feature-${index}`).remove();
+                featuresData.splice(index, 1);
+            }
+
+            function getFeaturesFromForm() {
+                const features = [];
+                const featureBlocks = document.querySelectorAll('.feature-block');
+
+                featureBlocks.forEach((block, index) => {
+                    const icon = block.querySelector('[data-feature-field="icon"]');
+                    const titleUk = block.querySelector('[data-feature-field="title.uk"]');
+                    const titleEn = block.querySelector('[data-feature-field="title.en"]');
+                    const descUk = block.querySelector('[data-feature-field="description.uk"]');
+                    const descEn = block.querySelector('[data-feature-field="description.en"]');
+
+                    if (titleUk && titleUk.value.trim()) {
+                        features.push({
+                            icon: icon ? icon.value : '✓',
+                            title: {
+                                uk: titleUk.value,
+                                en: titleEn ? titleEn.value : titleUk.value,
+                                pl: titleEn ? titleEn.value : titleUk.value,
+                                de: titleEn ? titleEn.value : titleUk.value
+                            },
+                            description: {
+                                uk: descUk ? descUk.value : '',
+                                en: descEn ? descEn.value : descUk.value,
+                                pl: descEn ? descEn.value : descUk.value,
+                                de: descEn ? descEn.value : descUk.value
+                            }
+                        });
+                    }
+                });
+
+                return features;
+            }
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
