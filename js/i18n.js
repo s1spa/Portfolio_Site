@@ -51,6 +51,8 @@ const translations = {
             skills: "Навички",
             education: "Освіта",
             goals: "Мої цілі",
+            shortTermGoal: "Короткострокова ціль",  // ДОДАТИ
+            longTermGoal: "Довгострокова ціль",      // ДОДАТИ
             contacts: "Контакти",
             contactSubtitle: "Найшвидше — лист на пошту або повідомлення в Telegram.",
             noData: "Дані профілю відсутні",
@@ -121,6 +123,8 @@ const translations = {
             skills: "Skills",
             education: "Education",
             goals: "My Goals",
+            shortTermGoal: "Short-term goal",  // ДОДАТИ
+            longTermGoal: "Long-term goal",    // ДОДАТИ
             contacts: "Contacts",
             contactSubtitle: "The fastest way — email or Telegram message.",
             noData: "Profile data is missing",
@@ -191,6 +195,8 @@ const translations = {
             skills: "Umiejętności",
             education: "Edukacja",
             goals: "Moje cele",
+             shortTermGoal: "Cel krótkoterminowy",  // ДОДАТИ
+            longTermGoal: "Cel długoterminowy",    // ДОДАТИ
             contacts: "Kontakt",
             contactSubtitle: "Najszybszy sposób — e-mail lub wiadomość na Telegramie.",
             noData: "Brak danych profilu",
@@ -261,6 +267,8 @@ const translations = {
             skills: "Fähigkeiten",
             education: "Bildung",
             goals: "Meine Ziele",
+            shortTermGoal: "Kurzfristiges Ziel",   // ДОДАТИ
+            longTermGoal: "Langfristiges Ziel",    // ДОДАТИ
             contacts: "Kontakte",
             contactSubtitle: "Der schnellste Weg — E-Mail oder Telegram-Nachricht.",
             noData: "Profildaten fehlen",
