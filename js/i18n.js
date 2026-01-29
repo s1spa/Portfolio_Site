@@ -291,7 +291,7 @@ const translations = {
 
 // Function to get translation
 function t(key, lang = null) {
-    const currentLang = lang || localStorage.getItem('language') || 'uk';
+    const currentLang = lang || sessionStorage.getItem('language') || 'uk';
     const keys = key.split('.');
     let value = translations[currentLang];
     
@@ -304,7 +304,7 @@ function t(key, lang = null) {
 
 // Function to translate page
 function translatePage() {
-    const currentLang = localStorage.getItem('language') || 'uk';
+    const currentLang = sessionStorage.getItem('language') || 'uk';
     
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');

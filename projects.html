@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мої проєкти - Ілля Авдосьєв</title>
     
@@ -23,7 +24,7 @@
             </ul>
             <div class="controls">
                 <button class="theme-toggle" onclick="toggleTheme()">
-                    <span id="theme-icon">☀️</span>
+                    <span id="theme-icon">🌞</span>
                 </button>
                 <select class="lang-switch" onchange="changeLanguage(this.value)">
                     <option value="uk">🇺🇦 UA</option>
@@ -75,58 +76,64 @@
 
     <!-- JavaScript -->
     <script src="js/i18n.js"></script>
+    <script src="js/theme.js"></script>
     <script>
+        // Default data
+        const DEFAULT_PROJECTS = {
+            projects: []
+        };
+
+        const DEFAULT_PROFILE = {
+            profile: {
+                name: { uk: "Ілля Авдосьєв", en: "Illia Avdosiev" }
+            }
+        };
+
         let currentFilter = 'all';
         let currentSearch = '';
+        let allProjects = [];
 
+        // Завантаження проєктів з JSON
         async function loadProjectsData() {
             try {
-                // Спочатку намагаємося завантажити з JSON файлу
                 const response = await fetch('data/projects.json');
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('✅ Проєкти завантажено з файлу');
                     return data;
                 }
             } catch (error) {
-                console.warn('⚠️ Не вдалося завантажити з файлу, використовуємо localStorage');
             }
 
-            // Якщо файл не знайдено, використовуємо localStorage
-            const localData = JSON.parse(localStorage.getItem('portfolioProjects'));
-            if (localData) {
-                console.log('✅ Проєкти завантажено з localStorage');
-                return localData;
-            }
-
-            // Якщо нічого немає, повертаємо порожню структуру
-            console.log('⚠️ Проєкти не знайдено');
-            return { projects: [] };
+            return DEFAULT_PROJECTS;
         }
 
+        // Рендеринг проєктів
         async function renderProjects() {
             const container = document.getElementById('projects-grid');
-            const currentLang = localStorage.getItem('language') || 'uk';
+            const currentLang = getCurrentLanguage();
 
             const projectsData = await loadProjectsData();
+            allProjects = projectsData.projects || [];
 
-            if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
+            if (allProjects.length === 0) {
                 container.innerHTML = `
-            <div class="no-results">
-                <div class="no-results-icon">📂</div>
-                <h3 data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</h3>
-                <p>${t('projectsPage.goToAdmin')} <a href="admin.html" data-i18n="projectsPage.adminPanel">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
-            </div>
-        `;
+                    <div class="no-results">
+                        <div class="no-results-icon">📂</div>
+                        <h3 data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</h3>
+                        <p>Проєкти скоро з'являться. Додайте їх через адмін-панель локально та експортуйте JSON файли.</p>
+                    </div>
+                `;
                 return;
             }
 
-            let filteredProjects = projectsData.projects;
+            let filteredProjects = allProjects;
 
+            // Фільтр по категорії
             if (currentFilter !== 'all') {
                 filteredProjects = filteredProjects.filter(p => p.category === currentFilter);
             }
 
+            // Фільтр по пошуку
             if (currentSearch) {
                 filteredProjects = filteredProjects.filter(p =>
                     (p.title[currentLang] || p.title.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
@@ -137,12 +144,12 @@
 
             if (filteredProjects.length === 0) {
                 container.innerHTML = `
-            <div class="no-results">
-                <div class="no-results-icon">🔍</div>
-                <h3 data-i18n="projectsPage.noResults">${t('projectsPage.noResults')}</h3>
-                <p data-i18n="projectsPage.noResultsText">${t('projectsPage.noResultsText')}</p>
-            </div>
-        `;
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3 data-i18n="projectsPage.noResults">${t('projectsPage.noResults')}</h3>
+                        <p data-i18n="projectsPage.noResultsText">${t('projectsPage.noResultsText')}</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -172,6 +179,7 @@
             `).join('');
         }
 
+        // Встановити фільтр
         function setFilter(filter) {
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
@@ -179,45 +187,29 @@
             renderProjects();
         }
 
+        // Фільтрувати проєкти за пошуком
         function filterProjects() {
             currentSearch = document.getElementById('search-input').value;
             renderProjects();
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀' : '🌙';
-            localStorage.setItem('theme', newTheme);
-        }
-
-        function changeLanguage(lang) {
-            localStorage.setItem('language', lang);
-            translatePage();
-            renderProjects();
-            loadProfileName();
-        }
-
-        function loadProfileName() {
-            const aboutData = JSON.parse(localStorage.getItem('portfolioAbout'));
-            if (aboutData && aboutData.profile) {
-                const currentLang = localStorage.getItem('language') || 'uk';
-                const name = aboutData.profile.name[currentLang] || aboutData.profile.name.uk;
-                document.getElementById('footer-name').textContent = name;
+        // Завантаження імені профілю
+        async function loadProfileName() {
+            try {
+                const response = await fetch('data/about.json');
+                const aboutData = response.ok ? await response.json() : DEFAULT_PROFILE;
+                
+                if (aboutData && aboutData.profile) {
+                    const currentLang = getCurrentLanguage();
+                    const name = aboutData.profile.name[currentLang] || aboutData.profile.name.uk;
+                    document.getElementById('footer-name').textContent = name;
+                }
+            } catch (error) {
             }
         }
 
+        // Ініціалізація
         window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.body.setAttribute('data-theme', savedTheme);
-            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀' : '🌙';
-
-            const savedLang = localStorage.getItem('language') || 'uk';
-            document.querySelector('.lang-switch').value = savedLang;
-
-            translatePage();
             renderProjects();
             loadProfileName();
         });

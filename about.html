@@ -24,7 +24,7 @@
             </ul>
             <div class="controls">
                 <button class="theme-toggle" onclick="toggleTheme()">
-                    <span id="theme-icon">☀️</span>
+                    <span id="theme-icon">🌞</span>
                 </button>
                 <select class="lang-switch" onchange="changeLanguage(this.value)">
                     <option value="uk">🇺🇦 UA</option>
@@ -48,20 +48,35 @@
     </footer>
 
     <script src="js/i18n.js"></script>
+    <script src="js/theme.js"></script>
     <script>
+        // Default data
+        const DEFAULT_ABOUT = {
+            profile: {
+                name: { uk: "Ілля Авдосьєв", en: "Illia Avdosiev" },
+                age: 20,
+                avatar: "",
+                bio: {
+                    uk: ["Інформація про профіль скоро з'явиться."],
+                    en: ["Profile information coming soon."]
+                }
+            }
+        };
+
+        // Рендеринг сторінки "Про мене"
         async function renderAboutPage() {
-            const currentLang = localStorage.getItem('language') || 'uk';
+            const currentLang = getCurrentLanguage();
             const container = document.getElementById('main-content');
 
             try {
                 const response = await fetch('data/about.json');
-                const aboutData = await response.json();
+                const aboutData = response.ok ? await response.json() : DEFAULT_ABOUT;
 
                 if (!aboutData || !aboutData.profile) {
                     container.innerHTML = `
                         <div class="no-data">
                             <h2 data-i18n="aboutPage.noData">${t('aboutPage.noData')}</h2>
-                            <p>${t('projectsPage.goToAdmin')} <a href="admin.html">${t('projectsPage.adminPanel')}</a>, заповни дані та експортуй <code>about.json</code> у папку <code>data/</code></p>
+                            <p>Дані профілю будуть доступні після експорту з адмін-панелі</p>
                         </div>
                     `;
                     return;
@@ -161,36 +176,14 @@
                 container.innerHTML = `
                     <div class="no-data">
                         <h2>Помилка завантаження</h2>
-                        <p>Перейди в <a href="admin.html">адмін-панель</a>, заповни дані та експортуй <code>about.json</code> у папку <code>data/</code></p>
+                        <p>Дані будуть доступні після експорту <code>about.json</code> у папку <code>data/</code></p>
                     </div>
                 `;
             }
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            localStorage.setItem('theme', newTheme);
-        }
-
-        function changeLanguage(lang) {
-            localStorage.setItem('language', lang);
-            translatePage();
-            renderAboutPage();
-        }
-
+        // Ініціалізація
         window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.body.setAttribute('data-theme', savedTheme);
-            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-
-            const savedLang = localStorage.getItem('language') || 'uk';
-            document.querySelector('.lang-switch').value = savedLang;
-
-            translatePage();
             renderAboutPage();
         });
     </script>

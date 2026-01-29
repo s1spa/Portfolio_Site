@@ -25,7 +25,7 @@
             </ul>
             <div class="controls">
                 <button class="theme-toggle" onclick="toggleTheme()">
-                    <span id="theme-icon">☀️</span>
+                    <span id="theme-icon">🌞</span>
                 </button>
                 <select class="lang-switch" onchange="changeLanguage(this.value)">
                     <option value="uk">🇺🇦 UA</option>
@@ -44,9 +44,9 @@
     </main>
 
     <!-- Image Modal -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="modal-close">✕</span>
-        <img id="modalImage" src="" alt="">
+    <div id="imageModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">✕</span>
+        <img id="modalImage" src="" alt="" onclick="event.stopPropagation()">
     </div>
 
     <footer>
@@ -54,11 +54,18 @@
     </footer>
 
     <script src="js/i18n.js"></script>
+    <script src="js/theme.js"></script>
     <script>
+        // Default data
+        const DEFAULT_PROJECTS = {
+            projects: []
+        };
+
+        // Завантаження проєкту по ID
         async function loadProjectDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const projectId = parseInt(urlParams.get('id'));
-            const currentLang = localStorage.getItem('language') || 'uk';
+            const currentLang = getCurrentLanguage();
 
             if (!projectId) {
                 window.location.href = 'projects.html';
@@ -67,7 +74,7 @@
 
             try {
                 const response = await fetch('data/projects.json');
-                const projectsData = await response.json();
+                const projectsData = response.ok ? await response.json() : DEFAULT_PROJECTS;
                 const project = projectsData.projects.find(p => p.id === projectId);
 
                 if (!project) {
@@ -83,9 +90,17 @@
                 renderProject(project, currentLang);
             } catch (error) {
                 console.error('Error loading project:', error);
+                document.getElementById('project-content').innerHTML = `
+                    <div class="loading">
+                        <h2>Помилка завантаження</h2>
+                        <p>Перевірте що файл <code>data/projects.json</code> існує</p>
+                        <a href="projects.html" class="btn btn-primary">← Назад до проєктів</a>
+                    </div>
+                `;
             }
         }
 
+        // Рендеринг проєкту
         function renderProject(project, lang) {
             const container = document.getElementById('project-content');
 
@@ -170,7 +185,7 @@
 
                 <!-- Full Description -->
                 <div style="margin: 3rem 0;">
-                    <h2 class="section-title">📝 Детальний опис</h2>
+                    <h2 class="section-title">📄 Детальний опис</h2>
                     <div class="project-description">${formatDescription(project.description[lang] || project.description.uk)}</div>
                 </div>
 
@@ -196,10 +211,10 @@
             window.projectMedia = allMedia;
         }
 
+        // Форматування опису
         function formatDescription(text) {
             if (!text) return '';
 
-            // Розділяємо текст на рядки
             let lines = text.split('\n');
             let html = '';
             let inList = false;
@@ -208,7 +223,6 @@
                 line = line.trim();
 
                 if (!line) {
-                    // Порожній рядок - закриваємо список якщо відкритий
                     if (inList) {
                         html += '</ul>';
                         inList = false;
@@ -217,7 +231,6 @@
                     return;
                 }
 
-                // Перевіряємо чи це пункт списку
                 if (line.startsWith('* ') || line.startsWith('- ')) {
                     if (!inList) {
                         html += '<ul>';
@@ -225,20 +238,16 @@
                     }
                     html += '<li>' + line.substring(2) + '</li>';
                 } else {
-                    // Звичайний текст
                     if (inList) {
                         html += '</ul>';
                         inList = false;
                     }
 
-                    // Жирний текст **текст:**
                     line = line.replace(/\*\*(.*?):\*\*/g, '<strong>$1:</strong>');
-
                     html += '<p>' + line + '</p>';
                 }
             });
 
-            // Закриваємо список якщо залишився відкритим
             if (inList) {
                 html += '</ul>';
             }
@@ -246,6 +255,7 @@
             return html;
         }
 
+        // Рендеринг головного медіа
         function renderMainMedia(media) {
             if (!media) return '<div class="image-placeholder">📁</div>';
 
@@ -258,56 +268,43 @@
             }
         }
 
+        // Перемикання медіа
         function switchMedia(index) {
             const mainMedia = document.getElementById('main-media');
             const thumbnails = document.querySelectorAll('.thumbnail');
 
-            // Оновлюємо активний thumbnail
             thumbnails.forEach(thumb => thumb.classList.remove('active'));
             thumbnails[index].classList.add('active');
 
-            // Оновлюємо головне медіа
             mainMedia.innerHTML = renderMainMedia(window.projectMedia[index]);
         }
 
+        // Витягнути YouTube ID
         function extractYouTubeID(url) {
             const match = url.match(/embed\/([^?]+)/);
             return match ? match[1] : '';
         }
 
+        // Модальне вікно
         function openModal(imageSrc) {
             document.getElementById('modalImage').src = imageSrc;
-            document.getElementById('imageModal').classList.add('active');
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('active');
+            
+            // Закривати при кліку на фон (не на зображення)
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            };
         }
 
         function closeModal() {
             document.getElementById('imageModal').classList.remove('active');
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀' : '🌙';
-            localStorage.setItem('theme', newTheme);
-        }
-
-        function changeLanguage(lang) {
-            localStorage.setItem('language', lang);
-            translatePage();
-            loadProjectDetails();
-        }
-
+        // Ініціалізація
         window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.body.setAttribute('data-theme', savedTheme);
-            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀' : '🌙';
-
-            const savedLang = localStorage.getItem('language') || 'uk';
-            document.querySelector('.lang-switch').value = savedLang;
-
-            translatePage();
             loadProjectDetails();
         });
 
