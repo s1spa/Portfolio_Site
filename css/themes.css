@@ -1,0 +1,100 @@
+/* ============================================================================
+   THEMES.CSS - Світла та темна теми
+   
+   Зміст:
+   1. Світла тема (перевизначення змінних)
+   2. Специфічні стилі для світлої теми
+   3. Перехід між темами
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. СВІТЛА ТЕМА - Перевизначення CSS змінних
+   ============================================================================ */
+
+[data-theme="light"] {
+    /* Кольори */
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --accent: #0ea5e9;
+    --accent-hover: #0284c7;
+    --border: #e2e8f0;
+    
+    /* Тіні для світлої теми (м'якші) */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ============================================================================
+   2. СПЕЦИФІЧНІ СТИЛІ ДЛЯ СВІТЛОЇ ТЕМИ
+   ============================================================================ */
+
+/* Header */
+[data-theme="light"] header {
+    background: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(14, 165, 233, 0.08);
+}
+
+/* Секції з фоном */
+[data-theme="light"] .featured-preview,
+[data-theme="light"] .page-section,
+[data-theme="light"] .filters,
+[data-theme="light"] .skills-section,
+[data-theme="light"] .goals-section,
+[data-theme="light"] .contact-section {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Footer */
+[data-theme="light"] footer {
+    background: rgba(255, 255, 255, 0.4);
+    border-top: 1px solid rgba(14, 165, 233, 0.08);
+}
+
+/* Статус проекту для світлої теми */
+[data-theme="light"] .project-status {
+    background: rgba(14, 165, 233, 0.2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+/* Timeline точка для світлої теми */
+[data-theme="light"] .timeline-item::before {
+    border-color: var(--bg-primary);
+}
+
+
+/* ============================================================================
+   3. ПЛАВНИЙ ПЕРЕХІД МІЖ ТЕМАМИ
+   ============================================================================ */
+
+/* Всі елементи, що змінюють колір при зміні теми */
+body,
+header,
+footer,
+.featured-preview,
+.page-section,
+.filters,
+.skills-section,
+.goals-section,
+.contact-section,
+.project-card,
+.skill-category,
+.timeline-content,
+.goal-item,
+.contact-link,
+.theme-toggle,
+.lang-switch,
+.filter-btn,
+.search-box,
+.project-status {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+}

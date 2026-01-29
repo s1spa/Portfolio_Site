@@ -5,594 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мої проєкти - Ілля Авдосьєв</title>
-    <style>
-/* Повні стилі для projects.html - замініть весь блок <style> */
-
-:root {
-    --bg-primary: #0a192f;
-    --bg-secondary: #112240;
-    --bg-card: #1a2942;
-    --text-primary: #e6f1ff;
-    --text-secondary: #8892b0;
-    --accent: #64ffda;
-    --accent-hover: #52d4b3;
-    --border: #233554;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-theme="light"] {
-    --bg-primary: #f8f9fa;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
-    --text-primary: #1a202c;
-    --text-secondary: #4a5568;
-    --accent: #0ea5e9;
-    --accent-hover: #0284c7;
-    --border: #e2e8f0;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    transition: var(--transition);
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* ========== ANIMATED GRADIENT BACKGROUND ========== */
-
-/* Головний анімований фон */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    transition: all 0.8s ease;
-}
-
-/* Темна тема - дуже повільний перелив */
-body[data-theme="dark"]::before {
-    background: 
-        radial-gradient(circle at 15% 85%, rgba(100, 255, 218, 0.08) 0%, transparent 50%), 
-        radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.07) 0%, transparent 50%), 
-        radial-gradient(circle at 45% 60%, rgba(56, 189, 248, 0.06) 0%, transparent 50%), 
-        radial-gradient(circle at 70% 40%, rgba(236, 72, 153, 0.05) 0%, transparent 50%),
-        linear-gradient(135deg, #0a192f 0%, #1a2a3a 50%, #0a192f 100%);
-    animation: subtleGradient 25s ease-in-out infinite;
-}
-
-/* Світла тема - дуже повільний перелив */
-body[data-theme="light"]::before {
-    background: 
-        radial-gradient(circle at 15% 85%, rgba(14, 165, 233, 0.04) 0%, transparent 50%), 
-        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.03) 0%, transparent 50%), 
-        radial-gradient(circle at 45% 60%, rgba(52, 211, 153, 0.03) 0%, transparent 50%), 
-        radial-gradient(circle at 70% 40%, rgba(236, 72, 153, 0.025) 0%, transparent 50%),
-        linear-gradient(135deg, #f8f9fa 0%, #e5e7eb 50%, #f8f9fa 100%);
-    animation: subtleGradientLight 25s ease-in-out infinite;
-}
-
-/* Дуже повільна і ледь помітна анімація для темної теми */
-@keyframes subtleGradient {
-    0%, 100% {
-        filter: brightness(0.95) saturate(1.1) hue-rotate(0deg);
-    }
-    50% {
-        filter: brightness(1.02) saturate(1.15) hue-rotate(8deg);
-    }
-}
-
-/* Дуже повільна і ледь помітна анімація для світлої теми */
-@keyframes subtleGradientLight {
-    0%, 100% {
-        filter: brightness(1.0) saturate(1.05) hue-rotate(0deg);
-    }
-    50% {
-        filter: brightness(1.02) saturate(1.08) hue-rotate(5deg);
-    }
-}
-
-/* Додатковий шар плаваючих ефектів */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-}
-
-/* Плаваючі фігури для темної теми */
-body[data-theme="dark"]::after {
-    background: 
-        radial-gradient(circle at 30% 30%, rgba(100, 255, 218, 0.03) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.025) 0%, transparent 40%);
-    animation: floatShapesSubtle 25s ease-in-out infinite;
-    opacity: 1;
-}
-
-/* Плаваючі фігури для світлої теми */
-body[data-theme="light"]::after {
-    background: 
-        radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.02) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.015) 0%, transparent 40%);
-    animation: floatShapesSubtle 25s ease-in-out infinite;
-    opacity: 1;
-}
-
-/* Дуже повільна анімація плавання фігур */
-@keyframes floatShapesSubtle {
-    0%, 100% {
-        transform: translate(0, 0) scale(1);
-    }
-    25% {
-        transform: translate(10px, -15px) scale(1.03);
-    }
-    50% {
-        transform: translate(-10px, 15px) scale(0.97);
-    }
-    75% {
-        transform: translate(15px, 10px) scale(1.02);
-    }
-}
-
-/* ========== END GRADIENT BACKGROUND ========== */
-
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(10, 25, 47, 0.4);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(100, 255, 218, 0.08);
-    z-index: 1000;
-    transition: var(--transition);
-}
-
-[data-theme="light"] header {
-    background: rgba(255, 255, 255, 0.4);
-    border-bottom: 1px solid rgba(14, 165, 233, 0.08);
-}
-
-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.2rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 1px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    align-items: center;
-}
-
-.nav-links a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-    position: relative;
-}
-
-.nav-links a.active {
-    color: var(--accent);
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
-}
-
-.controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.theme-toggle,
-.lang-switch {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: var(--transition);
-}
-
-.theme-toggle:hover,
-.lang-switch:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
-
-main {
-    padding-top: 100px;
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.page-header {
-    margin-bottom: 3rem;
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.page-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-}
-
-.page-title::before {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 80px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 2px;
-}
-
-.page-subtitle {
-    color: var(--text-secondary);
-    font-size: 1.2rem;
-    margin-top: 1.5rem;
-}
-
-.filters {
-    background: rgba(26, 41, 66, 0.4);
-    backdrop-filter: blur(10px);
-    padding: 2rem;
-    border-radius: 12px;
-    margin-bottom: 3rem;
-    border: 1px solid var(--border);
-}
-
-[data-theme="light"] .filters {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.filters-header {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.filter-label {
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: 1.1rem;
-}
-
-.search-box {
-    display: flex;
-    align-items: center;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    flex: 1;
-    max-width: 400px;
-    transition: var(--transition);
-}
-
-.search-box:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
-}
-
-.search-icon {
-    margin-right: 0.5rem;
-    color: var(--text-secondary);
-}
-
-.search-box input {
-    border: none;
-    background: transparent;
-    color: var(--text-primary);
-    font-size: 1rem;
-    width: 100%;
-    outline: none;
-}
-
-.search-box input::placeholder {
-    color: var(--text-secondary);
-}
-
-.filter-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 0.75rem 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.filter-btn:hover {
-    border-color: var(--accent);
-    background: rgba(100, 255, 218, 0.1);
-    transform: translateY(-2px);
-}
-
-.filter-btn.active {
-    background: var(--accent);
-    color: var(--bg-primary);
-    border-color: var(--accent);
-}
-
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    animation: fadeInUp 0.6s ease-out 0.2s both;
-}
-
-.project-card {
-    background: var(--bg-card);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: var(--transition);
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.project-image {
-    width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, var(--bg-primary), var(--bg-card));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-}
-
-.project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.project-card:hover .project-image img {
-    transform: scale(1.1);
-}
-
-.project-image-placeholder {
-    font-size: 3rem;
-    color: var(--text-secondary);
-}
-
-.project-status {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5rem 1rem;
-    background: rgba(100, 255, 218, 0.2);
-    backdrop-filter: blur(10px);
-    color: var(--accent);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid var(--accent);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    z-index: 2;
-}
-
-[data-theme="light"] .project-status {
-    background: rgba(14, 165, 233, 0.2);
-    color: var(--accent);
-    border: 1px solid var(--accent);
-}
-
-.project-content {
-    padding: 1.5rem;
-}
-
-.project-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-
-.project-description {
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.project-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.tag {
-    padding: 0.4rem 0.9rem;
-    background: rgba(100, 255, 218, 0.1);
-    color: var(--accent);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    border: 1px solid rgba(100, 255, 218, 0.2);
-}
-
-.project-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-}
-
-.project-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.project-link:hover {
-    color: var(--accent-hover);
-    transform: translateX(3px);
-}
-
-.no-results {
-    text-align: center;
-    padding: 5rem 2rem;
-    color: var(--text-secondary);
-}
-
-.no-results-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-}
-
-.no-results h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-
-.no-results a {
-    color: var(--accent);
-    text-decoration: underline;
-}
-
-footer {
-    background: rgba(17, 34, 64, 0.4);
-    backdrop-filter: blur(10px);
-    padding: 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(100, 255, 218, 0.08);
-    margin-top: 5rem;
-    position: relative;
-    z-index: 1;
-}
-
-[data-theme="light"] footer {
-    background: rgba(255, 255, 255, 0.4);
-    border-top: 1px solid rgba(14, 165, 233, 0.08);
-}
-
-footer p {
-    color: var(--text-secondary);
-}
-
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .nav-links {
-        gap: 1rem;
-    }
-
-    .page-title {
-        font-size: 2rem;
-    }
-
-    .filters-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .search-box {
-        max-width: 100%;
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-}
-    </style>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
 </head>
 
 <body data-theme="dark">
@@ -656,103 +73,104 @@ footer p {
                 захищено.</span></p>
     </footer>
 
+    <!-- JavaScript -->
     <script src="js/i18n.js"></script>
     <script>
         let currentFilter = 'all';
         let currentSearch = '';
 
-    async function loadProjectsData() {
-        try {
-            // Спочатку намагаємося завантажити з JSON файлу
-            const response = await fetch('data/projects.json');
-            if (response.ok) {
-                const data = await response.json();
-                console.log('✅ Проєкти завантажено з файлу');
-                return data;
+        async function loadProjectsData() {
+            try {
+                // Спочатку намагаємося завантажити з JSON файлу
+                const response = await fetch('data/projects.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ Проєкти завантажено з файлу');
+                    return data;
+                }
+            } catch (error) {
+                console.warn('⚠️ Не вдалося завантажити з файлу, використовуємо localStorage');
             }
-        } catch (error) {
-            console.warn('⚠️ Не вдалося завантажити з файлу, використовуємо localStorage');
-        }
 
-        // Якщо файл не знайдено, використовуємо localStorage
-        const localData = JSON.parse(localStorage.getItem('portfolioProjects'));
-        if (localData) {
-            console.log('✅ Проєкти завантажено з localStorage');
-            return localData;
-        }
+            // Якщо файл не знайдено, використовуємо localStorage
+            const localData = JSON.parse(localStorage.getItem('portfolioProjects'));
+            if (localData) {
+                console.log('✅ Проєкти завантажено з localStorage');
+                return localData;
+            }
 
-        // Якщо нічого немає, повертаємо порожню структуру
-        console.log('⚠️ Проєкти не знайдено');
-        return { projects: [] };
-    }
+            // Якщо нічого немає, повертаємо порожню структуру
+            console.log('⚠️ Проєкти не знайдено');
+            return { projects: [] };
+        }
 
         async function renderProjects() {
-                const container = document.getElementById('projects-grid');
-                const currentLang = localStorage.getItem('language') || 'uk';
+            const container = document.getElementById('projects-grid');
+            const currentLang = localStorage.getItem('language') || 'uk';
 
-                const projectsData = await loadProjectsData();
+            const projectsData = await loadProjectsData();
 
-                if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
-                    container.innerHTML = `
+            if (!projectsData || !projectsData.projects || projectsData.projects.length === 0) {
+                container.innerHTML = `
             <div class="no-results">
-                <div class="no-results-icon">📁</div>
+                <div class="no-results-icon">📂</div>
                 <h3 data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</h3>
                 <p>${t('projectsPage.goToAdmin')} <a href="admin.html" data-i18n="projectsPage.adminPanel">${t('projectsPage.adminPanel')}</a> ${t('projectsPage.toAddFirst')}</p>
             </div>
         `;
-                    return;
-                }
+                return;
+            }
 
-                let filteredProjects = projectsData.projects;
+            let filteredProjects = projectsData.projects;
 
-                if (currentFilter !== 'all') {
-                    filteredProjects = filteredProjects.filter(p => p.category === currentFilter);
-                }
+            if (currentFilter !== 'all') {
+                filteredProjects = filteredProjects.filter(p => p.category === currentFilter);
+            }
 
-                if (currentSearch) {
-                    filteredProjects = filteredProjects.filter(p =>
-                        (p.title[currentLang] || p.title.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
-                        (p.description[currentLang] || p.description.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
-                        p.technologies.some(tech => tech.toLowerCase().includes(currentSearch.toLowerCase()))
-                    );
-                }
+            if (currentSearch) {
+                filteredProjects = filteredProjects.filter(p =>
+                    (p.title[currentLang] || p.title.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    (p.description[currentLang] || p.description.uk).toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    p.technologies.some(tech => tech.toLowerCase().includes(currentSearch.toLowerCase()))
+                );
+            }
 
-                if (filteredProjects.length === 0) {
-                    container.innerHTML = `
+            if (filteredProjects.length === 0) {
+                container.innerHTML = `
             <div class="no-results">
                 <div class="no-results-icon">🔍</div>
                 <h3 data-i18n="projectsPage.noResults">${t('projectsPage.noResults')}</h3>
                 <p data-i18n="projectsPage.noResultsText">${t('projectsPage.noResultsText')}</p>
             </div>
         `;
-                    return;
-                }
-
-                container.innerHTML = filteredProjects.map(project => `
-                    <div class="project-card" onclick="window.location.href='project-details.html?id=${project.id}'" style="cursor: pointer;">
-                        <div class="project-image">
-                            ${project.mainImage ?
-                                    `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` :
-                                    `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
-                                }
-                            ${project.status ? `<div class="project-status">${t('common.completed')}</div>` : ''}
-                        </div>
-                        <div class="project-content">
-                            <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
-                            <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : (project.description[currentLang] || project.description.uk)}</p>
-                            <div class="project-tags">
-                                ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
-                            </div>
-                            ${project.github || project.download ? `
-                                <div class="project-links">
-                                    ${project.github ? `<a href="${project.github}" class="project-link" target="_blank" onclick="event.stopPropagation()">💻 <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
-                                    ${project.download ? `<a href="${project.download}" class="project-link" target="_blank" onclick="event.stopPropagation()">⬇️ Download</a>` : ''}
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `).join('');
+                return;
             }
+
+            container.innerHTML = filteredProjects.map(project => `
+                <div class="project-card" onclick="window.location.href='project-details.html?id=${project.id}'" style="cursor: pointer;">
+                    <div class="project-image">
+                        ${project.mainImage ?
+                            `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` :
+                            `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                        }
+                        ${project.status ? `<div class="project-status">${t('common.completed')}</div>` : ''}
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
+                        <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : (project.description[currentLang] || project.description.uk)}</p>
+                        <div class="project-tags">
+                            ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                        </div>
+                        ${project.github || project.download ? `
+                            <div class="project-links">
+                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank" onclick="event.stopPropagation()">💻 <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
+                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank" onclick="event.stopPropagation()">⬇️ Download</a>` : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
 
         function setFilter(filter) {
             currentFilter = filter;
@@ -771,7 +189,7 @@ footer p {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             body.setAttribute('data-theme', newTheme);
-            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀' : '🌙';
             localStorage.setItem('theme', newTheme);
         }
 
@@ -794,7 +212,7 @@ footer p {
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.body.setAttribute('data-theme', savedTheme);
-            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀' : '🌙';
 
             const savedLang = localStorage.getItem('language') || 'uk';
             document.querySelector('.lang-switch').value = savedLang;

@@ -1,0 +1,293 @@
+/* ============================================================================
+   ANIMATIONS.CSS - Анімації та градієнтні фони
+   
+   Зміст:
+   1. Анімований градієнтний фон
+   2. Fade-in анімації
+   3. Інші анімації
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. АНІМОВАНИЙ ГРАДІЄНТНИЙ ФОН
+   ============================================================================ */
+
+/* Головний анімований фон */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    transition: all 0.8s ease;
+}
+
+/* Темна тема - дуже повільний переливний градієнт */
+body[data-theme="dark"]::before {
+    background: 
+        radial-gradient(circle at 15% 85%, rgba(100, 255, 218, 0.08) 0%, transparent 50%), 
+        radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.07) 0%, transparent 50%), 
+        radial-gradient(circle at 45% 60%, rgba(56, 189, 248, 0.06) 0%, transparent 50%), 
+        radial-gradient(circle at 70% 40%, rgba(236, 72, 153, 0.05) 0%, transparent 50%),
+        linear-gradient(135deg, #0a192f 0%, #1a2a3a 50%, #0a192f 100%);
+    animation: subtleGradient 25s ease-in-out infinite;
+}
+
+/* Світла тема - дуже повільний переливний градієнт */
+body[data-theme="light"]::before {
+    background: 
+        radial-gradient(circle at 15% 85%, rgba(14, 165, 233, 0.04) 0%, transparent 50%), 
+        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.03) 0%, transparent 50%), 
+        radial-gradient(circle at 45% 60%, rgba(52, 211, 153, 0.03) 0%, transparent 50%), 
+        radial-gradient(circle at 70% 40%, rgba(236, 72, 153, 0.025) 0%, transparent 50%),
+        linear-gradient(135deg, #f8f9fa 0%, #e5e7eb 50%, #f8f9fa 100%);
+    animation: subtleGradientLight 25s ease-in-out infinite;
+}
+
+/* Анімація градієнта для темної теми */
+@keyframes subtleGradient {
+    0%, 100% {
+        filter: brightness(0.95) saturate(1.1) hue-rotate(0deg);
+    }
+    50% {
+        filter: brightness(1.02) saturate(1.15) hue-rotate(8deg);
+    }
+}
+
+/* Анімація градієнта для світлої теми */
+@keyframes subtleGradientLight {
+    0%, 100% {
+        filter: brightness(1.0) saturate(1.05) hue-rotate(0deg);
+    }
+    50% {
+        filter: brightness(1.02) saturate(1.08) hue-rotate(5deg);
+    }
+}
+
+
+/* Додатковий шар плаваючих ефектів */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+/* Плаваючі фігури для темної теми */
+body[data-theme="dark"]::after {
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(100, 255, 218, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.025) 0%, transparent 40%);
+    animation: floatShapesSubtle 25s ease-in-out infinite;
+    opacity: 1;
+}
+
+/* Плаваючі фігури для світлої теми */
+body[data-theme="light"]::after {
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(14, 165, 233, 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.015) 0%, transparent 40%);
+    animation: floatShapesSubtle 25s ease-in-out infinite;
+    opacity: 1;
+}
+
+/* Дуже повільна анімація плавання фігур */
+@keyframes floatShapesSubtle {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(10px, -15px) scale(1.03);
+    }
+    50% {
+        transform: translate(-10px, 15px) scale(0.97);
+    }
+    75% {
+        transform: translate(15px, 10px) scale(1.02);
+    }
+}
+
+
+/* ============================================================================
+   2. FADE-IN АНІМАЦІЇ (Поява елементів знизу вгору)
+   ============================================================================ */
+
+/* Основна fade-in анімація */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Застосування до різних елементів */
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-label {
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero h1 {
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.hero p {
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.hero-buttons {
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+.page-header {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.about-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.avatar-container {
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.skills-section {
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.goals-section {
+    animation: fadeInUp 0.6s ease-out 0.7s both;
+}
+
+.contact-section {
+    animation: fadeInUp 0.6s ease-out 0.8s both;
+}
+
+/* Картки проектів з'являються почергово */
+.project-card:nth-child(1) {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.project-card:nth-child(2) {
+    animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+
+.project-card:nth-child(3) {
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.project-card:nth-child(4) {
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.project-card:nth-child(5) {
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.project-card:nth-child(6) {
+    animation: fadeInUp 0.6s ease-out 0.5s both;
+}
+
+
+/* ============================================================================
+   3. ІНШІ АНІМАЦІЇ
+   ============================================================================ */
+
+/* Анімація підкреслення посилань */
+.nav-links a::after {
+    transition: width 0.3s ease;
+}
+
+/* Плавне масштабування картинок при ховері */
+.project-card:hover .project-image img {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Обертання хрестика закриття модалки */
+.modal-close:hover {
+    transform: rotate(90deg);
+}
+
+/* Анімація slide down для алертів */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert {
+    animation: slideDown 0.3s ease;
+}
+
+/* Пульсація кнопок */
+.btn::before {
+    transition: width 0.6s, height 0.6s;
+}
+
+/* Hover ефекти */
+.logo:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+}
+
+.goal-item:hover {
+    transform: translateX(10px);
+}
+
+.timeline-content:hover {
+    transform: translateX(5px);
+}
+
+.contact-link:hover {
+    transform: translateY(-3px);
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ============================================================================
+   4. ВИМКНЕННЯ АНІМАЦІЙ ДЛЯ КОРИСТУВАЧІВ З PREFERENCE
+   ============================================================================ */
+
+/* Якщо користувач вимкнув анімації в системі */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    /* Вимикаємо фонові анімації */
+    body::before,
+    body::after {
+        animation: none !important;
+    }
+}

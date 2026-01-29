@@ -1,0 +1,415 @@
+/* =========================================
+   PROJECT DETAILS СТОРІНКА
+   ========================================= */
+
+/* Кнопка повернення */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+}
+
+/* Заголовок проєкту */
+.project-header {
+    margin-bottom: 3rem;
+}
+
+.project-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Мета інформація */
+.project-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Опис проєкту (повний текст, без обмежень) */
+.project-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    /* NO line-clamp - показуємо весь текст */
+}
+
+.project-description p {
+    margin-bottom: 1rem;
+}
+
+.project-description strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.project-description ul {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.project-description li {
+    margin-bottom: 0.5rem;
+}
+
+/* Секції */
+.gallery-section,
+.video-section,
+.features-section {
+    margin-bottom: 3rem;
+}
+
+/* =========================================
+   STEAM-STYLE LAYOUT (Як в Steam)
+   ========================================= */
+
+.steam-layout {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 1400px;
+}
+
+/* Ліва колонка - медіа галерея */
+.media-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.main-media {
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 500px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.main-media img,
+.main-media iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Мініатюри знизу */
+.thumbnails {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+}
+
+.thumbnails::-webkit-scrollbar {
+    height: 6px;
+}
+
+.thumbnails::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.thumbnails::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+.thumbnail {
+    min-width: 100px;
+    max-width: 140px;
+    aspect-ratio: 16/9;
+    background: var(--bg-card);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid var(--border);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.thumbnail:hover {
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+.thumbnail.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Іконка відео на мініатюрі */
+.thumbnail.video::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Права колонка - інформація */
+.info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-title-image {
+    width: 100%;
+    max-height: 220px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+}
+
+.main-title-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Короткий опис */
+.short-description {
+    background: var(--bg-secondary);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.short-description::-webkit-scrollbar {
+    width: 6px;
+}
+
+.short-description::-webkit-scrollbar-track {
+    background: var(--bg-card);
+    border-radius: 4px;
+}
+
+.short-description::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+/* Плейсхолдер для зображень */
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   ГАЛЕРЕЯ (старий варіант, якщо треба)
+   ========================================= */
+
+.gallery-grid {
+    display: none; /* Використовуємо steam-layout замість цього */
+}
+
+/* =========================================
+   ВІДЕО СЕКЦІЯ
+   ========================================= */
+
+.video-section {
+    display: none; /* Відео тепер в steam-layout */
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================================
+   ОСОБЛИВОСТІ ПРОЄКТУ
+   ========================================= */
+
+.features-section {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+}
+
+.features-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    min-width: 40px;
+    text-align: center;
+}
+
+.feature-content h3 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.feature-content p {
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   МОДАЛЬНЕ ВІКНО (для повноекранних зображень)
+   ========================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    padding: 5rem;
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1024px) {
+    .steam-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .info-column {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-title {
+        font-size: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .features-list {
+        grid-template-columns: 1fr;
+    }
+
+    .main-title-image {
+        max-height: 250px;
+    }
+
+    .thumbnail {
+        min-width: 100px;
+    }
+}
