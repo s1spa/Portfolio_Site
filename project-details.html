@@ -7,11 +7,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Деталі проєкту - Ілля Авдосьєв</title>
     
-    <!-- CSS Files -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/project-details.css">
+
+    <style>
+        /* Глобальні фікси для медіа */
+        .main-media {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #0b0e14;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .main-media img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto; /* Важливо для збереження пропорцій */
+            height: auto;
+            object-fit: contain; /* Картинка не обрізається */
+            cursor: pointer;
+        }
+
+        .main-media iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .thumbnail {
+            flex: 0 0 120px;
+            aspect-ratio: 16 / 9;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #000;
+            opacity: 0.6;
+            transition: 0.3s ease;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+            border-color: #66c0f4;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Прев'ю заповнюють блок */
+        }
+
+        /* Фікс модалки */
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 99999; /* Поверх всього */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        #modalImage {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body data-theme="dark">
@@ -43,8 +138,7 @@
         </div>
     </main>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="modal">
+    <div id="imageModal" class="modal" onclick="closeModal()">
         <span class="modal-close" onclick="closeModal()">✕</span>
         <img id="modalImage" src="" alt="" onclick="event.stopPropagation()">
     </div>
@@ -56,16 +150,12 @@
     <script src="js/i18n.js"></script>
     <script src="js/theme.js"></script>
     <script>
-        // Default data
-        const DEFAULT_PROJECTS = {
-            projects: []
-        };
+        const DEFAULT_PROJECTS = { projects: [] };
 
-        // Завантаження проєкту по ID
         async function loadProjectDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const projectId = parseInt(urlParams.get('id'));
-            const currentLang = getCurrentLanguage();
+            const currentLang = (typeof getCurrentLanguage === 'function') ? getCurrentLanguage() : 'uk';
 
             if (!projectId) {
                 window.location.href = 'projects.html';
@@ -90,38 +180,19 @@
                 renderProject(project, currentLang);
             } catch (error) {
                 console.error('Error loading project:', error);
-                document.getElementById('project-content').innerHTML = `
-                    <div class="loading">
-                        <h2>Помилка завантаження</h2>
-                        <p>Перевірте що файл <code>data/projects.json</code> існує</p>
-                        <a href="projects.html" class="btn btn-primary">← Назад до проєктів</a>
-                    </div>
-                `;
+                document.getElementById('project-content').innerHTML = `<h2>Помилка завантаження</h2>`;
             }
         }
 
-        // Рендеринг проєкту
         function renderProject(project, lang) {
             const container = document.getElementById('project-content');
-
-            // Збираємо всі медіа (ВІДЕО ПЕРШИМИ, потім галерея)
             const allMedia = [];
 
-            // СПОЧАТКУ ВІДЕО ↓
-            if (project.videos && project.videos.length > 0) {
-                project.videos.forEach(video => {
-                    allMedia.push({ type: 'video', url: video });
-                });
-            }
+            // Спочатку відео, потім галерея
+            if (project.videos) project.videos.forEach(v => allMedia.push({ type: 'video', url: v }));
+            if (project.gallery) project.gallery.forEach(img => allMedia.push({ type: 'image', url: img }));
 
-            // ПОТІМ Галерея ↓
-            if (project.gallery && project.gallery.length > 0) {
-                project.gallery.forEach(img => {
-                    allMedia.push({ type: 'image', url: img });
-                });
-            }
-
-            // Головне фото (для title обкладинки)
+            window.projectMedia = allMedia;
             const mainImage = project.mainImage || project.image;
 
             container.innerHTML = `
@@ -134,71 +205,56 @@
                     </h1>
                 </div>
 
-                <!-- Steam-style Layout -->
                 <div class="steam-layout">
-                    <!-- Left column: Media Gallery -->
-                    ${allMedia.length > 0 ? `
-                        <div class="media-column">
-                            <div class="main-media" id="main-media">
-                                ${renderMainMedia(allMedia[0])}
-                            </div>
-                            
-                            ${allMedia.length > 1 ? `
-                                <div class="thumbnails" id="thumbnails">
-                                    ${allMedia.map((media, index) => `
-                                        <div class="thumbnail ${media.type === 'video' ? 'video' : ''} ${index === 0 ? 'active' : ''}" 
-                                             onclick="switchMedia(${index})" 
-                                             data-media-index="${index}">
-                                            ${media.type === 'image' ? `<img src="${media.url}" alt="Thumbnail ${index + 1}">` : ''}
-                                            ${media.type === 'video' ? `<img src="https://img.youtube.com/vi/${extractYouTubeID(media.url)}/mqdefault.jpg" alt="Video ${index + 1}">` : ''}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
+                    <div class="media-column">
+                        <div class="main-media" id="main-media">
+                            ${renderMainMedia(allMedia[0])}
                         </div>
-                    ` : ''}
-
-                    <!-- Right column: Main Image + Description -->
-                    <div class="info-column">
-                        ${mainImage ? `
-                            <div class="main-title-image">
-                                <img src="${mainImage}" alt="${project.title[lang] || project.title.uk}">
+                        
+                        ${allMedia.length > 1 ? `
+                            <div class="thumbnails">
+                                ${allMedia.map((m, i) => `
+                                    <div class="thumbnail ${i === 0 ? 'active' : ''}" onclick="switchMedia(${i})">
+                                        <img src="${m.type === 'image' ? m.url : `https://img.youtube.com/vi/${extractYouTubeID(m.url)}/mqdefault.jpg`}">
+                                    </div>
+                                `).join('')}
                             </div>
                         ` : ''}
+                    </div>
+
+                    <div class="info-column">
+                        ${mainImage ? `<div class="main-title-image"><img src="${mainImage}" style="width:100%; border-radius:4px;"></div>` : ''}
                         
                         <div class="short-description">
-                            ${project.shortDescription ? (project.shortDescription[lang] || project.shortDescription.uk) : ((project.description[lang] || project.description.uk).substring(0, 150) + '...')}
+                            ${project.shortDescription ? (project.shortDescription[lang] || project.shortDescription.uk) : ''}
                         </div>
 
-                        <!-- Tags -->
                         <div class="project-tags">
                             ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
                         </div>
 
-                        <!-- Links -->
-                        <div class="project-links" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <div class="project-links" style="display: flex; gap: 0.5rem; margin-top:1rem;">
                             ${project.github ? `<a href="${project.github}" class="btn btn-primary" target="_blank">💻 GitHub</a>` : ''}
                             ${project.download ? `<a href="${project.download}" class="btn btn-secondary" target="_blank">⬇️ Download</a>` : ''}
                         </div>
                     </div>
                 </div>
 
-                <!-- Full Description -->
                 <div style="margin: 3rem 0;">
                     <h2 class="section-title">📄 Детальний опис</h2>
                     <div class="project-description">${formatDescription(project.description[lang] || project.description.uk)}</div>
                 </div>
 
-                ${project.features && project.features.length > 0 ? `
+                ${project.features ? `
                     <div class="features-section">
                         <h2 class="section-title">✨ Особливості</h2>
                         <ul class="features-list">
-                            ${project.features.map(feature => `
+                            ${project.features.map(f => `
                                 <li class="feature-item">
-                                    <div class="feature-icon">${feature.icon || '✔'}</div>
+                                    <div class="feature-icon">${f.icon || '✔'}</div>
                                     <div class="feature-content">
-                                        <h3>${feature.title[lang] || feature.title.uk}</h3>
-                                        <p>${feature.description[lang] || feature.description.uk}</p>
+                                        <h3>${f.title[lang] || f.title.uk}</h3>
+                                        <p>${f.description[lang] || f.description.uk}</p>
                                     </div>
                                 </li>
                             `).join('')}
@@ -206,113 +262,66 @@
                     </div>
                 ` : ''}
             `;
-
-            // Зберігаємо медіа для перемикання
-            window.projectMedia = allMedia;
         }
 
-        // Форматування опису
         function formatDescription(text) {
             if (!text) return '';
-
             let lines = text.split('\n');
             let html = '';
             let inList = false;
 
             lines.forEach(line => {
                 line = line.trim();
-
                 if (!line) {
-                    if (inList) {
-                        html += '</ul>';
-                        inList = false;
-                    }
-                    html += '<br>';
-                    return;
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += '<br>'; return;
                 }
 
                 if (line.startsWith('* ') || line.startsWith('- ')) {
-                    if (!inList) {
-                        html += '<ul>';
-                        inList = true;
-                    }
+                    if (!inList) { html += '<ul>'; inList = true; }
                     html += '<li>' + line.substring(2) + '</li>';
                 } else {
-                    if (inList) {
-                        html += '</ul>';
-                        inList = false;
-                    }
-
+                    if (inList) { html += '</ul>'; inList = false; }
                     line = line.replace(/\*\*(.*?):\*\*/g, '<strong>$1:</strong>');
                     html += '<p>' + line + '</p>';
                 }
             });
-
-            if (inList) {
-                html += '</ul>';
-            }
-
+            if (inList) html += '</ul>';
             return html;
         }
 
-        // Рендеринг головного медіа
         function renderMainMedia(media) {
             if (!media) return '<div class="image-placeholder">📁</div>';
-
-            if (media.type === 'image') {
-                return `<img src="${media.url}" alt="Main image" onclick="openModal('${media.url}')">`;
-            } else if (media.type === 'video') {
-                return `<iframe src="${media.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            } else if (media.type === 'emoji') {
-                return `<div class="image-placeholder">${media.emoji}</div>`;
-            }
+            if (media.type === 'image') return `<img src="${media.url}" onclick="openModal('${media.url}')">`;
+            return `<iframe src="${media.url}" frameborder="0" allowfullscreen></iframe>`;
         }
 
-        // Перемикання медіа
         function switchMedia(index) {
             const mainMedia = document.getElementById('main-media');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-
-            thumbnails.forEach(thumb => thumb.classList.remove('active'));
-            thumbnails[index].classList.add('active');
-
+            const thumbs = document.querySelectorAll('.thumbnail');
+            thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
             mainMedia.innerHTML = renderMainMedia(window.projectMedia[index]);
         }
 
-        // Витягнути YouTube ID
         function extractYouTubeID(url) {
             const match = url.match(/embed\/([^?]+)/);
             return match ? match[1] : '';
         }
 
-        // Модальне вікно
-        function openModal(imageSrc) {
-            document.getElementById('modalImage').src = imageSrc;
+        function openModal(src) {
             const modal = document.getElementById('imageModal');
+            document.getElementById('modalImage').src = src;
             modal.classList.add('active');
-            
-            // Закривати при кліку на фон (не на зображення)
-            modal.onclick = function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            };
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('imageModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
-        // Ініціалізація
-        window.addEventListener('DOMContentLoaded', () => {
-            loadProjectDetails();
-        });
-
-        // Close modal on ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        window.addEventListener('DOMContentLoaded', loadProjectDetails);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>
-
 </html>

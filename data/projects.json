@@ -44,6 +44,48 @@
         "images/projects/ZeroTip/tutorial.jpg"
       ],
       "features": []
+    },
+    {
+      "id": 1769719217677,
+      "featured": false,
+      "title": {
+        "uk": "Day Planner",
+        "en": "Day Planner",
+        "pl": "Day Planner",
+        "de": "Day Planner"
+      },
+      "shortDescription": {
+        "uk": "Day Planner — Організуй свій день! Зручний інструмент для керування завданнями та фінансами в одному місці.",
+        "en": "Day Planner — Organize your day! A convenient tool to manage tasks and finances in one place.",
+        "pl": "Day Planner — Organize your day! A convenient tool to manage tasks and finances in one place.",
+        "de": "Day Planner — Organize your day! A convenient tool to manage tasks and finances in one place."
+      },
+      "description": {
+        "uk": "Day Planner — Організуй свій день! Зручний інструмент для керування завданнями та фінансами в одному місці.\n\nПро проєкт: Це моє перше професійне завдання на першій роботі розробником. Проєкт було реалізовано за один тиждень як MVP (Minimum Viable Product). Основний фокус був зроблений на швидкості роботи та чистій архітектурі коду, що дозволяє легко масштабувати додаток у майбутньому.\n\nФункціонал:\nЗавдання: створення задач із заголовками та описами, зручне відстеження статусу через чекбокси.\nФінанси: менеджер доходів та витрат із детальною статистикою.\nСповіщення: динамічна система нагадувань про завдання та фінансові звіти протягом дня.\nАвтоматизація: результати дня автоматично мігрують у вкладку «Тиждень», а тижневі — у «Місяць».\nАналітика: перегляд успішності та фінансового стану в розрізі місяця.\n\nТехнічний стек:\nEngine & Language: Unity, C#.\nАнімації: Бібліотека DOTween для плавного UI.\nЗбереження: Використання PlayerPrefs для надійного локального зберігання даних.\nІнтерфейс: Спокійний мінімалізм, орієнтований на простоту використання.",
+        "en": "Day Planner — Organize your day! A convenient tool to manage your tasks and track your finances in one place.\n\nAbout the Project: This application was my first professional assignment at my first developer job. It was developed within one week as an MVP (Minimum Viable Product). The focus was on high performance and clean code architecture to ensure future scalability.\n\nKey Features:\nTask Management: Create tasks with titles and descriptions, and track progress with checkboxes.\nFinance Manager: Track income and expenses with integrated statistics.\nNotifications: Dynamic reminders for daily tasks and financial updates.\nData Migration: Daily results automatically transfer to the \"Week\" tab, and weekly data moves to \"Month.\"\nSuccess Tracking: Analyze your productivity and financial health throughout the month.\n\nTechnical Stack:\nEngine & Language: Unity, C#.\nAnimations: Powered by the DOTween library for a fluid UI experience.\nData Persistence: Implemented using PlayerPrefs.\nUI/UX: Minimalist and calm design, built for ease of use.",
+        "pl": "Day Planner — Organize your day! A convenient tool to manage your tasks and track your finances in one place.\n\nAbout the Project: This application was my first professional assignment at my first developer job. It was developed within one week as an MVP (Minimum Viable Product). The focus was on high performance and clean code architecture to ensure future scalability.\n\nKey Features:\nTask Management: Create tasks with titles and descriptions, and track progress with checkboxes.\nFinance Manager: Track income and expenses with integrated statistics.\nNotifications: Dynamic reminders for daily tasks and financial updates.\nData Migration: Daily results automatically transfer to the \"Week\" tab, and weekly data moves to \"Month.\"\nSuccess Tracking: Analyze your productivity and financial health throughout the month.\n\nTechnical Stack:\nEngine & Language: Unity, C#.\nAnimations: Powered by the DOTween library for a fluid UI experience.\nData Persistence: Implemented using PlayerPrefs.\nUI/UX: Minimalist and calm design, built for ease of use.",
+        "de": "Day Planner — Organize your day! A convenient tool to manage your tasks and track your finances in one place.\n\nAbout the Project: This application was my first professional assignment at my first developer job. It was developed within one week as an MVP (Minimum Viable Product). The focus was on high performance and clean code architecture to ensure future scalability.\n\nKey Features:\nTask Management: Create tasks with titles and descriptions, and track progress with checkboxes.\nFinance Manager: Track income and expenses with integrated statistics.\nNotifications: Dynamic reminders for daily tasks and financial updates.\nData Migration: Daily results automatically transfer to the \"Week\" tab, and weekly data moves to \"Month.\"\nSuccess Tracking: Analyze your productivity and financial health throughout the month.\n\nTechnical Stack:\nEngine & Language: Unity, C#.\nAnimations: Powered by the DOTween library for a fluid UI experience.\nData Persistence: Implemented using PlayerPrefs.\nUI/UX: Minimalist and calm design, built for ease of use."
+      },
+      "mainImage": "images\\projects\\DayPlanner\\main.png",
+      "emoji": "📁",
+      "technologies": [
+        "Unity",
+        "C#"
+      ],
+      "github": "",
+      "download": "",
+      "category": "apps",
+      "status": "Завершено",
+      "videos": [],
+      "gallery": [
+        "images\\projects\\DayPlanner\\1.jpg",
+        "images\\projects\\DayPlanner\\2.jpg",
+        "images\\projects\\DayPlanner\\3.jpg",
+        "images\\projects\\DayPlanner\\4.jpg",
+        "images\\projects\\DayPlanner\\5.jpg",
+        "images\\projects\\DayPlanner\\0.png"
+      ],
+      "features": []
     }
   ]
 }
