@@ -57,74 +57,11 @@
             </div>
         </section>
     </main>
+
     <footer>
         <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права захищено.</span></p>
-        <div class="visitor-counter">
-    <a href="https://s1spa.goatcounter.com" target="_blank" class="stats-link">
-        <span class="stats-icon">👥</span>
-        <span class="stats-label">Унікальних відвідувачів:</span>
-        <span class="stats-count" id="visitor-count">...</span>
-    </a>
-</div>
+    </footer>   
 
-<script>
-// Завантажити кількість з GoatCounter
-fetch('https://s1spa.goatcounter.com/counter/visitors.json')
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById('visitor-count').textContent = data.count;
-    })
-    .catch(() => {
-        document.getElementById('visitor-count').textContent = '---';
-    });
-</script>
-
-<style>
-.visitor-counter {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: rgba(100, 255, 218, 0.1);
-    border: 1px solid rgba(100, 255, 218, 0.2);
-    border-radius: 8px;
-    transition: var(--transition);
-    margin-top: 1rem;
-}
-
-.visitor-counter:hover {
-    background: rgba(100, 255, 218, 0.15);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
-
-.stats-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: var(--text-primary);
-}
-
-.stats-icon {
-    font-size: 1.2rem;
-}
-
-.stats-label {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.stats-count {
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-</style>
-    </footer>
-    <script data-goatcounter="https://s1spa.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-    
     <!-- JavaScript -->
     <script src="js/i18n.js"></script>
     <script src="js/theme.js"></script>
