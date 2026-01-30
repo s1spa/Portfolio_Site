@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/animations.css">
+
+    <link rel="stylesheet" href="css/visitor-counter.css">
 </head>
 <body data-theme="dark">
     <header>
@@ -59,8 +61,17 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права захищено.</span></p>
-    </footer>   
+    <div class="footer-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. 
+           <span data-i18n="footer.rights">Усі права захищено.</span>
+        </p>
+        <a href="https://s1spa.goatcounter.com" class="footer-stats" target="_blank" 
+           title="Переглянути статистику">
+            <img src="https://s1spa.goatcounter.com/counter/*.svg?label=👥%20Відвідувачів&color=64ffda&labelColor=112240&style=flat" 
+                 alt="Visitor counter">
+        </a>
+    </div>
+</footer>   
 
     <!-- JavaScript -->
     <script src="js/i18n.js"></script>
@@ -164,5 +175,10 @@
             loadProfileName();
         });
     </script>
+
+<!--TODO Visitor Counter ---->>
+
+    <script data-goatcounter="https://s1spa.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
