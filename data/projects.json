@@ -86,6 +86,50 @@
         "images\\projects\\DayPlanner\\0.png"
       ],
       "features": []
+    },
+    {
+      "id": 1769735326589,
+      "featured": true,
+      "title": {
+        "uk": "Rusty",
+        "en": "Rusty",
+        "pl": "Rusty",
+        "de": "Rusty"
+      },
+      "shortDescription": {
+        "uk": "Rusty — твій персональний помічник у світі Rust!\nВсе, що треба для виживання в Rust, в одному застосунку!",
+        "en": "Rusty — Your personal assistant for Rust!\nEverything you need to survive in Rust, in one app.",
+        "pl": "Rusty — Your personal assistant for Rust!\nEverything you need to survive in Rust, in one app.",
+        "de": "Rusty — Your personal assistant for Rust!\nEverything you need to survive in Rust, in one app."
+      },
+      "description": {
+        "uk": "Rusty — твій персональний помічник у світі Rust\n\nRusty створений для того, щоб спростити життя як новачкам, так і досвідченим гравцям. Замість того, щоб тримати сотні цифр у голові або шукати таблиці в гуглі, використовуй готові інструменти для виживання.\n\nОсновні можливості:\nКалькулятор генетики рослин: Найскладніша механіка гри тепер під контролем. Тобі не потрібно вручну рахувати коефіцієнти генів (G, Y, H, W, X), щоб отримати ідеальний результат (наприклад, GGGYYY). Просто введи дані, а калькулятор сам розрахує схему схрещування та підкаже, як правильно висадити паростки.\n\nКалькулятор рейдів: Розраховуй необхідну кількість вибухівки для будь-якої цілі. Стіни, двері, люки — застосунок точно скаже, скільки потрібно Ракет, C4 або вибухових патронів. Також він підрахує загальну кількість ресурсів (сірка, порох і т.д.), необхідних для крафту цієї вибухівки.\n\nБаза гайдів(В розробці): Все в одному місці — від порад, де знайти конкретний лут, до складних схем автоматизації та електрики.\n\nКалькулятор Скрапу (В розробці): Більше не треба гадати, чи варто нести цей хлам до переробника. Вибирай предмети зі свого інвентаря, і Rusty миттєво покаже, скільки скрапу, металу та МВК ти отримаєш на виході. Плануй свій розвиток ефективно!\n\nТехнічний стек:\n\nEngine: Unity 6 (6000.1.34f) — використання найсвіжішого довготривалого циклу підтримки двигуна.\nLanguage: C# — написання всієї математичної логіки та алгоритмів.\nUI: Unity UI (UGUI) — адаптивна верстка під мобільні пристрої.\nData Architecture: ScriptableObjects — для легкого налаштування бази даних предметів та вибухівки.\nLogic: Custom Algorithms — власна реалізація логіки схрещування рослин на основі ігрових механік Facepunch.",
+        "en": "Rusty — Your personal assistant for Rust\n\nRusty is designed to simplify gameplay for both beginners and pro players. Stop keeping hundreds of numbers in your head or searching for spreadsheets mid-raid. Use precise tools to dominate the island.\n\nKey Features:\nPlant Genetics Calculator: Take control of one of the most complex mechanics in the game. No more manual calculations of gene coefficients (G, Y, H, W, X) to get that perfect GGGYYY combo. Just enter the genes, and the app will calculate the crossbreeding scheme and explain exactly how to plant them.\n\nRaid Calculator: Plan your raids with precision. Whether it's walls, doors, or hatches, the app tells you exactly how many Rockets, C4, or Explosive Ammo you need. It also calculates the total raw materials (Sulfur, Gunpowder, etc.) required to craft the explosives.\n\nComprehensive Guides: Everything you need to know, from \"where to find specific items\" to advanced electrical circuits and automation systems.\n\nRecycle Calculator (In progress): No more guessing if that loot is worth a trip to the recycler. Select items from your inventory, and Rusty will instantly show you how much Scrap, Metal Fragments, and HQM you’ll get. Plan your progression with precision!\n\nTech Stack:\n\nEngine: Unity 6 (6000.1.34f) — utilizing the latest long-term support (LTS) engine cycle.\nLanguage: C# — implementation of all mathematical logic and core algorithms.\nUI: Unity UI (UGUI) — responsive layout and design optimized for mobile devices.\nData Architecture: ScriptableObjects — decoupled data management for easy configuration of items and explosive types.\nLogic: Custom Algorithms — proprietary implementation of plant crossbreeding logic based on Facepunch game mechanics.",
+        "pl": "Rusty — Your personal assistant for Rust\n\nRusty is designed to simplify gameplay for both beginners and pro players. Stop keeping hundreds of numbers in your head or searching for spreadsheets mid-raid. Use precise tools to dominate the island.\n\nKey Features:\nPlant Genetics Calculator: Take control of one of the most complex mechanics in the game. No more manual calculations of gene coefficients (G, Y, H, W, X) to get that perfect GGGYYY combo. Just enter the genes, and the app will calculate the crossbreeding scheme and explain exactly how to plant them.\n\nRaid Calculator: Plan your raids with precision. Whether it's walls, doors, or hatches, the app tells you exactly how many Rockets, C4, or Explosive Ammo you need. It also calculates the total raw materials (Sulfur, Gunpowder, etc.) required to craft the explosives.\n\nComprehensive Guides: Everything you need to know, from \"where to find specific items\" to advanced electrical circuits and automation systems.\n\nRecycle Calculator (In progress): No more guessing if that loot is worth a trip to the recycler. Select items from your inventory, and Rusty will instantly show you how much Scrap, Metal Fragments, and HQM you’ll get. Plan your progression with precision!\n\nTech Stack:\n\nEngine: Unity 6 (6000.1.34f) — utilizing the latest long-term support (LTS) engine cycle.\nLanguage: C# — implementation of all mathematical logic and core algorithms.\nUI: Unity UI (UGUI) — responsive layout and design optimized for mobile devices.\nData Architecture: ScriptableObjects — decoupled data management for easy configuration of items and explosive types.\nLogic: Custom Algorithms — proprietary implementation of plant crossbreeding logic based on Facepunch game mechanics.",
+        "de": "Rusty — Your personal assistant for Rust\n\nRusty is designed to simplify gameplay for both beginners and pro players. Stop keeping hundreds of numbers in your head or searching for spreadsheets mid-raid. Use precise tools to dominate the island.\n\nKey Features:\nPlant Genetics Calculator: Take control of one of the most complex mechanics in the game. No more manual calculations of gene coefficients (G, Y, H, W, X) to get that perfect GGGYYY combo. Just enter the genes, and the app will calculate the crossbreeding scheme and explain exactly how to plant them.\n\nRaid Calculator: Plan your raids with precision. Whether it's walls, doors, or hatches, the app tells you exactly how many Rockets, C4, or Explosive Ammo you need. It also calculates the total raw materials (Sulfur, Gunpowder, etc.) required to craft the explosives.\n\nComprehensive Guides: Everything you need to know, from \"where to find specific items\" to advanced electrical circuits and automation systems.\n\nRecycle Calculator (In progress): No more guessing if that loot is worth a trip to the recycler. Select items from your inventory, and Rusty will instantly show you how much Scrap, Metal Fragments, and HQM you’ll get. Plan your progression with precision!\n\nTech Stack:\n\nEngine: Unity 6 (6000.1.34f) — utilizing the latest long-term support (LTS) engine cycle.\nLanguage: C# — implementation of all mathematical logic and core algorithms.\nUI: Unity UI (UGUI) — responsive layout and design optimized for mobile devices.\nData Architecture: ScriptableObjects — decoupled data management for easy configuration of items and explosive types.\nLogic: Custom Algorithms — proprietary implementation of plant crossbreeding logic based on Facepunch game mechanics."
+      },
+      "mainImage": "images/projects/Rusty/main.png",
+      "emoji": "📁",
+      "technologies": [
+        "Unity",
+        "C#"
+      ],
+      "github": "",
+      "download": "",
+      "category": "apps",
+      "status": "В розробці",
+      "videos": [],
+      "gallery": [
+        "images/projects/Rusty/0.png",
+        "images/projects/Rusty/1.png",
+        "images/projects/Rusty/3.png",
+        "images/projects/Rusty/4.png",
+        "images/projects/Rusty/5.png",
+        "images/projects/Rusty/6.png",
+        "images/projects/Rusty/7.png",
+        "images/projects/Rusty/8.png"
+      ],
+      "features": []
     }
   ]
 }

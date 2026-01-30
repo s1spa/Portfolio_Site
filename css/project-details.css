@@ -1,5 +1,6 @@
 /* =========================================
-   PROJECT DETAILS СТОРІНКА
+   PROJECT DETAILS - УЛЬТРА ФІНАЛЬНА ВЕРСІЯ
+   Підтримка вертикальних і горизонтальних зображень
    ========================================= */
 
 /* Кнопка повернення */
@@ -18,7 +19,7 @@
     transform: translateX(-5px);
 }
 
-/* Заголовок проєкту */
+/* Заголовок */
 .project-header {
     margin-bottom: 3rem;
 }
@@ -46,13 +47,12 @@
     flex-wrap: wrap;
 }
 
-/* Опис проєкту (повний текст, без обмежень) */
+/* Опис */
 .project-description {
     font-size: 1.2rem;
     color: var(--text-secondary);
     line-height: 1.8;
     margin-bottom: 3rem;
-    /* NO line-clamp - показуємо весь текст */
 }
 
 .project-description p {
@@ -81,48 +81,77 @@
 }
 
 /* =========================================
-   STEAM-STYLE LAYOUT (Як в Steam)
+   STEAM LAYOUT
    ========================================= */
 
 .steam-layout {
     display: grid;
-    grid-template-columns: 1.8fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
     margin-bottom: 2rem;
     max-width: 1400px;
 }
 
-/* Ліва колонка - медіа галерея */
+/* Ліва колонка */
 .media-column {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
+/* ✅ MAIN MEDIA - ПІДТРИМКА ВЕРТИКАЛЬНИХ І ГОРИЗОНТАЛЬНИХ ЗОБРАЖЕНЬ */
 .main-media {
     width: 100%;
-    aspect-ratio: 16/9;
-    max-height: 500px;
+    min-height: 450px;
+    max-height: 600px;
     background: var(--bg-card);
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid var(--border);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.main-media img,
+/* ✅ КРИТИЧНО: object-fit contain щоб НЕ обрізати вертикальні зображення */
+.main-media img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto; /* ✅ ДОЗВОЛЯЄ ВЕРТИКАЛЬНИМ БУТИ ВУЖЧИМИ */
+    height: auto;
+    object-fit: contain; /* ✅ Зберігає пропорції БЕЗ обрізання */
+    display: block;
+}
+
 .main-media iframe {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border: none;
 }
 
-/* Мініатюри знизу */
+/* ✅ THUMBNAILS - ТІЛЬКИ 5 ВИДИМИХ */
 .thumbnails {
     display: flex;
     gap: 0.5rem;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-behavior: smooth;
     padding-bottom: 0.5rem;
+}
+
+.thumbnail {
+    min-width: calc((100% - 2rem) / 5);
+    max-width: calc((100% - 2rem) / 5);
+    aspect-ratio: 16/9;
+    background: var(--bg-card);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid var(--border);
+    position: relative;
+    flex-shrink: 0;
 }
 
 .thumbnails::-webkit-scrollbar {
@@ -139,20 +168,6 @@
     border-radius: 4px;
 }
 
-.thumbnail {
-    min-width: 100px;
-    max-width: 140px;
-    aspect-ratio: 16/9;
-    background: var(--bg-card);
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: var(--transition);
-    border: 2px solid var(--border);
-    position: relative;
-    flex-shrink: 0;
-}
-
 .thumbnail:hover {
     border-color: var(--accent);
     transform: scale(1.05);
@@ -167,9 +182,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-/* Іконка відео на мініатюрі */
+/* Іконка відео */
 .thumbnail.video::after {
     content: '▶';
     position: absolute;
@@ -187,7 +203,7 @@
     border-radius: 50%;
 }
 
-/* Права колонка - інформація */
+/* Права колонка */
 .info-column {
     display: flex;
     flex-direction: column;
@@ -207,6 +223,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 /* Короткий опис */
@@ -236,7 +253,7 @@
     border-radius: 4px;
 }
 
-/* Плейсхолдер для зображень */
+/* Плейсхолдер */
 .image-placeholder {
     width: 100%;
     height: 100%;
@@ -248,19 +265,15 @@
 }
 
 /* =========================================
-   ГАЛЕРЕЯ (старий варіант, якщо треба)
+   СТАРІ СЕКЦІЇ
    ========================================= */
 
 .gallery-grid {
-    display: none; /* Використовуємо steam-layout замість цього */
+    display: none;
 }
 
-/* =========================================
-   ВІДЕО СЕКЦІЯ
-   ========================================= */
-
 .video-section {
-    display: none; /* Відео тепер в steam-layout */
+    display: none;
 }
 
 .video-container {
@@ -282,7 +295,7 @@
 }
 
 /* =========================================
-   ОСОБЛИВОСТІ ПРОЄКТУ
+   ОСОБЛИВОСТІ
    ========================================= */
 
 .features-section {
@@ -325,7 +338,7 @@
 }
 
 /* =========================================
-   МОДАЛЬНЕ ВІКНО (для повноекранних зображень)
+   МОДАЛКА
    ========================================= */
 
 .modal {
@@ -350,6 +363,7 @@
     max-width: 90%;
     max-height: 90%;
     border-radius: 8px;
+    display: block;
 }
 
 .modal-close {
@@ -384,6 +398,13 @@
    RESPONSIVE
    ========================================= */
 
+@media (max-width: 1200px) {
+    .thumbnail {
+        min-width: calc((100% - 1.5rem) / 4);
+        max-width: calc((100% - 1.5rem) / 4);
+    }
+}
+
 @media (max-width: 1024px) {
     .steam-layout {
         grid-template-columns: 1fr;
@@ -391,6 +412,15 @@
 
     .info-column {
         order: -1;
+    }
+    
+    .thumbnail {
+        min-width: calc((100% - 1rem) / 3);
+        max-width: calc((100% - 1rem) / 3);
+    }
+    
+    .main-media {
+        min-height: 400px;
     }
 }
 
@@ -408,8 +438,24 @@
     .main-title-image {
         max-height: 250px;
     }
-
+    
     .thumbnail {
-        min-width: 100px;
+        min-width: calc((100% - 0.5rem) / 2);
+        max-width: calc((100% - 0.5rem) / 2);
+    }
+    
+    .main-media {
+        min-height: 300px;
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .steam-layout {
+        gap: 1rem;
+    }
+    
+    .main-media {
+        min-height: 250px;
     }
 }

@@ -11,102 +11,6 @@
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/project-details.css">
-
-    <style>
-        /* Глобальні фікси для медіа */
-        .main-media {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #0b0e14;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .main-media img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto; /* Важливо для збереження пропорцій */
-            height: auto;
-            object-fit: contain; /* Картинка не обрізається */
-            cursor: pointer;
-        }
-
-        .main-media iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .thumbnails {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-
-        .thumbnail {
-            flex: 0 0 120px;
-            aspect-ratio: 16 / 9;
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            overflow: hidden;
-            background: #000;
-            opacity: 0.6;
-            transition: 0.3s ease;
-        }
-
-        .thumbnail:hover, .thumbnail.active {
-            opacity: 1;
-            border-color: #66c0f4;
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Прев'ю заповнюють блок */
-        }
-
-        /* Фікс модалки */
-        .modal {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 99999; /* Поверх всього */
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        #modalImage {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body data-theme="dark">
@@ -196,7 +100,9 @@
             const mainImage = project.mainImage || project.image;
 
             container.innerHTML = `
-                <a href="projects.html" class="back-button">← Назад до проєктів</a>
+                <a href="projects.html" class="back-button">
+                    <span data-i18n="projectDetails.backToProjects">← Назад до проєктів</span>
+                </a>
                 
                 <div class="project-header">
                     <h1 class="project-title">
@@ -241,13 +147,17 @@
                 </div>
 
                 <div style="margin: 3rem 0;">
-                    <h2 class="section-title">📄 Детальний опис</h2>
+                    <h2 class="section-title">
+                        <span data-i18n="projectDetails.detailedDescription">📄 Детальний опис</span>
+                    </h2>
                     <div class="project-description">${formatDescription(project.description[lang] || project.description.uk)}</div>
                 </div>
 
                 ${project.features ? `
                     <div class="features-section">
-                        <h2 class="section-title">✨ Особливості</h2>
+                        <h2 class="section-title">
+                            <span data-i18n="projectDetails.features">✨ Особливості</span>
+                        </h2>
                         <ul class="features-list">
                             ${project.features.map(f => `
                                 <li class="feature-item">
@@ -262,6 +172,9 @@
                     </div>
                 ` : ''}
             `;
+            
+            // ✅ КРИТИЧНО: Переклад після рендеру
+            translatePage();
         }
 
         function formatDescription(text) {

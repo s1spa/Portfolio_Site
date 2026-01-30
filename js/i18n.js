@@ -45,14 +45,21 @@ const translations = {
             loading: "Завантаження проєктів..."
         },
         
+        // ✅ Project Details Page
+        projectDetails: {
+            backToProjects: "← Назад до проєктів",
+            detailedDescription: "📄 Детальний опис",
+            features: "✨ Особливості"
+        },
+        
         // About Page
         aboutPage: {
             title: "Про мене",
             skills: "Навички",
             education: "Освіта",
             goals: "Мої цілі",
-            shortTermGoal: "Короткострокова ціль",  // ДОДАТИ
-            longTermGoal: "Довгострокова ціль",      // ДОДАТИ
+            shortTermGoal: "Короткострокова ціль",
+            longTermGoal: "Довгострокова ціль",
             contacts: "Контакти",
             contactSubtitle: "Найшвидше — лист на пошту або повідомлення в Telegram.",
             noData: "Дані профілю відсутні",
@@ -117,14 +124,21 @@ const translations = {
             loading: "Loading projects..."
         },
         
+        // ✅ Project Details Page
+        projectDetails: {
+            backToProjects: "← Back to projects",
+            detailedDescription: "📄 Detailed Description",
+            features: "✨ Features"
+        },
+        
         // About Page
         aboutPage: {
             title: "About Me",
             skills: "Skills",
             education: "Education",
             goals: "My Goals",
-            shortTermGoal: "Short-term goal",  // ДОДАТИ
-            longTermGoal: "Long-term goal",    // ДОДАТИ
+            shortTermGoal: "Short-term goal",
+            longTermGoal: "Long-term goal",
             contacts: "Contacts",
             contactSubtitle: "The fastest way — email or Telegram message.",
             noData: "Profile data is missing",
@@ -189,14 +203,21 @@ const translations = {
             loading: "Ładowanie projektów..."
         },
         
+        // ✅ Project Details Page
+        projectDetails: {
+            backToProjects: "← Powrót do projektów",
+            detailedDescription: "📄 Szczegółowy opis",
+            features: "✨ Funkcje"
+        },
+        
         // About Page
         aboutPage: {
             title: "O mnie",
             skills: "Umiejętności",
             education: "Edukacja",
             goals: "Moje cele",
-             shortTermGoal: "Cel krótkoterminowy",  // ДОДАТИ
-            longTermGoal: "Cel długoterminowy",    // ДОДАТИ
+            shortTermGoal: "Cel krótkoterminowy",
+            longTermGoal: "Cel długoterminowy",
             contacts: "Kontakt",
             contactSubtitle: "Najszybszy sposób — e-mail lub wiadomość na Telegramie.",
             noData: "Brak danych profilu",
@@ -261,14 +282,21 @@ const translations = {
             loading: "Projekte werden geladen..."
         },
         
+        // ✅ Project Details Page
+        projectDetails: {
+            backToProjects: "← Zurück zu Projekten",
+            detailedDescription: "📄 Detaillierte Beschreibung",
+            features: "✨ Funktionen"
+        },
+        
         // About Page
         aboutPage: {
             title: "Über mich",
             skills: "Fähigkeiten",
             education: "Bildung",
             goals: "Meine Ziele",
-            shortTermGoal: "Kurzfristiges Ziel",   // ДОДАТИ
-            longTermGoal: "Langfristiges Ziel",    // ДОДАТИ
+            shortTermGoal: "Kurzfristiges Ziel",
+            longTermGoal: "Langfristiges Ziel",
             contacts: "Kontakte",
             contactSubtitle: "Der schnellste Weg — E-Mail oder Telegram-Nachricht.",
             noData: "Profildaten fehlen",
