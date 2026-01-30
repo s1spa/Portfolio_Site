@@ -59,7 +59,86 @@
     </main>
     <footer>
         <p>&copy; 2025 <span id="footer-name">Ілля Авдосьєв</span>. <span data-i18n="footer.rights">Усі права захищено.</span></p>
-    </footer>
+    <div class="stats-card">
+        <div class="stats-header">
+            <span class="stats-title">📊 Статистика сайту</span>
+        </div>
+        <div class="stats-body">
+            <div class="stat-item">
+                <span class="stat-icon">👥</span>
+                <span class="stat-value" id="unique-visitors">...</span>
+                <span class="stat-label">Унікальних</span>
+    </div>
+</footer>
+
+<script>
+fetch('https://s1spa.goatcounter.com/counter/visitors.json')
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('unique-visitors').textContent = data.count;
+    });
+</script>
+
+<style>
+.stats-card {
+    background: rgba(26, 41, 66, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stats-header {
+    margin-bottom: 1rem;
+}
+
+.stats-title {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.stats-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.stats-more {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.stats-more:hover {
+    transform: translateX(5px);
+}
+</style>
     
     <!-- JavaScript -->
     <script src="js/i18n.js"></script>
