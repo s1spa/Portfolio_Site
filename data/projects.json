@@ -32,7 +32,7 @@
       "github": "",
       "download": "https://shramix.itch.io/zerotip",
       "category": "games",
-      "status": "Завершено",
+      "status": "completed",
       "videos": [
         "https://www.youtube.com/embed/UXYsA7TgIHQ"
       ],
@@ -75,7 +75,7 @@
       "github": "",
       "download": "",
       "category": "apps",
-      "status": "Завершено",
+      "status": "completed",
       "videos": [],
       "gallery": [
         "images\\projects\\DayPlanner\\1.jpg",
@@ -117,7 +117,7 @@
       "github": "",
       "download": "",
       "category": "apps",
-      "status": "В розробці",
+      "status": "inProgress",
       "videos": [],
       "gallery": [
         "images/projects/Rusty/0.png",
@@ -165,7 +165,7 @@
       "github": "",
       "download": "",
       "category": "apps",
-      "status": "В розробці",
+      "status": "inProgress",
       "videos": [],
       "gallery": [
         "images/projects/Rainbow/main_logo.png",

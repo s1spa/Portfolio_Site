@@ -160,7 +160,7 @@
                             `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` :
                             `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
                         }
-                        ${project.status ? `<div class="project-status">${project.status}</div>` : ''}
+                        ${project.status ? `<div class="project-status">${t('common.' + project.status)}</div>` : ''}
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
