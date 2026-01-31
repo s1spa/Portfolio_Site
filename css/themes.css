@@ -98,3 +98,25 @@ footer,
                 color 0.3s ease,
                 border-color 0.3s ease;
 }
+
+/* Project description для світлої теми - напівпрозорий білий */
+[data-theme="light"] .project-description:not(.project-card .project-description),
+[data-theme="light"] #project-content .project-description {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Скасовую для карток */
+[data-theme="light"] .project-card .project-description {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Плавний перехід для project-description */
+.project-description {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+}

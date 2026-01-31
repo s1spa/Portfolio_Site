@@ -47,30 +47,59 @@
     flex-wrap: wrap;
 }
 
-/* Опис */
-.project-description {
+/* Опис - ТІЛЬКИ на сторінці деталей (НЕ на картках!) */
+/* КРИТИЧНО: НЕ застосовувати до .project-card! */
+.project-description:not(.project-card .project-description),
+#project-content .project-description {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     line-height: 1.8;
     margin-bottom: 3rem;
+    
+    /* ✅ Напівпрозорий контейнер (60% прозорості) */
+    background: rgba(17, 34, 64, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.project-description p {
+/* Скасовую стилі для карток проектів */
+.project-card .project-description {
+    background: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+#project-content .project-description p,
+.project-description:not(.project-card .project-description) p {
     margin-bottom: 1rem;
+    color: var(--text-primary);
 }
 
-.project-description strong {
+#project-content .project-description strong,
+.project-description:not(.project-card .project-description) strong {
     color: var(--accent);
     font-weight: 600;
 }
 
-.project-description ul {
+#project-content .project-description ul,
+.project-description:not(.project-card .project-description) ul {
     margin-left: 2rem;
     margin-bottom: 1rem;
 }
 
-.project-description li {
+#project-content .project-description li,
+.project-description:not(.project-card .project-description) li {
     margin-bottom: 0.5rem;
+    color: var(--text-primary);
 }
 
 /* Секції */
