@@ -43,7 +43,7 @@ function changeLanguage(lang) {
  * @returns {string} Код мови
  */
 function getCurrentLanguage() {
-    return sessionStorage.getItem('language') || 'uk';
+    return sessionStorage.getItem('language') || 'en';
 }
 
 /**
