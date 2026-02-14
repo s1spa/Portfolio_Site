@@ -127,7 +127,7 @@
                         <div class="skills-grid">
                             ${Object.values(data.skills).map(category => `
                                 <div class="skill-category">
-                                    <h3><img src="${getAboutIconPath(category.icon || 'code')}" class="category-icon" alt=""> ${category.title[currentLang] || category.title.uk}</h3>
+                                    <h3><span class="icon category-icon" style="-webkit-mask-image: url(${getAboutIconPath(category.icon || 'code')}); mask-image: url(${getAboutIconPath(category.icon || 'code')});"></span> ${category.title[currentLang] || category.title.uk}</h3>
                                     <ul>
                                         ${category.items.map(item => `<li>${item}</li>`).join('')}
                                     </ul>
@@ -143,7 +143,7 @@
                         <div class="timeline">
                             ${data.education.map(item => `
                                 <div class="timeline-item">
-                                    <div class="timeline-year"><img src="${getAboutIconPath(item.icon || 'book')}" class="timeline-icon" alt=""> ${item.year}</div>
+                                    <div class="timeline-year"><span class="icon timeline-icon" style="-webkit-mask-image: url(${getAboutIconPath(item.icon || 'book')}); mask-image: url(${getAboutIconPath(item.icon || 'book')});"></span> ${item.year}</div>
                                     <div class="timeline-content">
                                         <h3>${item.title[currentLang] || item.title.uk}</h3>
                                         <p>${item.description[currentLang] || item.description.uk}</p>
@@ -160,7 +160,7 @@
                         <div class="goals-list">
                             ${Object.values(data.goals).map(goal => `
                                 <div class="goal-item">
-                                    <div class="goal-icon"><img src="${getAboutIconPath(goal.icon || 'target')}" alt=""></div>
+                                    <div class="goal-icon"><span class="icon" style="-webkit-mask-image: url(${getAboutIconPath(goal.icon || 'target')}); mask-image: url(${getAboutIconPath(goal.icon || 'target')});"></span></div>
                                     <div class="goal-content">
                                         <p><strong>${(goal.icon === 'target' || goal.icon === '🎯') ? t('aboutPage.shortTermGoal') : t('aboutPage.longTermGoal')}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
                                     </div>
@@ -175,10 +175,10 @@
                         <h2 class="contact-title" data-i18n="aboutPage.contacts">${t('aboutPage.contacts')}</h2>
                         <p class="contact-subtitle" data-i18n="aboutPage.contactSubtitle">${t('aboutPage.contactSubtitle')}</p>
                         <div class="contact-links">
-                            ${data.contacts.email ? `<a href="mailto:${data.contacts.email}" class="contact-link"><img src="${getAboutIconPath('email')}" class="contact-icon" alt="Email"> ${data.contacts.email}</a>` : ''}
-                            ${data.contacts.telegram ? `<a href="https://t.me/${data.contacts.telegram.replace('@', '')}" class="contact-link" target="_blank"><img src="${getAboutIconPath('telegram')}" class="contact-icon" alt="Telegram"> ${data.contacts.telegram}</a>` : ''}
-                            ${data.contacts.github ? `<a href="${data.contacts.github}" class="contact-link" target="_blank"><img src="${getAboutIconPath('github')}" class="contact-icon" alt="GitHub"> GitHub</a>` : ''}
-                            ${data.contacts.linkedin ? `<a href="${data.contacts.linkedin}" class="contact-link" target="_blank"><img src="${getAboutIconPath('linkedin')}" class="contact-icon" alt="LinkedIn"> LinkedIn</a>` : ''}
+                            ${data.contacts.email ? `<a href="mailto:${data.contacts.email}" class="contact-link"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('email')}); mask-image: url(${getAboutIconPath('email')});"></span> ${data.contacts.email}</a>` : ''}
+                            ${data.contacts.telegram ? `<a href="https://t.me/${data.contacts.telegram.replace('@', '')}" class="contact-link" target="_blank"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('telegram')}); mask-image: url(${getAboutIconPath('telegram')});"></span> ${data.contacts.telegram}</a>` : ''}
+                            ${data.contacts.github ? `<a href="${data.contacts.github}" class="contact-link" target="_blank"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('github')}); mask-image: url(${getAboutIconPath('github')});"></span> GitHub</a>` : ''}
+                            ${data.contacts.linkedin ? `<a href="${data.contacts.linkedin}" class="contact-link" target="_blank"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('linkedin')}); mask-image: url(${getAboutIconPath('linkedin')});"></span> LinkedIn</a>` : ''}
                         </div>
                     </section>
                     ` : ''}

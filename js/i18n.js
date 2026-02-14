@@ -48,7 +48,7 @@ const translations = {
         // ✅ Project Details Page
         projectDetails: {
             backToProjects: "← Назад до проєктів",
-            detailedDescription: "📄 Детальний опис",
+            detailedDescription: "Детальний опис",
             features: "✨ Особливості"
         },
         
@@ -127,7 +127,7 @@ const translations = {
         // ✅ Project Details Page
         projectDetails: {
             backToProjects: "← Back to projects",
-            detailedDescription: "📄 Detailed Description",
+            detailedDescription: "Detailed Description",
             features: "✨ Features"
         },
         
@@ -206,7 +206,7 @@ const translations = {
         // ✅ Project Details Page
         projectDetails: {
             backToProjects: "← Powrót do projektów",
-            detailedDescription: "📄 Szczegółowy opis",
+            detailedDescription: "Szczegółowy opis",
             features: "✨ Funkcje"
         },
         
@@ -285,7 +285,7 @@ const translations = {
         // ✅ Project Details Page
         projectDetails: {
             backToProjects: "← Zurück zu Projekten",
-            detailedDescription: "📄 Detaillierte Beschreibung",
+            detailedDescription: "Detaillierte Beschreibung",
             features: "✨ Funktionen"
         },
         

@@ -1069,24 +1069,29 @@ main {
 
 
 /* ============================================================================
-   10.5 ICON STYLES (Fixes)
+   10.5 ICON STYLES
    ============================================================================ */
 
-/* General alignment and size for icons next to text */
-.btn-icon,
-.link-icon,
-.contact-icon,
-.title-icon,
-.category-icon,
-.timeline-icon {
-    /* Use `em` to scale with parent font size */
-    width: 1.2em;
-    height: 1.2em;
-    /* Fine-tune vertical alignment for non-flex containers */
-    vertical-align: -0.2em;
+/* Базовий клас для адаптивних SVG-іконок */
+.icon {
+    display: inline-block;
+    background-color: var(--accent); /* Колір для темної теми за замовчуванням */
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    vertical-align: -0.2em; /* Вирівнювання по тексту */
 }
 
-/* FIX: Ensure proper alignment on links in project cards (e.g., Download button) */
+/* Розмір іконок за замовчуванням */
+.btn-icon, .link-icon, .contact-icon, .title-icon, .category-icon, .timeline-icon {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Посилання на картках проєктів */
 .project-link {
     display: inline-flex;
     align-items: center;
@@ -1094,44 +1099,37 @@ main {
     color: var(--text-secondary);
     transition: var(--transition);
 }
+
 .project-link:hover {
     color: var(--accent);
 }
-/* When using flex, vertical-align is not needed */
-.project-link .link-icon {
-    vertical-align: initial;
-}
 
-/* Specific icon adjustments */
+/* Специфічні розміри іконок */
 .search-icon {
     width: 18px;
     height: 18px;
-    opacity: 0.6;
-    vertical-align: middle;
 }
 
-.project-image-placeholder img,
-.no-results-icon img {
+.project-image-placeholder .icon,
+.no-results-icon .icon {
     width: 48px;
     height: 48px;
-    opacity: 0.5;
 }
 
-.feature-icon img {
+.feature-icon .icon {
     width: 24px;
     height: 24px;
 }
 
-.modal-close img {
+
+.modal-close .icon {
     width: 20px;
     height: 20px;
 }
 
-/* FIX: Goal icon size on About page */
-.goal-icon img {
+.goal-icon .icon {
     width: 40px;
     height: 40px;
-    /* Center the icon inside its container */
     margin: 0 auto;
 }
 

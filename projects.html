@@ -48,9 +48,8 @@
                 <div class="filters-header">
                     <span class="filter-label" data-i18n="projectsPage.filters">Фільтри:</span>
                     <div class="search-box">
-                        <img src="images/icons/search.svg" alt="Search" class="search-icon">
-                        <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search"
-                            placeholder="Пошук за назвою...">
+                        <span role="img" aria-label="Search" class="icon search-icon" style="-webkit-mask-image: url(images/icons/search.svg); mask-image: url(images/icons/search.svg);"></span>
+                        <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search" placeholder="Пошук за назвою...">
                     </div>
                 </div>
                 <div class="filter-buttons" id="filter-buttons">
@@ -114,7 +113,7 @@
             if (allProjects.length === 0) {
                 container.innerHTML = `
                     <div class="no-results">
-                        <div class="no-results-icon"><img src="images/icons/folder.svg" alt="No projects"></div>
+                        <div class="no-results-icon"><span class="icon" style="width: 48px; height: 48px; -webkit-mask-image: url(images/icons/folder.svg); mask-image: url(images/icons/folder.svg);"></span></div>
                         <h3 data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</h3>
                         <p>Проєкти скоро з'являться. Додайте їх через адмін-панель локально та експортуйте JSON файли.</p>
                     </div>
@@ -141,7 +140,7 @@
             if (filteredProjects.length === 0) {
                 container.innerHTML = `
                     <div class="no-results">
-                        <div class="no-results-icon"><img src="images/icons/search.svg" alt="No results"></div>
+                        <div class="no-results-icon"><span class="icon" style="width: 48px; height: 48px; -webkit-mask-image: url(images/icons/search.svg); mask-image: url(images/icons/search.svg);"></span></div>
                         <h3 data-i18n="projectsPage.noResults">${t('projectsPage.noResults')}</h3>
                         <p data-i18n="projectsPage.noResultsText">${t('projectsPage.noResultsText')}</p>
                     </div>
@@ -154,7 +153,7 @@
                     <div class="project-image">
                         ${project.mainImage ?
                             `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` :
-                            `<div class="project-image-placeholder"><img src="images/icons/${project.icon || 'folder'}.svg" alt="Project icon"></div>`
+                            `<div class="project-image-placeholder"><span class="icon" style="width: 48px; height: 48px; -webkit-mask-image: url(images/icons/${project.icon || 'folder'}.svg); mask-image: url(images/icons/${project.icon || 'folder'}.svg);"></span></div>`
                         }
                         ${project.status ? `<div class="project-status">${t('common.' + project.status)}</div>` : ''}
                     </div>
@@ -166,8 +165,8 @@
                         </div>
                         ${project.github || project.download ? `
                             <div class="project-links">
-                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank"><img src="images/icons/github.svg" class="link-icon" alt="GitHub"> <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
-                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank"><img src="images/icons/download.svg" class="link-icon" alt="Download"> Download</a>` : ''}
+                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank"><span class="icon link-icon" style="-webkit-mask-image: url(images/icons/github.svg); mask-image: url(images/icons/github.svg);"></span> <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
+                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank"><span class="icon link-icon" style="-webkit-mask-image: url(images/icons/download.svg); mask-image: url(images/icons/download.svg);"></span> Download</a>` : ''}
                             </div>
                         ` : ''}
                     </div>

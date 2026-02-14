@@ -38,12 +38,12 @@
 
     <main>
         <div class="container" id="project-content">
-            <div class="loading"><img src="images/icons/loader.svg" alt="Loading..." class="loader-icon"> <span data-i18n="projectDetails.loading">Завантаження...</span></div>
+            <div class="loading"><span class="icon loader-icon" style="-webkit-mask-image: url(images/icons/loader.svg); mask-image: url(images/icons/loader.svg);"></span> <span data-i18n="projectDetails.loading">Завантаження...</span></div>
         </div>
     </main>
 
     <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="modal-close"><img src="images/icons/close.svg" alt="Close"></span>
+        <span class="modal-close"><span class="icon" style="width: 20px; height: 20px; -webkit-mask-image: url(images/icons/close.svg); mask-image: url(images/icons/close.svg);"></span></span>
         <img id="modalImage" src="" alt="Full size image" onclick="event.stopPropagation()">
     </div>
 
@@ -106,7 +106,7 @@
                 
                 <div class="project-header">
                     <h1 class="project-title">
-                        <img src="images/icons/${project.icon || 'folder'}.svg" class="title-icon" alt="Project Icon"> ${project.title[lang] || project.title.uk}
+                        <span class="icon title-icon" style="-webkit-mask-image: url(images/icons/${project.icon || 'folder'}.svg); mask-image: url(images/icons/${project.icon || 'folder'}.svg);"></span> ${project.title[lang] || project.title.uk}
                         ${project.status ? `<span class="project-status">${t('common.' + project.status)}</span>` : ''}
                     </h1>
                 </div>
@@ -140,15 +140,15 @@
                         </div>
 
                         <div class="project-links" style="display: flex; gap: 0.5rem; margin-top:1rem;">
-                            ${project.github ? `<a href="${project.github}" class="btn btn-primary" target="_blank"><img src="images/icons/github.svg" class="btn-icon" alt=""> GitHub</a>` : ''}
-                            ${project.download ? `<a href="${project.download}" class="btn btn-secondary" target="_blank"><img src="images/icons/download.svg" class="btn-icon" alt=""> Download</a>` : ''}
+                            ${project.github ? `<a href="${project.github}" class="btn btn-primary" target="_blank"><span class="icon btn-icon" style="-webkit-mask-image: url(images/icons/github.svg); mask-image: url(images/icons/github.svg);"></span> GitHub</a>` : ''}
+                            ${project.download ? `<a href="${project.download}" class="btn btn-secondary" target="_blank"><span class="icon btn-icon" style="-webkit-mask-image: url(images/icons/download.svg); mask-image: url(images/icons/download.svg);"></span> Download</a>` : ''}
                         </div>
                     </div>
                 </div>
 
                 <div style="margin: 3rem 0;">
                     <h2 class="section-title">
-                        <span data-i18n="projectDetails.detailedDescription">📄 Детальний опис</span>
+                        <span class="icon" style="-webkit-mask-image: url(images/icons/file.svg); mask-image: url(images/icons/file.svg); width: 0.9em; height: 0.9em; vertical-align: -0.08em; margin-right: 0.4em;"></span><span data-i18n="projectDetails.detailedDescription">Детальний опис</span>
                     </h2>
                     <div class="project-description">${formatDescription(project.description[lang] || project.description.uk)}</div>
                 </div>
@@ -161,7 +161,7 @@
                         <ul class="features-list">
                             ${project.features.map(f => `
                                 <li class="feature-item">
-                                    <div class="feature-icon"><img src="images/icons/${f.icon || 'checkmark'}.svg" alt=""></div>
+                                    <div class="feature-icon"><span class="icon" style="-webkit-mask-image: url(images/icons/${f.icon || 'checkmark'}.svg); mask-image: url(images/icons/${f.icon || 'checkmark'}.svg);"></span></div>
                                     <div class="feature-content">
                                         <h3>${f.title[lang] || f.title.uk}</h3>
                                         <p>${f.description[lang] || f.description.uk}</p>
@@ -205,7 +205,7 @@
 
         function renderMainMedia(media) {
             if (!media) {
-                return '<div class="image-placeholder"><img src="images/icons/folder.svg" alt="Placeholder"></div>';
+                return '<div class="image-placeholder"><span class="icon" style="width: 48px; height: 48px; -webkit-mask-image: url(images/icons/folder.svg); mask-image: url(images/icons/folder.svg);"></span></div>';
             }
             if (media.type === 'image') return `<img src="${media.url}" onclick="openModal('${media.url}')">`;
             return `<iframe src="${media.url}" frameborder="0" allowfullscreen></iframe>`;
