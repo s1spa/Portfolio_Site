@@ -23,10 +23,10 @@
                 <li><a href="about.html" data-i18n="nav.about">Про мене</a></li>
             </ul>
             <div class="controls">
-                <button class="theme-toggle" onclick="toggleTheme()">
+                <button class="theme-toggle" id="theme-toggle">
                     <span id="theme-icon">🌞</span>
                 </button>
-                <select class="lang-switch" onchange="changeLanguage(this.value)">
+                <select class="lang-switch" id="lang-switch">
                     <option value="uk">🇺🇦 UA</option>
                     <option value="en" selected>🇬🇧 EN</option>
                     <option value="pl">🇵🇱 PL</option>
@@ -38,13 +38,13 @@
 
     <main>
         <div class="container" id="project-content">
-            <div class="loading">⏳ Завантаження...</div>
+            <div class="loading"><img src="images/icons/loader.svg" alt="Loading..." class="loader-icon"> <span data-i18n="projectDetails.loading">Завантаження...</span></div>
         </div>
     </main>
 
     <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="modal-close" onclick="closeModal()">✕</span>
-        <img id="modalImage" src="" alt="" onclick="event.stopPropagation()">
+        <span class="modal-close"><img src="images/icons/close.svg" alt="Close"></span>
+        <img id="modalImage" src="" alt="Full size image" onclick="event.stopPropagation()">
     </div>
 
     <footer>
@@ -106,7 +106,7 @@
                 
                 <div class="project-header">
                     <h1 class="project-title">
-                        ${project.emoji || '📁'} ${project.title[lang] || project.title.uk}
+                        <img src="images/icons/${project.icon || 'folder'}.svg" class="title-icon" alt="Project Icon"> ${project.title[lang] || project.title.uk}
                         ${project.status ? `<span class="project-status">${t('common.' + project.status)}</span>` : ''}
                     </h1>
                 </div>
@@ -140,8 +140,8 @@
                         </div>
 
                         <div class="project-links" style="display: flex; gap: 0.5rem; margin-top:1rem;">
-                            ${project.github ? `<a href="${project.github}" class="btn btn-primary" target="_blank">💻 GitHub</a>` : ''}
-                            ${project.download ? `<a href="${project.download}" class="btn btn-secondary" target="_blank">⬇️ Download</a>` : ''}
+                            ${project.github ? `<a href="${project.github}" class="btn btn-primary" target="_blank"><img src="images/icons/github.svg" class="btn-icon" alt=""> GitHub</a>` : ''}
+                            ${project.download ? `<a href="${project.download}" class="btn btn-secondary" target="_blank"><img src="images/icons/download.svg" class="btn-icon" alt=""> Download</a>` : ''}
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                         <ul class="features-list">
                             ${project.features.map(f => `
                                 <li class="feature-item">
-                                    <div class="feature-icon">${f.icon || '✔'}</div>
+                                    <div class="feature-icon"><img src="images/icons/${f.icon || 'checkmark'}.svg" alt=""></div>
                                     <div class="feature-content">
                                         <h3>${f.title[lang] || f.title.uk}</h3>
                                         <p>${f.description[lang] || f.description.uk}</p>
@@ -204,7 +204,9 @@
         }
 
         function renderMainMedia(media) {
-            if (!media) return '<div class="image-placeholder">📁</div>';
+            if (!media) {
+                return '<div class="image-placeholder"><img src="images/icons/folder.svg" alt="Placeholder"></div>';
+            }
             if (media.type === 'image') return `<img src="${media.url}" onclick="openModal('${media.url}')">`;
             return `<iframe src="${media.url}" frameborder="0" allowfullscreen></iframe>`;
         }
@@ -233,7 +235,12 @@
             document.body.style.overflow = 'auto';
         }
 
-        window.addEventListener('DOMContentLoaded', loadProjectDetails);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProjectDetails();
+            // Обробники подій для контролів
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            document.getElementById('lang-switch').addEventListener('change', (e) => changeLanguage(e.target.value));
+        });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>

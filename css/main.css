@@ -1069,6 +1069,91 @@ main {
 
 
 /* ============================================================================
+   10.5 ICON STYLES (Fixes)
+   ============================================================================ */
+
+/* General alignment and size for icons next to text */
+.btn-icon,
+.link-icon,
+.contact-icon,
+.title-icon,
+.category-icon,
+.timeline-icon {
+    /* Use `em` to scale with parent font size */
+    width: 1.2em;
+    height: 1.2em;
+    /* Fine-tune vertical alignment for non-flex containers */
+    vertical-align: -0.2em;
+}
+
+/* FIX: Ensure proper alignment on links in project cards (e.g., Download button) */
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+.project-link:hover {
+    color: var(--accent);
+}
+/* When using flex, vertical-align is not needed */
+.project-link .link-icon {
+    vertical-align: initial;
+}
+
+/* Specific icon adjustments */
+.search-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.6;
+    vertical-align: middle;
+}
+
+.project-image-placeholder img,
+.no-results-icon img {
+    width: 48px;
+    height: 48px;
+    opacity: 0.5;
+}
+
+.feature-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.modal-close img {
+    width: 20px;
+    height: 20px;
+}
+
+/* FIX: Goal icon size on About page */
+.goal-icon img {
+    width: 40px;
+    height: 40px;
+    /* Center the icon inside its container */
+    margin: 0 auto;
+}
+
+/* Loader animation */
+.loader-icon {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================================================
    11. FOOTER
    ============================================================================ */
 

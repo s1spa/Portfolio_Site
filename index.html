@@ -118,8 +118,8 @@
                     <div class="project-card" data-project-id="${project.id}" style="cursor: pointer;">
                         <div class="project-image">
                             ${project.mainImage ? 
-                                `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` : 
-                                `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                                `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` :
+                                `<div class="project-image-placeholder"><img src="images/icons/${project.icon || 'folder'}.svg" alt="Project icon"></div>`
                             }
                         </div>
                         <div class="project-content">

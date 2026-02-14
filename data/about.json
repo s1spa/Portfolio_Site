@@ -37,7 +37,7 @@
   },
   "skills": {
     "languages": {
-      "icon": "💻",
+      "icon": "code",
       "title": {
         "uk": "Мови програмування",
         "en": "Programming Languages",
@@ -52,7 +52,7 @@
       ]
     },
     "tools": {
-      "icon": "🎮",
+      "icon": "game",
       "title": {
         "uk": "Інструменти",
         "en": "Tools",
@@ -67,7 +67,7 @@
       ]
     },
     "principles": {
-      "icon": "📚",
+      "icon": "book",
       "title": {
         "uk": "Принципи",
         "en": "Principles",
@@ -79,7 +79,7 @@
       ]
     },
     "other": {
-      "icon": "🛠️",
+      "icon": "folder",
       "title": {
         "uk": "Інше",
         "en": "Other",
@@ -95,7 +95,7 @@
   "education": [
     {
       "year": "2022 - 202*",
-      "icon": "📅",
+      "icon": "book",
       "title": {
         "uk": "Навчання: Віницький Національний Технічний Університет",
         "en": "Education: Vinnytsia National Technical University",
@@ -111,7 +111,7 @@
     },
     {
       "year": "2024",
-      "icon": "📅",
+      "icon": "book",
       "title": {
         "uk": "Курси: Genius Space - Python",
         "en": "Courses: Genius Space - Python",
@@ -127,7 +127,7 @@
     },
     {
       "year": "2024",
-      "icon": "📅",
+      "icon": "book",
       "title": {
         "uk": "Курси: С# від @BloganProgrammingUkraine (Повний курс)",
         "en": "Courses: C# by @BloganProgrammingUkraine (Full Course)",
@@ -143,7 +143,7 @@
     },
     {
       "year": "2024",
-      "icon": "📅",
+      "icon": "book",
       "title": {
         "uk": "Курси: С++ від @BloganProgrammingUkraine (Повний курс)",
         "en": "Courses: C++ by @BloganProgrammingUkraine (Full Course)",
@@ -159,7 +159,7 @@
     },
     {
       "year": "2021 - 202*",
-      "icon": "📅",
+      "icon": "book",
       "title": {
         "uk": "Самостійне навчання",
         "en": "Self-learning",
@@ -176,7 +176,7 @@
   ],
   "goals": {
     "short": {
-      "icon": "🎯",
+      "icon": "target",
       "title": {
         "uk": "Короткострокова ціль",
         "en": "Short-term goal"
@@ -189,7 +189,7 @@
       }
     },
     "long": {
-      "icon": "🚀",
+      "icon": "target",
       "title": {
         "uk": "Довгострокова ціль",
         "en": "Long-term goal"

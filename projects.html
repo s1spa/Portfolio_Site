@@ -48,7 +48,7 @@
                 <div class="filters-header">
                     <span class="filter-label" data-i18n="projectsPage.filters">Фільтри:</span>
                     <div class="search-box">
-                        <span class="search-icon">🔍</span>
+                        <img src="images/icons/search.svg" alt="Search" class="search-icon">
                         <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search"
                             placeholder="Пошук за назвою...">
                     </div>
@@ -114,7 +114,7 @@
             if (allProjects.length === 0) {
                 container.innerHTML = `
                     <div class="no-results">
-                        <div class="no-results-icon">📂</div>
+                        <div class="no-results-icon"><img src="images/icons/folder.svg" alt="No projects"></div>
                         <h3 data-i18n="projectsPage.noProjects">${t('projectsPage.noProjects')}</h3>
                         <p>Проєкти скоро з'являться. Додайте їх через адмін-панель локально та експортуйте JSON файли.</p>
                     </div>
@@ -141,7 +141,7 @@
             if (filteredProjects.length === 0) {
                 container.innerHTML = `
                     <div class="no-results">
-                        <div class="no-results-icon">🔍</div>
+                        <div class="no-results-icon"><img src="images/icons/search.svg" alt="No results"></div>
                         <h3 data-i18n="projectsPage.noResults">${t('projectsPage.noResults')}</h3>
                         <p data-i18n="projectsPage.noResultsText">${t('projectsPage.noResultsText')}</p>
                     </div>
@@ -154,7 +154,7 @@
                     <div class="project-image">
                         ${project.mainImage ?
                             `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` :
-                            `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
+                            `<div class="project-image-placeholder"><img src="images/icons/${project.icon || 'folder'}.svg" alt="Project icon"></div>`
                         }
                         ${project.status ? `<div class="project-status">${t('common.' + project.status)}</div>` : ''}
                     </div>
@@ -166,8 +166,8 @@
                         </div>
                         ${project.github || project.download ? `
                             <div class="project-links">
-                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank">💻 <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
-                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank">⬇️ Download</a>` : ''}
+                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank"><img src="images/icons/github.svg" class="link-icon" alt="GitHub"> <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
+                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank"><img src="images/icons/download.svg" class="link-icon" alt="Download"> Download</a>` : ''}
                             </div>
                         ` : ''}
                     </div>
