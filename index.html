@@ -19,10 +19,10 @@
                 <li><a href="about.html" data-i18n="nav.about">Про мене</a></li>
             </ul>
             <div class="controls">
-                <button class="theme-toggle" onclick="toggleTheme()">
+                <button class="theme-toggle" id="theme-toggle">
                     <span id="theme-icon">🌞</span>
                 </button>
-                <select class="lang-switch" onchange="changeLanguage(this.value)">
+                <select class="lang-switch" id="lang-switch">
                     <option value="uk">🇺🇦 UA</option>
                     <option value="en" selected>🇬🇧 EN</option>
                     <option value="pl">🇵🇱 PL</option>
@@ -115,22 +115,29 @@
                 }
 
                 container.innerHTML = featuredProjects.map(project => `
-                    <div class="project-card" onclick="window.location.href='project-details.html?id=${project.id}'" style="cursor: pointer;">
+                    <div class="project-card" data-project-id="${project.id}" style="cursor: pointer;">
                         <div class="project-image">
                             ${project.mainImage ? 
-                                `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` : 
+                                `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` : 
                                 `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
                             }
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
-                            <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : (project.description[currentLang] || project.description.uk)}</p>
+                            <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : ''}</p>
                             <div class="project-tags">
                                 ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
                             </div>
                         </div>
                     </div>
                 `).join('');
+
+                // Додаємо обробники подій після рендерингу
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        window.location.href = `project-details.html?id=${card.dataset.projectId}`;
+                    });
+                });
             } catch (error) {
                 container.innerHTML = `
                     <div class="no-projects">
@@ -162,6 +169,10 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadFeaturedProjects();
             loadProfileName();
+
+            // Обробники подій для контролів
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            document.getElementById('lang-switch').addEventListener('change', (e) => changeLanguage(e.target.value));
         });
     </script>
 </body>

@@ -23,10 +23,10 @@
                 <li><a href="about.html" data-i18n="nav.about">Про мене</a></li>
             </ul>
             <div class="controls">
-                <button class="theme-toggle" onclick="toggleTheme()">
+                <button class="theme-toggle" id="theme-toggle">
                     <span id="theme-icon">🌞</span>
                 </button>
-                <select class="lang-switch" onchange="changeLanguage(this.value)">
+                <select class="lang-switch" id="lang-switch">
                     <option value="uk">🇺🇦 UA</option>
                     <option value="en" selected>🇬🇧 EN</option>
                     <option value="pl">🇵🇱 PL</option>
@@ -50,18 +50,14 @@
                     <div class="search-box">
                         <span class="search-icon">🔍</span>
                         <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search"
-                            placeholder="Пошук за назвою..." oninput="filterProjects()">
+                            placeholder="Пошук за назвою...">
                     </div>
                 </div>
                 <div class="filter-buttons" id="filter-buttons">
-                    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')"
-                        data-i18n="projectsPage.all">Всі</button>
-                    <button class="filter-btn" data-filter="games" onclick="setFilter('games')"
-                        data-i18n="projectsPage.games">Ігри</button>
-                    <button class="filter-btn" data-filter="apps" onclick="setFilter('apps')"
-                        data-i18n="projectsPage.apps">Застосунки</button>
-                    <button class="filter-btn" data-filter="programming" onclick="setFilter('programming')"
-                        data-i18n="projectsPage.programming">Програмування</button>
+                    <button class="filter-btn active" data-filter="all" data-i18n="projectsPage.all">Всі</button>
+                    <button class="filter-btn" data-filter="games" data-i18n="projectsPage.games">Ігри</button>
+                    <button class="filter-btn" data-filter="apps" data-i18n="projectsPage.apps">Застосунки</button>
+                    <button class="filter-btn" data-filter="programming" data-i18n="projectsPage.programming">Програмування</button>
                 </div>
             </div>
 
@@ -154,43 +150,63 @@
             }
 
             container.innerHTML = filteredProjects.map(project => `
-                <div class="project-card" onclick="window.location.href='project-details.html?id=${project.id}'" style="cursor: pointer;">
+                <div class="project-card" data-project-id="${project.id}" style="cursor: pointer;">
                     <div class="project-image">
                         ${project.mainImage ?
-                            `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}">` :
+                            `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` :
                             `<div class="project-image-placeholder">${project.emoji || '📁'}</div>`
                         }
                         ${project.status ? `<div class="project-status">${t('common.' + project.status)}</div>` : ''}
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
-                        <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : (project.description[currentLang] || project.description.uk)}</p>
+                        <p class="project-description">${project.shortDescription ? (project.shortDescription[currentLang] || project.shortDescription.uk) : ''}</p>
                         <div class="project-tags">
                             ${project.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
                         </div>
                         ${project.github || project.download ? `
                             <div class="project-links">
-                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank" onclick="event.stopPropagation()">💻 <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
-                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank" onclick="event.stopPropagation()">⬇️ Download</a>` : ''}
+                                ${project.github ? `<a href="${project.github}" class="project-link" target="_blank">💻 <span data-i18n="projectsPage.github">${t('projectsPage.github')}</span></a>` : ''}
+                                ${project.download ? `<a href="${project.download}" class="project-link" target="_blank">⬇️ Download</a>` : ''}
                             </div>
                         ` : ''}
                     </div>
                 </div>
             `).join('');
+
+            addEventListenersToCards();
         }
 
         // Встановити фільтр
-        function setFilter(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
-            renderProjects();
-        }
 
         // Фільтрувати проєкти за пошуком
         function filterProjects() {
             currentSearch = document.getElementById('search-input').value;
             renderProjects();
+        }
+
+        function addEventListenersToCards() {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Не переходити, якщо клікнули на посилання всередині картки
+                    if (e.target.closest('.project-link')) {
+                        return;
+                    }
+                    window.location.href = `project-details.html?id=${card.dataset.projectId}`;
+                });
+            });
+        }
+
+        function setupFilters() {
+            const filterButtons = document.getElementById('filter-buttons');
+            filterButtons.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    currentFilter = e.target.dataset.filter;
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    renderProjects();
+                }
+            });
         }
 
         // Завантаження імені профілю
@@ -212,6 +228,12 @@
         window.addEventListener('DOMContentLoaded', () => {
             renderProjects();
             loadProfileName();
+            setupFilters();
+
+            // Обробники подій для контролів
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            document.getElementById('lang-switch').addEventListener('change', (e) => changeLanguage(e.target.value));
+            document.getElementById('search-input').addEventListener('input', filterProjects);
         });
     </script>
 </body>

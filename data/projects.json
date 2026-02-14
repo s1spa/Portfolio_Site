@@ -66,7 +66,7 @@
         "pl": "Day Planner — Organize your day! A convenient tool to manage your tasks and track your finances in one place.\n\nAbout the Project: This application was my first professional assignment at my first developer job. It was developed within one week as an MVP (Minimum Viable Product). The focus was on high performance and clean code architecture to ensure future scalability.\n\nKey Features:\nTask Management: Create tasks with titles and descriptions, and track progress with checkboxes.\nFinance Manager: Track income and expenses with integrated statistics.\nNotifications: Dynamic reminders for daily tasks and financial updates.\nData Migration: Daily results automatically transfer to the \"Week\" tab, and weekly data moves to \"Month.\"\nSuccess Tracking: Analyze your productivity and financial health throughout the month.\n\nTechnical Stack:\nEngine & Language: Unity, C#.\nAnimations: Powered by the DOTween library for a fluid UI experience.\nData Persistence: Implemented using PlayerPrefs.\nUI/UX: Minimalist and calm design, built for ease of use.",
         "de": "Day Planner — Organize your day! A convenient tool to manage your tasks and track your finances in one place.\n\nAbout the Project: This application was my first professional assignment at my first developer job. It was developed within one week as an MVP (Minimum Viable Product). The focus was on high performance and clean code architecture to ensure future scalability.\n\nKey Features:\nTask Management: Create tasks with titles and descriptions, and track progress with checkboxes.\nFinance Manager: Track income and expenses with integrated statistics.\nNotifications: Dynamic reminders for daily tasks and financial updates.\nData Migration: Daily results automatically transfer to the \"Week\" tab, and weekly data moves to \"Month.\"\nSuccess Tracking: Analyze your productivity and financial health throughout the month.\n\nTechnical Stack:\nEngine & Language: Unity, C#.\nAnimations: Powered by the DOTween library for a fluid UI experience.\nData Persistence: Implemented using PlayerPrefs.\nUI/UX: Minimalist and calm design, built for ease of use."
       },
-      "mainImage": "images\\projects\\DayPlanner\\main.png",
+      "mainImage": "images/projects/DayPlanner/main.png",
       "emoji": "📁",
       "technologies": [
         "Unity",
@@ -78,12 +78,12 @@
       "status": "completed",
       "videos": [],
       "gallery": [
-        "images\\projects\\DayPlanner\\1.jpg",
-        "images\\projects\\DayPlanner\\2.jpg",
-        "images\\projects\\DayPlanner\\3.jpg",
-        "images\\projects\\DayPlanner\\4.jpg",
-        "images\\projects\\DayPlanner\\5.jpg",
-        "images\\projects\\DayPlanner\\0.png"
+        "images/projects/DayPlanner/1.jpg",
+        "images/projects/DayPlanner/2.jpg",
+        "images/projects/DayPlanner/3.jpg",
+        "images/projects/DayPlanner/4.jpg",
+        "images/projects/DayPlanner/5.jpg",
+        "images/projects/DayPlanner/0.png"
       ],
       "features": []
     },
