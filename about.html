@@ -162,7 +162,7 @@
                                 <div class="goal-item">
                                     <div class="goal-icon"><span class="icon" style="-webkit-mask-image: url(${getAboutIconPath(goal.icon || 'target')}); mask-image: url(${getAboutIconPath(goal.icon || 'target')});"></span></div>
                                     <div class="goal-content">
-                                        <p><strong>${(goal.icon === 'target' || goal.icon === '🎯') ? t('aboutPage.shortTermGoal') : t('aboutPage.longTermGoal')}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
+                                        <p><strong>${goal.title[currentLang] || goal.title.en}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
                                     </div>
                                 </div>
                             `).join('')}

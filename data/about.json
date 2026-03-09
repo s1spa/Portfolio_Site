@@ -145,10 +145,10 @@
       "year": "2024",
       "icon": "book",
       "title": {
-        "uk": "Курси: С++ від @BloganProgrammingUkraine (Повний курс)",
-        "en": "Courses: C++ by @BloganProgrammingUkraine (Full Course)",
-        "pl": "Kursy: C++ od @BloganProgrammingUkraine (Pełny kurs)",
-        "de": "Kurse: C++ von @BloganProgrammingUkraine (Vollständiger Kurs)"
+        "uk": "Курси: С++ від @BloganProgrammingUkraine (Не повний курс)",
+        "en": "Courses: C++ by @BloganProgrammingUkraine (Incomplete Course)",
+        "pl": "Kursy: C++ od @BloganProgrammingUkraine (Niepełny kurs)",
+        "de": "Kurse: C++ von @BloganProgrammingUkraine (Unvollständiger Kurs)"
       },
       "description": {
         "uk": "Під час проходження курсу від @BloganProgrammingUkraine я продовжив вивчення мови програмування C++. Завдяки зрозумілим і глибоким поясненням мені вдалося добре засвоїти цю мову.",

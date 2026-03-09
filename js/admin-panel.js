@@ -4,6 +4,7 @@
 
 // Глобальні змінні
 let projectsData = { projects: [] };
+let editingProjectId = null;
 let aboutData = {
     profile: {},
     skills: {},
@@ -193,6 +194,7 @@ function renderProjectsList() {
                 </div>
             </div>
             <div class="project-actions">
+                <button onclick="editProject(${project.id})" class="btn btn-secondary">✏️ Редагувати</button>
                 <button onclick="deleteProject(${project.id})" class="btn btn-danger">🗑️ Видалити</button>
             </div>
         </div>
@@ -342,6 +344,107 @@ function showAlert(type, message) {
         alert.style.animation = 'fadeOut 0.3s ease';
         setTimeout(() => alert.remove(), 300);
     }, 3000);
+}
+
+// ============================================================================
+// РЕДАГУВАННЯ ПРОЄКТУ
+// ============================================================================
+
+function editProject(id) {
+    const project = projectsData.projects.find(p => p.id === id);
+    if (!project) return;
+    editingProjectId = id;
+
+    // Basic
+    document.getElementById('edit-title-uk').value       = project.title?.uk || '';
+    document.getElementById('edit-title-en').value       = project.title?.en || '';
+    document.getElementById('edit-title-pl').value       = project.title?.pl || '';
+    document.getElementById('edit-title-de').value       = project.title?.de || '';
+    document.getElementById('edit-status').value         = project.status || 'inProgress';
+    document.getElementById('edit-category').value       = project.category || 'apps';
+    document.getElementById('edit-featured').checked     = !!project.featured;
+    document.getElementById('edit-icon').value           = project.icon || '';
+    document.getElementById('edit-github').value         = project.github || '';
+    document.getElementById('edit-download').value       = project.download || '';
+    document.getElementById('edit-mainImage').value      = project.mainImage || '';
+
+    // Short description
+    document.getElementById('edit-shortDesc-uk').value   = project.shortDescription?.uk || '';
+    document.getElementById('edit-shortDesc-en').value   = project.shortDescription?.en || '';
+    document.getElementById('edit-shortDesc-pl').value   = project.shortDescription?.pl || '';
+    document.getElementById('edit-shortDesc-de').value   = project.shortDescription?.de || '';
+
+    // Description
+    document.getElementById('edit-desc-uk').value        = project.description?.uk || '';
+    document.getElementById('edit-desc-en').value        = project.description?.en || '';
+    document.getElementById('edit-desc-pl').value        = project.description?.pl || '';
+    document.getElementById('edit-desc-de').value        = project.description?.de || '';
+
+    // Arrays
+    document.getElementById('edit-technologies').value   = (project.technologies || []).join('\n');
+    document.getElementById('edit-videos').value         = (project.videos || []).join('\n');
+    document.getElementById('edit-gallery').value        = (project.gallery || []).join('\n');
+
+    document.getElementById('edit-project-modal').classList.add('active');
+}
+
+function closeEditModal() {
+    document.getElementById('edit-project-modal').classList.remove('active');
+    editingProjectId = null;
+}
+
+function saveEditProject() {
+    if (!editingProjectId) return;
+    const index = projectsData.projects.findIndex(p => p.id === editingProjectId);
+    if (index === -1) return;
+
+    const enTitle    = document.getElementById('edit-title-en').value;
+    const enShort    = document.getElementById('edit-shortDesc-en').value;
+    const enDesc     = document.getElementById('edit-desc-en').value;
+
+    const techRaw    = document.getElementById('edit-technologies').value;
+    const videosRaw  = document.getElementById('edit-videos').value;
+    const galleryRaw = document.getElementById('edit-gallery').value;
+
+    const parseLines = raw => raw.split('\n').map(s => s.trim()).filter(Boolean);
+
+    projectsData.projects[index] = {
+        ...projectsData.projects[index],
+        featured: document.getElementById('edit-featured').checked,
+        status:   document.getElementById('edit-status').value,
+        category: document.getElementById('edit-category').value,
+        icon:     document.getElementById('edit-icon').value,
+        github:   document.getElementById('edit-github').value,
+        download: document.getElementById('edit-download').value,
+        mainImage: document.getElementById('edit-mainImage').value,
+        title: {
+            uk: document.getElementById('edit-title-uk').value || enTitle,
+            en: enTitle,
+            pl: document.getElementById('edit-title-pl').value || enTitle,
+            de: document.getElementById('edit-title-de').value || enTitle,
+        },
+        shortDescription: {
+            uk: document.getElementById('edit-shortDesc-uk').value || enShort,
+            en: enShort,
+            pl: document.getElementById('edit-shortDesc-pl').value || enShort,
+            de: document.getElementById('edit-shortDesc-de').value || enShort,
+        },
+        description: {
+            uk: document.getElementById('edit-desc-uk').value || enDesc,
+            en: enDesc,
+            pl: document.getElementById('edit-desc-pl').value || enDesc,
+            de: document.getElementById('edit-desc-de').value || enDesc,
+        },
+        technologies: parseLines(techRaw),
+        videos:       parseLines(videosRaw),
+        gallery:      parseLines(galleryRaw),
+    };
+
+    localStorage.setItem('portfolioProjects', JSON.stringify(projectsData));
+    renderProjectsList();
+    updateProjectsExport();
+    closeEditModal();
+    showAlert('success', '✅ Проєкт збережено!');
 }
 
 // ============================================================================
