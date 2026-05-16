@@ -15,7 +15,8 @@ const translations = {
             role: "— розробник ігор та застосунків.",
             subtitle: "Пишу на C# / .NET, працюю з Unity, люблю чистий код і мінімалізм. Тут зібрав кілька робіт, які можу показати на співбесіді.",
             viewProjects: "Дивитись проєкти",
-            aboutMe: "Про мене"
+            aboutMe: "Про мене",
+            available: "Доступний для роботи"
         },
         
         // Featured Section (Homepage)
@@ -94,7 +95,8 @@ const translations = {
             role: "— game and application developer.",
             subtitle: "I write in C# / .NET, work with Unity, love clean code and minimalism. Here I've gathered some works that I can show in an interview.",
             viewProjects: "View Projects",
-            aboutMe: "About Me"
+            aboutMe: "About Me",
+            available: "Available for work"
         },
         
         // Featured Section (Homepage)
@@ -173,7 +175,8 @@ const translations = {
             role: "— programista gier i aplikacji.",
             subtitle: "Piszę w C# / .NET, pracuję z Unity, kocham czysty kod i minimalizm. Tutaj zebrałem kilka prac, które mogę pokazać na rozmowie kwalifikacyjnej.",
             viewProjects: "Zobacz projekty",
-            aboutMe: "O mnie"
+            aboutMe: "O mnie",
+            available: "Dostępny do pracy"
         },
         
         // Featured Section (Homepage)
@@ -252,7 +255,8 @@ const translations = {
             role: "— Spiele- und Anwendungsentwickler.",
             subtitle: "Ich schreibe in C# / .NET, arbeite mit Unity, liebe sauberen Code und Minimalismus. Hier habe ich einige Arbeiten gesammelt, die ich in einem Interview zeigen kann.",
             viewProjects: "Projekte ansehen",
-            aboutMe: "Über mich"
+            aboutMe: "Über mich",
+            available: "Verfügbar für Arbeit"
         },
         
         // Featured Section (Homepage)

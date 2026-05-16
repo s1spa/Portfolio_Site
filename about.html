@@ -101,7 +101,7 @@
 
                 container.innerHTML = `
                     <section class="about-section">
-                        <div class="about-content">
+                        <div class="about-content reveal">
                             <h1 data-i18n="aboutPage.title">${t('aboutPage.title')}</h1>
                             <div class="about-text">
                                 ${(data.profile.bio[currentLang] || data.profile.bio.uk).map(paragraph => `
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="about-avatar">
-                            <div class="avatar-container">
+                            <div class="avatar-container reveal" data-delay="1">
                                 <div class="avatar-inner">
                                     ${data.profile.avatar ?
                         `<img src="${data.profile.avatar}" alt="${data.profile.name[currentLang] || data.profile.name.uk}">` :
@@ -123,14 +123,19 @@
 
                     ${data.skills ? `
                     <section class="skills-section">
-                        <h2 class="section-title" data-i18n="aboutPage.skills">${t('aboutPage.skills')}</h2>
+                        <h2 class="section-title reveal" data-i18n="aboutPage.skills">${t('aboutPage.skills')}</h2>
                         <div class="skills-grid">
-                            ${Object.values(data.skills).map(category => `
-                                <div class="skill-category">
-                                    <h3><span class="icon category-icon" style="-webkit-mask-image: url(${getAboutIconPath(category.icon || 'code')}); mask-image: url(${getAboutIconPath(category.icon || 'code')});"></span> ${category.title[currentLang] || category.title.uk}</h3>
-                                    <ul>
-                                        ${category.items.map(item => `<li>${item}</li>`).join('')}
-                                    </ul>
+                            ${Object.values(data.skills).map((category, i) => `
+                                <div class="skill-category reveal" data-delay="${i + 1}">
+                                    <div class="skill-header">
+                                        <div class="skill-icon-box">
+                                            <span class="icon category-icon" style="-webkit-mask-image: url(${getAboutIconPath(category.icon || 'code')}); mask-image: url(${getAboutIconPath(category.icon || 'code')});"></span>
+                                        </div>
+                                        <h3>${category.title[currentLang] || category.title.uk}</h3>
+                                    </div>
+                                    <div class="skill-tags">
+                                        ${category.items.map(item => `<span class="skill-tag">${item}</span>`).join('')}
+                                    </div>
                                 </div>
                             `).join('')}
                         </div>
@@ -139,14 +144,19 @@
 
                     ${data.education && data.education.length > 0 ? `
                     <section class="experience-section">
-                        <h2 class="section-title" data-i18n="aboutPage.education">${t('aboutPage.education')}</h2>
+                        <h2 class="section-title reveal" data-i18n="aboutPage.education">${t('aboutPage.education')}</h2>
                         <div class="timeline">
-                            ${data.education.map(item => `
-                                <div class="timeline-item">
-                                    <div class="timeline-year"><span class="icon timeline-icon" style="-webkit-mask-image: url(${getAboutIconPath(item.icon || 'book')}); mask-image: url(${getAboutIconPath(item.icon || 'book')});"></span> ${item.year}</div>
-                                    <div class="timeline-content">
-                                        <h3>${item.title[currentLang] || item.title.uk}</h3>
-                                        <p>${item.description[currentLang] || item.description.uk}</p>
+                            ${data.education.map((item, i) => `
+                                <div class="timeline-item reveal" data-delay="${i + 1}">
+                                    <div class="timeline-icon-wrap">
+                                        <span class="icon" style="-webkit-mask-image: url(${getAboutIconPath(item.icon || 'book')}); mask-image: url(${getAboutIconPath(item.icon || 'book')});"></span>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-meta">
+                                            <h3 class="timeline-title">${item.title[currentLang] || item.title.uk}</h3>
+                                            <span class="timeline-year-badge">${item.year}</span>
+                                        </div>
+                                        <p class="timeline-desc">${item.description[currentLang] || item.description.uk}</p>
                                     </div>
                                 </div>
                             `).join('')}
@@ -156,10 +166,10 @@
 
                     ${data.goals ? `
                     <section class="goals-section">
-                        <h2 class="section-title" data-i18n="aboutPage.goals">${t('aboutPage.goals')}</h2>
+                        <h2 class="section-title reveal" data-i18n="aboutPage.goals">${t('aboutPage.goals')}</h2>
                         <div class="goals-list">
-                            ${Object.values(data.goals).map(goal => `
-                                <div class="goal-item">
+                            ${Object.values(data.goals).map((goal, i) => `
+                                <div class="goal-item reveal" data-delay="${i + 1}">
                                     <div class="goal-icon"><span class="icon" style="-webkit-mask-image: url(${getAboutIconPath(goal.icon || 'target')}); mask-image: url(${getAboutIconPath(goal.icon || 'target')});"></span></div>
                                     <div class="goal-content">
                                         <p><strong>${goal.title[currentLang] || goal.title.en}:</strong> ${goal.description[currentLang] || goal.description.uk}</p>
@@ -172,9 +182,9 @@
 
                     ${data.contacts ? `
                     <section class="contact-section">
-                        <h2 class="contact-title" data-i18n="aboutPage.contacts">${t('aboutPage.contacts')}</h2>
-                        <p class="contact-subtitle" data-i18n="aboutPage.contactSubtitle">${t('aboutPage.contactSubtitle')}</p>
-                        <div class="contact-links">
+                        <h2 class="contact-title reveal" data-i18n="aboutPage.contacts">${t('aboutPage.contacts')}</h2>
+                        <p class="contact-subtitle reveal" data-delay="1" data-i18n="aboutPage.contactSubtitle">${t('aboutPage.contactSubtitle')}</p>
+                        <div class="contact-links reveal" data-delay="2">
                             ${data.contacts.email ? `<a href="mailto:${data.contacts.email}" class="contact-link"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('email')}); mask-image: url(${getAboutIconPath('email')});"></span> ${data.contacts.email}</a>` : ''}
                             ${data.contacts.telegram ? `<a href="https://t.me/${data.contacts.telegram.replace('@', '')}" class="contact-link" target="_blank"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('telegram')}); mask-image: url(${getAboutIconPath('telegram')});"></span> ${data.contacts.telegram}</a>` : ''}
                             ${data.contacts.github ? `<a href="${data.contacts.github}" class="contact-link" target="_blank"><span class="icon contact-icon" style="-webkit-mask-image: url(${getAboutIconPath('github')}); mask-image: url(${getAboutIconPath('github')});"></span> GitHub</a>` : ''}
@@ -185,6 +195,7 @@
                 `;
 
                 document.getElementById('footer-name').textContent = data.profile.name[currentLang] || data.profile.name.uk;
+                setupScrollReveal();
             } catch (error) {
                 container.innerHTML = `
                     <div class="no-data">
@@ -193,6 +204,23 @@
                     </div>
                 `;
             }
+        }
+
+        function setupScrollReveal() {
+            const els = document.querySelectorAll('.reveal:not(.in-view)');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(el => el.classList.add('in-view'));
+                return;
+            }
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in-view');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -4% 0px', threshold: 0 });
+            els.forEach(el => io.observe(el));
         }
 
         // Ініціалізація

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /d \"d:\\\\Projects\\\\git\\\\Portfolio_Site\")",
+      "Bash(dir /s)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\s1sp\\\\Desktop\\\\port\" -Recurse -File | Select-Object FullName | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Users\\\\s1sp\\\\Desktop\\\\port\\\\\", \"\"\\) } | Sort-Object)"
+    ]
+  }
+}

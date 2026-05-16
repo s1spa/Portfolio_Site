@@ -33,29 +33,92 @@
     </header>
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <div class="hero-label" data-i18n="hero.label">Портфоліо</div>
-                <h1>
-                    <span data-i18n="hero.greeting">Привіт! Я,</span>
-                    <span class="name" id="profile-name">Ілля Авдосьєв</span>
-                    <span data-i18n="hero.role">— розробник ігор та застосунків.</span>
-                </h1>
-                <p data-i18n="hero.subtitle">Пишу на C# / .NET, працюю з Unity, люблю чистий код і мінімалізм. Тут зібрав кілька робіт, які можу показати на співбесіді.</p>
-                <div class="hero-buttons">
-                    <a href="projects.html" class="btn btn-primary"><span data-i18n="hero.viewProjects">Дивитись проєкти</span></a>
-                    <a href="about.html" class="btn btn-secondary"><span data-i18n="hero.aboutMe">Про мене</span></a>
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="status-pill">
+                        <span class="status-dot"></span>
+                        <span data-i18n="hero.available">Доступний для роботи</span>
+                    </div>
+                    <div class="hero-label" data-i18n="hero.label">Портфоліо</div>
+                    <h1>
+                        <span data-i18n="hero.greeting">Привіт! Я,</span>
+                        <span class="name" id="profile-name">Ілля Авдосьєв</span>
+                        <span data-i18n="hero.role">— розробник ігор та застосунків.</span>
+                    </h1>
+                    <p data-i18n="hero.subtitle">Пишу на C# / .NET, працюю з Unity, люблю чистий код і мінімалізм. Тут зібрав кілька робіт, які можу показати на співбесіді.</p>
+                    <div class="hero-buttons">
+                        <a href="projects.html" class="btn btn-primary"><span data-i18n="hero.viewProjects">Дивитись проєкти</span></a>
+                        <a href="about.html" class="btn btn-secondary"><span data-i18n="hero.aboutMe">Про мене</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-avatar-wrapper">
+                        <div class="avatar-hero-ring">
+                            <img src="images/avatar/avatar.png" alt="Ілля Авдосьєв" onerror="this.parentElement.style.background='var(--bg-card)'">
+                        </div>
+                        <span class="float-badge pos-1">C#</span>
+                        <span class="float-badge pos-2">Unity</span>
+                        <span class="float-badge pos-3">Python</span>
+                        <span class="float-badge pos-4">.NET</span>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section class="tech-marquee">
+            <div class="marquee-track">
+                <span class="marquee-item">C#</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Unity</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Python</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">.NET</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Git</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">C++</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">OOP</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Blender</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Visual Studio</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">JSON</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">C#</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Unity</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Python</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">.NET</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Git</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">C++</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">OOP</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Blender</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">Visual Studio</span>
+                <span class="marquee-sep"></span>
+                <span class="marquee-item">JSON</span>
+            </div>
+        </section>
+
         <section class="featured-preview">
             <div class="container">
-                <h2 class="section-title" data-i18n="featured.title">Обрані проєкти</h2>
-                <p class="section-subtitle" data-i18n="featured.subtitle">Найцікавіші роботи з мого портфоліо</p>
+                <h2 class="section-title reveal" data-i18n="featured.title">Обрані проєкти</h2>
+                <p class="section-subtitle reveal" data-delay="1" data-i18n="featured.subtitle">Найцікавіші роботи з мого портфоліо</p>
                 <div class="projects-grid" id="featured-projects">
                     <div class="loading" data-i18n="projectsPage.loading">Завантаження проєктів...</div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer>
@@ -83,6 +146,24 @@
                 name: { uk: "Ілля Авдосьєв", en: "Illia Avdosiev" }
             }
         };
+
+        // Scroll-reveal через IntersectionObserver
+        function setupScrollReveal() {
+            const els = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(el => el.classList.add('in-view'));
+                return;
+            }
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in-view');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+            els.forEach(el => io.observe(el));
+        }
 
         // Завантаження featured проєктів
         async function loadFeaturedProjects() {
@@ -114,10 +195,10 @@
                     return;
                 }
 
-                container.innerHTML = featuredProjects.map(project => `
-                    <div class="project-card" data-project-id="${project.id}" style="cursor: pointer;">
+                container.innerHTML = featuredProjects.map((project, index) => `
+                    <div class="project-card reveal" data-project-id="${project.id}" data-delay="${index + 1}" style="cursor: pointer;">
                         <div class="project-image">
-                            ${project.mainImage ? 
+                            ${project.mainImage ?
                                 `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` :
                                 `<div class="project-image-placeholder"><img src="images/icons/${project.icon || 'folder'}.svg" alt="Project icon"></div>`
                             }
@@ -132,12 +213,15 @@
                     </div>
                 `).join('');
 
-                // Додаємо обробники подій після рендерингу
+                // Обробники кліку на картки
                 document.querySelectorAll('.project-card').forEach(card => {
                     card.addEventListener('click', () => {
                         window.location.href = `project-details.html?id=${card.dataset.projectId}`;
                     });
                 });
+
+                // Запускаємо scroll-reveal після рендеру карток
+                setupScrollReveal();
             } catch (error) {
                 container.innerHTML = `
                     <div class="no-projects">
@@ -169,8 +253,8 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadFeaturedProjects();
             loadProfileName();
+            setupScrollReveal();
 
-            // Обробники подій для контролів
             document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
             document.getElementById('lang-switch').addEventListener('change', (e) => changeLanguage(e.target.value));
         });

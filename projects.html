@@ -45,18 +45,15 @@
             </div>
 
             <div class="filters">
-                <div class="filters-header">
-                    <span class="filter-label" data-i18n="projectsPage.filters">Фільтри:</span>
-                    <div class="search-box">
-                        <span role="img" aria-label="Search" class="icon search-icon" style="-webkit-mask-image: url(images/icons/search.svg); mask-image: url(images/icons/search.svg);"></span>
-                        <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search" placeholder="Пошук за назвою...">
-                    </div>
+                <div class="search-box">
+                    <span class="icon search-icon" style="-webkit-mask-image: url(images/icons/search.svg); mask-image: url(images/icons/search.svg);"></span>
+                    <input type="text" id="search-input" data-i18n-placeholder="projectsPage.search" placeholder="Пошук за назвою, описом або тегом...">
                 </div>
+                <div class="filter-divider"></div>
                 <div class="filter-buttons" id="filter-buttons">
                     <button class="filter-btn active" data-filter="all" data-i18n="projectsPage.all">Всі</button>
                     <button class="filter-btn" data-filter="games" data-i18n="projectsPage.games">Ігри</button>
                     <button class="filter-btn" data-filter="apps" data-i18n="projectsPage.apps">Застосунки</button>
-                    <button class="filter-btn" data-filter="programming" data-i18n="projectsPage.programming">Програмування</button>
                 </div>
             </div>
 
@@ -87,6 +84,23 @@
         let currentFilter = 'all';
         let currentSearch = '';
         let allProjects = [];
+
+        function setupScrollReveal() {
+            const els = document.querySelectorAll('.reveal:not(.in-view)');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(el => el.classList.add('in-view'));
+                return;
+            }
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in-view');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px 0px 0px', threshold: 0 });
+            els.forEach(el => io.observe(el));
+        }
 
         // Завантаження проєктів з JSON
         async function loadProjectsData() {
@@ -148,14 +162,14 @@
                 return;
             }
 
-            container.innerHTML = filteredProjects.map(project => `
-                <div class="project-card" data-project-id="${project.id}" style="cursor: pointer;">
+            container.innerHTML = filteredProjects.map((project, index) => `
+                <div class="project-card reveal" data-project-id="${project.id}" data-delay="${(index % 3) + 1}" style="cursor: pointer;">
                     <div class="project-image">
                         ${project.mainImage ?
                             `<img src="${project.mainImage}" alt="${project.title[currentLang] || project.title.uk}" loading="lazy">` :
                             `<div class="project-image-placeholder"><span class="icon" style="width: 48px; height: 48px; -webkit-mask-image: url(images/icons/${project.icon || 'folder'}.svg); mask-image: url(images/icons/${project.icon || 'folder'}.svg);"></span></div>`
                         }
-                        ${project.status ? `<div class="project-status">${t('common.' + project.status)}</div>` : ''}
+                        ${project.status ? `<div class="project-status" data-status="${project.status}">${t('common.' + project.status)}</div>` : ''}
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">${project.title[currentLang] || project.title.uk}</h3>
@@ -174,6 +188,7 @@
             `).join('');
 
             addEventListenersToCards();
+            setupScrollReveal();
         }
 
         // Встановити фільтр
